@@ -30,10 +30,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.content.LocalBroadcastManager;
+import android.preference.PreferenceManager;
 import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Menu;
@@ -85,6 +86,7 @@ public class MainCardsActivity extends Activity implements TaskDownloaderListene
     private ProgressDialog mProgressDialog;  
     public DownloadTasksTask mDownloadTasks;
 	private Context mContext;
+    SharedPreferences sharedPreferences;
 	private SharedPreferences mAdminPreferences;
     
 	public void onCreate(Bundle savedInstanceState) {
@@ -104,6 +106,11 @@ public class MainCardsActivity extends Activity implements TaskDownloaderListene
         mCardMain = (CardUI) findViewById(R.id.cardsview);
         loadCards();
         mCardMain.refresh();
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        if(sharedPreferences.getString("username", null) == null){
+            signIn();
+        }
     }
 
     public void loadCards(){
@@ -143,6 +150,33 @@ public class MainCardsActivity extends Activity implements TaskDownloaderListene
         });
         mCardMain.addCard(cManageFiles);
     }
+
+    private void signIn() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog dialog;
+        LayoutInflater inflater = this.getLayoutInflater();
+
+        builder.setView(inflater.inflate(R.layout.dialog_signin, null))
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        Dialog f = (Dialog) dialog;
+                        EditText username = (EditText) f.findViewById(R.id.dialog_username);
+                        EditText password = (EditText) f.findViewById(R.id.dialog_password);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("username", username.getText().toString());
+                        editor.putString("password", password.getText().toString());
+                        editor.commit();
+                    }
+                })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        dialog = builder.create();
+        dialog.show();
+    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -367,7 +401,6 @@ public class MainCardsActivity extends Activity implements TaskDownloaderListene
                 mAlertDialog.setIcon(android.R.drawable.ic_dialog_info);
                 return mAlertDialog;
     		case PASSWORD_DIALOG:
-
     			AlertDialog.Builder builder = new AlertDialog.Builder(this);
     			final AlertDialog passwordDialog = builder.create();
 
