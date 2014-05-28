@@ -1,7 +1,5 @@
 package com.sferadev.etic.utilities;
 
-import android.content.Context;
-
 /*
  * This class contains the results from submission of results
  */

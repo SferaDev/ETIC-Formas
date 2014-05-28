@@ -1531,7 +1531,7 @@ public class FormEntryActivity extends Activity implements AnimationListener,
                             refreshCurrentView();
                         }
                         break;
-                    case DialogInterface. BUTTON_NEGATIVE: // no, no repeat
+                    case DialogInterface.BUTTON_NEGATIVE: // no, no repeat
                         Collect.getInstance()
                                 .getActivityLogger()
                                 .logInstanceAction(this, "createRepeatDialog",
@@ -1631,7 +1631,7 @@ public class FormEntryActivity extends Activity implements AnimationListener,
                         formController.deleteRepeat();
                         showPreviousView();
                         break;
-                    case DialogInterface. BUTTON_NEGATIVE: // no
+                    case DialogInterface.BUTTON_NEGATIVE: // no
                         Collect.getInstance()
                                 .getActivityLogger()
                                 .logInstanceAction(this,
@@ -1865,7 +1865,7 @@ public class FormEntryActivity extends Activity implements AnimationListener,
                         clearAnswer(qw);
                         saveAnswersForCurrentScreen(DO_NOT_EVALUATE_CONSTRAINTS);
                         break;
-                    case DialogInterface. BUTTON_NEGATIVE: // no
+                    case DialogInterface.BUTTON_NEGATIVE: // no
                         Collect.getInstance()
                                 .getActivityLogger()
                                 .logInstanceAction(this, "createClearDialog",

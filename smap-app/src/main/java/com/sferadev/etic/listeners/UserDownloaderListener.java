@@ -18,8 +18,6 @@ import java.util.HashMap;
 
 import com.sferadev.etic.taskModel.UserDetail;
 
-import android.os.Bundle;
-
 /**
  * @author Nick Huynh (minqiang.huang@gmail.com)
  */

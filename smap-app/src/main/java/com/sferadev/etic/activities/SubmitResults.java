@@ -19,11 +19,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 
-import com.sferadev.etic.R;
-
-import org.odk.collect.android.activities.DataManagerList;
-import org.odk.collect.android.activities.FormEntryActivity;
-import org.odk.collect.android.activities.FormManagerList;
 import org.odk.collect.android.application.Collect;
 import org.odk.collect.android.provider.InstanceProviderAPI;
 import org.odk.collect.android.provider.FormsProviderAPI.FormsColumns;
@@ -32,19 +27,12 @@ import org.odk.collect.android.utilities.FileUtils;
 import org.odk.collect.android.tasks.DownloadFormsTask;
 
 import android.app.Activity;
-import android.app.TabActivity;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TabHost;
-import android.widget.TabWidget;
-import android.widget.TextView;
 
 /**
  * Submits the results of the requested instance

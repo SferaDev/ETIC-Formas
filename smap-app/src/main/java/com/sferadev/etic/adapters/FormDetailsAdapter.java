@@ -1,18 +1,13 @@
 package com.sferadev.etic.adapters;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 import org.odk.collect.android.logic.FormDetails;
 
-import android.app.Activity;
 import android.content.Context;
 import android.database.DataSetObserver;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
