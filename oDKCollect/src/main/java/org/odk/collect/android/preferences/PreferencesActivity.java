@@ -15,14 +15,10 @@
 package org.odk.collect.android.preferences;
 
 import org.odk.collect.android.R;
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.utilities.UrlUtils;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -38,7 +34,6 @@ import android.preference.PreferenceScreen;
 import android.provider.MediaStore.Images;
 import android.text.InputFilter;
 import android.text.Spanned;
-import android.widget.Toast;
 
 /**
  * Handles general preferences.
