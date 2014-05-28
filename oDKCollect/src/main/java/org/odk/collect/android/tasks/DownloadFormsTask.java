@@ -301,8 +301,7 @@ public class DownloadFormsTask extends
 	        String username = settings.getString(PreferencesActivity.KEY_USERNAME, null);
 	        String password = settings.getString(PreferencesActivity.KEY_PASSWORD, null);
 	        
-	        String server =
-	                settings.getString(PreferencesActivity.KEY_SERVER_URL, null);
+	        String server = Collect.getInstance().getString(R.string.default_server_url);
 	        final String url =
 	                server + settings.getString(PreferencesActivity.KEY_FORMLIST_URL, "/formList");
 	        if(username != null && password != null) {

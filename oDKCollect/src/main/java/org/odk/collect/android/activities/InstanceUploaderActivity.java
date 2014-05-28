@@ -304,8 +304,7 @@ public class InstanceUploaderActivity extends Activity implements InstanceUpload
                     // if the bundle is null, we're looking for a formlist
                     String submissionUrl = getString(R.string.default_odk_submission);
                     server =
-                        settings.getString(PreferencesActivity.KEY_SERVER_URL,
-                            getString(R.string.default_server_url))
+                        getString(R.string.default_server_url)
                                 + settings.getString(PreferencesActivity.KEY_SUBMISSION_URL, submissionUrl);
                 }
 

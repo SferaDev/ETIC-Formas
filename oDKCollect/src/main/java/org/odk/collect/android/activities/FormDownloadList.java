@@ -423,9 +423,7 @@ public class FormDownloadList extends ListActivity implements FormListDownloader
                 // Get the server, username, and password from the settings
                 SharedPreferences settings =
                     PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-                String server =
-                    settings.getString(PreferencesActivity.KEY_SERVER_URL,
-                        getString(R.string.default_server_url));
+                String server = getString(R.string.default_server_url);
 
                 String formListUrl = getString(R.string.default_odk_formlist);
                 final String url =

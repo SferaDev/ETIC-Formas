@@ -15,11 +15,14 @@
 package org.odk.collect.android.preferences;
 
 import org.odk.collect.android.R;
+import org.odk.collect.android.application.Collect;
 import org.odk.collect.android.utilities.UrlUtils;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -56,7 +59,6 @@ public class PreferencesActivity extends PreferenceActivity implements
 	public static final String KEY_SELECTED_GOOGLE_ACCOUNT = "selected_google_account";
 	public static final String KEY_GOOGLE_SUBMISSION = "google_submission_id";
 
-	public static final String KEY_SERVER_URL = "server_url";
 	public static final String KEY_USERNAME = "username";
 	public static final String KEY_PASSWORD = "password";
 
@@ -91,8 +93,7 @@ public class PreferencesActivity extends PreferenceActivity implements
 	private PreferenceScreen mSplashPathPreference;
 	private EditTextPreference mSubmissionUrlPreference;
 	private EditTextPreference mFormListUrlPreference;
-	private EditTextPreference mServerUrlPreference;
-	private EditTextPreference mUsernamePreference;
+    private EditTextPreference mUsernamePreference;
 	private EditTextPreference mPasswordPreference;
 	private ListPreference mFontSizePreference;
 	private ListPreference mNavigationPreference;
@@ -147,45 +148,11 @@ public class PreferencesActivity extends PreferenceActivity implements
 		// declared early to prevent NPE in toggleServerPaths
 		mFormListUrlPreference = (EditTextPreference) findPreference(KEY_FORMLIST_URL);
 		mSubmissionUrlPreference = (EditTextPreference) findPreference(KEY_SUBMISSION_URL);
-		
-		mServerUrlPreference = (EditTextPreference) findPreference(KEY_SERVER_URL);
-		mServerUrlPreference
-				.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-					@Override
-					public boolean onPreferenceChange(Preference preference,
-							Object newValue) {
-						String url = newValue.toString();
-
-						// remove all trailing "/"s
-						while (url.endsWith("/")) {
-							url = url.substring(0, url.length() - 1);
-						}
-
-						if (UrlUtils.isValidUrl(url)) {
-							preference.setSummary(newValue.toString());
-							return true;
-						} else {
-							Toast.makeText(getApplicationContext(),
-									R.string.url_error, Toast.LENGTH_SHORT)
-									.show();
-							return false;
-						}
-					}
-				});
-		mServerUrlPreference.setSummary(mServerUrlPreference.getText());
-		mServerUrlPreference.getEditText().setFilters(
-				new InputFilter[] { getReturnFilter() });
-
-
 
 		if (!(serverAvailable || adminMode)) {
 			Preference protocol = findPreference(KEY_PROTOCOL);
 			serverCategory.removePreference(protocol);
 		} else {
-		}
-
-		if (!(urlAvailable || adminMode)) {
-			serverCategory.removePreference(mServerUrlPreference);
 		}
 
 		mUsernamePreference = (EditTextPreference) findPreference(KEY_USERNAME);
@@ -231,16 +198,12 @@ public class PreferencesActivity extends PreferenceActivity implements
 
 		// mFormListUrlPreference.setOnPreferenceChangeListener(this);				smap
 		// mFormListUrlPreference.setSummary(mFormListUrlPreference.getText());		smap
-		mServerUrlPreference.getEditText().setFilters(
-				new InputFilter[] { getReturnFilter(), getWhitespaceFilter() });
 		if (!(serverAvailable || adminMode)) {
 			serverCategory.removePreference(mFormListUrlPreference);
 		}
 
 		// mSubmissionUrlPreference.setOnPreferenceChangeListener(this);			smap
 		// mSubmissionUrlPreference.setSummary(mSubmissionUrlPreference.getText());	smap
-		mServerUrlPreference.getEditText().setFilters(
-				new InputFilter[] { getReturnFilter(), getWhitespaceFilter() });
 		if (!(serverAvailable || adminMode)) {
 			serverCategory.removePreference(mSubmissionUrlPreference);
 		}

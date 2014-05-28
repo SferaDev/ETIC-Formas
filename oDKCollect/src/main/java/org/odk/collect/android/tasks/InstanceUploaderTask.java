@@ -83,7 +83,6 @@ public class InstanceUploaderTask extends AsyncTask<Long, Integer, InstanceUploa
      * @param id
      * @param instanceFilePath
      * @param toUpdate - Instance URL for recording status update.
-     * @param httpclient - client connection
      * @param localContext - context (e.g., credentials, cookies) for client connection
      * @param uriRemap - mapping of Uris to avoid redirects on subsequent invocations
      * @return false if credentials are required and we should terminate immediately.
@@ -541,8 +540,7 @@ public class InstanceUploaderTask extends AsyncTask<Long, Integer, InstanceUploa
 	                if (urlString == null) {
 	                    SharedPreferences settings =
 	                        PreferenceManager.getDefaultSharedPreferences(Collect.getInstance());
-	                    urlString = settings.getString(PreferencesActivity.KEY_SERVER_URL,
-	                    				Collect.getInstance().getString(R.string.default_server_url));
+	                    urlString = Collect.getInstance().getString(R.string.default_server_url);
 	                    if ( urlString.charAt(urlString.length()-1) == '/') {
 	                    	urlString = urlString.substring(0, urlString.length()-1);
 	                    }
@@ -562,8 +560,7 @@ public class InstanceUploaderTask extends AsyncTask<Long, Integer, InstanceUploa
 	                    String username = settings.getString(PreferencesActivity.KEY_USERNAME, null);
 	                    String password = settings.getString(PreferencesActivity.KEY_PASSWORD, null);
 	                    
-	                    String server =
-	                            settings.getString(PreferencesActivity.KEY_SERVER_URL, null);
+	                    String server = Collect.getInstance().getString(R.string.default_server_url);
 	                    //final String url =
 	                    //        server + settings.getString(PreferencesActivity.KEY_FORMLIST_URL, "/formList");
 	                    if(username != null && password != null) {

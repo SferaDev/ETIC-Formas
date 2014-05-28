@@ -64,9 +64,7 @@ public class DownloadFormListTask extends AsyncTask<Void, String, HashMap<String
     protected HashMap<String, FormDetails> doInBackground(Void... values) {
         SharedPreferences settings =
             PreferenceManager.getDefaultSharedPreferences(Collect.getInstance().getBaseContext());
-        String downloadListUrl =
-            settings.getString(PreferencesActivity.KEY_SERVER_URL,
-                Collect.getInstance().getString(R.string.default_server_url));
+        String downloadListUrl = Collect.getInstance().getString(R.string.default_server_url);
         // NOTE: /formlist must not be translated! It is the well-known path on the server.
         String formListUrl = Collect.getInstance().getApplicationContext().getString(R.string.default_odk_formlist);
         String downloadPath = settings.getString(PreferencesActivity.KEY_FORMLIST_URL, formListUrl);
@@ -87,8 +85,7 @@ public class DownloadFormListTask extends AsyncTask<Void, String, HashMap<String
         String username = settings.getString(PreferencesActivity.KEY_USERNAME, null);
         String password = settings.getString(PreferencesActivity.KEY_PASSWORD, null);
         
-        String server =
-                settings.getString(PreferencesActivity.KEY_SERVER_URL, null);
+        String server = Collect.getInstance().getString(R.string.default_server_url);
         //final String url =
         //        server + settings.getString(PreferencesActivity.KEY_FORMLIST_URL, "/formList");
         if(username != null && password != null) {

@@ -11,12 +11,6 @@
 	</PreferenceScreen>
 	<PreferenceCategory android:title="@string/server_preferences">
 		<EditTextPreference
-			android:id="@+id/server_url"
-			android:key="server_url"
-			android:defaultValue="@string/default_server_url"
-			android:title="@string/server_url"
-			android:dialogTitle="@string/change_server_url" />
-		<EditTextPreference
 			android:id="@+id/username"
 			android:key="username"
 			android:title="@string/username"

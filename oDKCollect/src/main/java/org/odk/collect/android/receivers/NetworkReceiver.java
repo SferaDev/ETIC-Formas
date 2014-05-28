@@ -110,8 +110,7 @@ public class NetworkReceiver extends BroadcastReceiver implements InstanceUpload
 
                 String storedUsername = settings.getString(PreferencesActivity.KEY_USERNAME, null);
                 String storedPassword = settings.getString(PreferencesActivity.KEY_PASSWORD, null);
-                String server = settings.getString(PreferencesActivity.KEY_SERVER_URL,
-                        context.getString(R.string.default_server_url));
+                String server = context.getString(R.string.default_server_url);
                 String url = server
                         + settings.getString(PreferencesActivity.KEY_FORMLIST_URL,
                                 context.getString(R.string.default_odk_formlist));

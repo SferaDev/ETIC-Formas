@@ -20,6 +20,7 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.sferadev.etic.R;
 import com.sferadev.etic.listeners.TaskDownloaderListener;
 import com.sferadev.etic.taskModel.TaskResponse;
 import com.sferadev.etic.utilities.ManageForm;
@@ -173,7 +174,7 @@ public class DownloadTasksTask extends AsyncTask<Void, String, HashMap<String, S
         // Get the source
         SharedPreferences settings =
                 PreferenceManager.getDefaultSharedPreferences(Collect.getInstance().getBaseContext());
-        String serverUrl = settings.getString(PreferencesActivity.KEY_SERVER_URL, null);
+        String serverUrl = Collect.getInstance().getString(R.string.default_server_url);
         String source = null;
         // Remove the protocol
         if(serverUrl.startsWith("http")) {
