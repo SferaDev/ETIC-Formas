@@ -108,6 +108,7 @@ import android.widget.Toast;
 public class FormEntryActivity extends Activity implements AnimationListener,
         FormLoaderListener, FormSavedListener, AdvanceToNextListener,
         OnGestureListener {
+
     private static final String t = "FormEntryActivity";
 
     // save with every swipe forward or back. Timings indicate this takes .25
@@ -163,9 +164,8 @@ public class FormEntryActivity extends Activity implements AnimationListener,
     public static final String KEY_XPATH_WAITING_FOR_DATA = "xpathwaiting";
 
     private static final int MENU_LANGUAGES = Menu.FIRST;
-    private static final int MENU_HIERARCHY_VIEW = Menu.FIRST + 1;
-    private static final int MENU_SAVE = Menu.FIRST + 2;
-    private static final int MENU_PREFERENCES = Menu.FIRST + 3;
+    private static final int MENU_SAVE = Menu.FIRST + 1;
+    private static final int MENU_PREFERENCES = Menu.FIRST + 2;
 
     private static final int PROGRESS_DIALOG = 1;
     private static final int SAVING_DIALOG = 2;
@@ -197,6 +197,11 @@ public class FormEntryActivity extends Activity implements AnimationListener,
 
     private ImageButton mNextButton;
     private ImageButton mBackButton;
+    private Button mFirstButton;
+    private Button mLastButton;
+    private ImageButton mTouch;
+    private LinearLayout mButtonHolder;
+    private Button mPos;
 
     enum AnimationType {
         LEFT, RIGHT, FADE
@@ -234,6 +239,26 @@ public class FormEntryActivity extends Activity implements AnimationListener,
         mAdminPreferences = getSharedPreferences(
                 AdminPreferencesActivity.ADMIN_PREFERENCES, 0);
 
+        mTouch = (ImageButton) findViewById(R.id.touch);
+        mTouch.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /** TODO Depending on Master's opinion
+                Toast t = Toast.makeText(FormEntryActivity.this, "Dumb", Toast.LENGTH_LONG);
+                t.show();
+                mButtonHolder = (LinearLayout) findViewById(R.id.buttonholder);
+                if (mButtonHolder.getVisibility() == View.VISIBLE){
+                    mButtonHolder.setVisibility(View.GONE);
+                }
+                else {
+                    mButtonHolder.setVisibility(View.VISIBLE);
+                }**/
+
+                //Do nazi stuff for nao
+                showGoTo();
+            }
+        });
+
         mNextButton = (ImageButton) findViewById(R.id.form_forward_button);
         mNextButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -249,6 +274,36 @@ public class FormEntryActivity extends Activity implements AnimationListener,
             public void onClick(View v) {
                 mBeenSwiped = true;
                 showPreviousView();
+            }
+        });
+
+        mFirstButton = (Button) findViewById(R.id.form_first);
+        mFirstButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FormController formController = Collect.getInstance().getFormController();
+                formController.jumpToIndex(FormIndex
+                        .createBeginningOfFormIndex());
+                refreshCurrentView();
+            }
+        });
+
+        mLastButton = (Button) findViewById(R.id.form_last);
+        mLastButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FormController formController = Collect.getInstance().getFormController();
+                formController.jumpToIndex(FormIndex
+                        .createEndOfFormIndex());
+                refreshCurrentView();
+            }
+        });
+
+        mPos = (Button) findViewById(R.id.form_pos);
+        mPos.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showGoTo();
             }
         });
 
@@ -758,11 +813,6 @@ public class FormEntryActivity extends Activity implements AnimationListener,
                 MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
         CompatibilityUtils.setShowAsAction(
-                menu.add(0, MENU_HIERARCHY_VIEW, 0, R.string.view_hierarchy)
-                        .setIcon(R.drawable.ic_menu_goto),
-                MenuItem.SHOW_AS_ACTION_IF_ROOM);
-
-        CompatibilityUtils.setShowAsAction(
                 menu.add(0, MENU_LANGUAGES, 0, R.string.change_language)
                         .setIcon(R.drawable.ic_menu_start_conversation),
                 MenuItem.SHOW_AS_ACTION_NEVER);
@@ -790,8 +840,6 @@ public class FormEntryActivity extends Activity implements AnimationListener,
         useability = mAdminPreferences.getBoolean(
                 AdminPreferencesActivity.KEY_JUMP_TO, true);
 
-        menu.findItem(MENU_HIERARCHY_VIEW).setVisible(useability)
-                .setEnabled(useability);
 
         useability = mAdminPreferences.getBoolean(
                 AdminPreferencesActivity.KEY_CHANGE_LANGUAGE, true)
@@ -829,17 +877,6 @@ public class FormEntryActivity extends Activity implements AnimationListener,
                                 "MENU_SAVE");
                 // don't exit
                 saveDataToDisk(DO_NOT_EXIT, isInstanceComplete(false), null);
-                return true;
-            case MENU_HIERARCHY_VIEW:
-                Collect.getInstance()
-                        .getActivityLogger()
-                        .logInstanceAction(this, "onOptionsItemSelected",
-                                "MENU_HIERARCHY_VIEW");
-                if (formController.currentPromptIsQuestion()) {
-                    saveAnswersForCurrentScreen(DO_NOT_EVALUATE_CONSTRAINTS);
-                }
-                Intent i = new Intent(this, FormHierarchyActivity.class);
-                startActivityForResult(i, HIERARCHY_ACTIVITY);
                 return true;
             case MENU_PREFERENCES:
                 Collect.getInstance()
@@ -991,19 +1028,6 @@ public class FormEntryActivity extends Activity implements AnimationListener,
                     image = bitImage;
                 }
 
-                if (image == null) {
-                    // show the opendatakit zig...
-                    // image =
-                    // getResources().getDrawable(R.drawable.opendatakit_zig);
-                    ((ImageView) startView.findViewById(R.id.form_start_bling))
-                            .setVisibility(View.GONE);
-                } else {
-                    ImageView v = ((ImageView) startView
-                            .findViewById(R.id.form_start_bling));
-                    v.setImageDrawable(image);
-                    v.setContentDescription(formController.getFormTitle());
-                }
-
                 // change start screen based on navigation prefs
                 String navigationChoice = PreferenceManager
                         .getDefaultSharedPreferences(this).getString(
@@ -1011,12 +1035,8 @@ public class FormEntryActivity extends Activity implements AnimationListener,
                                 PreferencesActivity.KEY_NAVIGATION);
                 Boolean useSwipe = false;
                 Boolean useButtons = false;
-                ImageView ia = ((ImageView) startView
-                        .findViewById(R.id.image_advance));
-                ImageView ib = ((ImageView) startView
-                        .findViewById(R.id.image_backup));
-                TextView ta = ((TextView) startView.findViewById(R.id.text_advance));
-                TextView tb = ((TextView) startView.findViewById(R.id.text_backup));
+                ImageView sh = ((ImageView) startView
+                        .findViewById(R.id.image_swipe_helper));
                 TextView d = ((TextView) startView.findViewById(R.id.description));
 
                 if (navigationChoice != null) {
@@ -1033,10 +1053,7 @@ public class FormEntryActivity extends Activity implements AnimationListener,
                     d.setText(getString(R.string.swipe_instructions,
                             formController.getFormTitle()));
                 } else if (useButtons && !useSwipe) {
-                    ia.setVisibility(View.GONE);
-                    ib.setVisibility(View.GONE);
-                    ta.setVisibility(View.GONE);
-                    tb.setVisibility(View.GONE);
+                    sh.setVisibility(View.GONE);
                     d.setText(getString(R.string.buttons_instructions,
                             formController.getFormTitle()));
                 } else {
@@ -1408,6 +1425,17 @@ public class FormEntryActivity extends Activity implements AnimationListener,
 
         Collect.getInstance().getActivityLogger()
                 .logInstanceAction(this, "showView", logString);
+    }
+
+    public void showGoTo(){
+        FormController formController = Collect.getInstance().getFormController();
+        Collect.getInstance()
+                .getActivityLogger();
+        if (formController.currentPromptIsQuestion()) {
+            saveAnswersForCurrentScreen(DO_NOT_EVALUATE_CONSTRAINTS);
+        }
+        Intent i = new Intent(getBaseContext(), FormGoToActivity.class);
+        startActivity(i);
     }
 
     // Hopefully someday we can use managed dialogs when the bugs are fixed

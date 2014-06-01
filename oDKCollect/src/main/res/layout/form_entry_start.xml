@@ -19,24 +19,13 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:padding="10dp" >
-
-        <ImageView
-            android:id="@+id/form_start_bling"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:contentDescription="@+id/description"
-            android:paddingBottom="30dp"
-            android:scaleType="center" />
+        android:padding="10dp">
 
         <TextView
             android:id="@+id/description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/form_start_bling"
+            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
             android:gravity="center"
@@ -44,47 +33,17 @@
             android:paddingBottom="20dp"
             android:paddingTop="10dp"
             android:textSize="21sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:layout_margin="20dp"/>
 
         <ImageView
-            android:id="@+id/image_backup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
+            android:id="@+id/image_swipe_helper"
+            android:layout_width="fill_parent"
+            android:layout_height="150dp"
             android:layout_below="@+id/description"
-            android:contentDescription="@string/backup"
-            android:gravity="left"
-            android:src="@drawable/backup" />
-
-        <TextView
-            android:id="@+id/text_backup"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/image_backup"
-            android:gravity="left"
-            android:text="@string/backup"
-            android:textSize="21sp" />
-
-        <ImageView
-            android:id="@+id/image_advance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/description"
-            android:contentDescription="@string/advance"
-            android:gravity="right"
-            android:src="@drawable/advance" />
-
-        <TextView
-            android:id="@+id/text_advance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/image_advance"
-            android:gravity="right"
-            android:text="@string/advance"
-            android:textSize="21sp" />
+            android:gravity="center"
+            android:src="@drawable/swipe_helper"
+            android:layout_margin="20dp"/>
     </RelativeLayout>
 
 </ScrollView>

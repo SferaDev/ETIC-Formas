@@ -25,7 +25,7 @@
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-    <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="8" />
+    <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="19" />
 
     <supports-screens
         android:anyDensity="true"
@@ -136,6 +136,14 @@
         <activity
             android:name=".activities.FormHierarchyActivity"
             android:label="@string/app_name" />
+        <activity
+            android:name=".activities.FormGoToActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.FloatingWindow.Popup"
+            android:configChanges="orientation|screenSize"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"
+            android:clearTaskOnLaunch="true"
+            android:exported="true"/>
         <activity
             android:name=".activities.SplashScreenActivity"
             android:label="@string/app_name"

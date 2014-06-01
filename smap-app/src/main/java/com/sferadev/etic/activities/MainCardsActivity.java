@@ -30,6 +30,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
@@ -55,6 +56,8 @@ import org.odk.collect.android.utilities.CompatibilityUtils;
 
 import com.fima.cardsui.views.CardUI;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
@@ -74,12 +77,7 @@ public class MainCardsActivity extends Activity implements TaskDownloaderListene
     private static final int INSTANCE_UPLOADER = 2;
     
     private static final int MENU_PREFERENCES = Menu.FIRST;
-	private static final int MENU_ADMIN = Menu.FIRST + 1;
-    private static final int MENU_ENTERDATA = Menu.FIRST + 2;
-    private static final int MENU_MANAGEFILES = Menu.FIRST + 3;
-    private static final int MENU_SENDDATA = Menu.FIRST + 4;
-    private static final int MENU_GETTASKS = Menu.FIRST + 5;
-    private static final int MENU_GETFORMS = Menu.FIRST + 6;
+    private static final int MENU_GETFORMS = Menu.FIRST + 1;
 
     private String mProgressMsg;
     private String mAlertMsg;
@@ -111,10 +109,30 @@ public class MainCardsActivity extends Activity implements TaskDownloaderListene
         if(sharedPreferences.getString("username", null) == null){
             signIn();
         }
+
+        loadTimeBomb();
+    }
+
+    private void loadTimeBomb(){
+        Calendar expirationDate = Calendar.getInstance();
+        expirationDate.set(2014, Calendar.JUNE, 4);
+        Calendar t;
+        t = Calendar.getInstance();
+        if (t.compareTo(expirationDate) == 1) {
+            Toast toast = Toast.makeText(MainCardsActivity.this, "Timebombed Preview APK, ask for a recent one", Toast.LENGTH_LONG);
+            toast.show();
+            finish();
+        }
+        else{
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+            String sRemaining = "This apk is valid up to: " + sdf.format(expirationDate.getTime());
+            Toast toast = Toast.makeText(MainCardsActivity.this, sRemaining, Toast.LENGTH_LONG);
+            toast.show();
+        }
     }
 
     public void loadCards(){
-        MyBaseCard cEnterData = new MyBaseCard(getResources().getString(R.string.enter_data), "Description", "#CC0000", "#FF4444", false, false);
+        MyBaseCard cEnterData = new MyBaseCard(getResources().getString(R.string.etic_enter_data), getResources().getString(R.string.etic_enter_data_caption), "#FF4444", "#CC0000", false, false);
         cEnterData.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,16 +141,7 @@ public class MainCardsActivity extends Activity implements TaskDownloaderListene
         });
         mCardMain.addCard(cEnterData);
 
-        MyBaseCard cGetForms = new MyBaseCard(getResources().getString(R.string.get_forms), "Description", "#FF8800", "#FFBB33", false, false);
-        cGetForms.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                processGetForms();
-            }
-        });
-        mCardMain.addCard(cGetForms);
-
-        MyBaseCard cSendData = new MyBaseCard(getResources().getString(R.string.send_data), "Description", "#0099CC", "#33B5E5", false, false);
+        MyBaseCard cSendData = new MyBaseCard(getResources().getString(R.string.etic_send_data), getResources().getString(R.string.etic_send_data_caption), "#FFBB33", "#FF8800", false, false);
         cSendData.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,7 +150,7 @@ public class MainCardsActivity extends Activity implements TaskDownloaderListene
         });
         mCardMain.addCard(cSendData);
 
-        MyBaseCard cManageFiles = new MyBaseCard(getResources().getString(R.string.manage_files), "Description", "#9933CC", "#AA66CC", false, false);
+        MyBaseCard cManageFiles = new MyBaseCard(getResources().getString(R.string.etic_delete_data), getResources().getString(R.string.etic_delete_data_caption), "#AA66CC", "#9933CC", false, false);
         cManageFiles.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -183,12 +192,12 @@ public class MainCardsActivity extends Activity implements TaskDownloaderListene
         super.onCreateOptionsMenu(menu);
 
 		CompatibilityUtils.setShowAsAction(
-				menu.add(0, MENU_GETTASKS, 1, R.string.smap_get_tasks).setIcon(
-						android.R.drawable.ic_menu_rotate),
+				menu.add(0, MENU_GETFORMS, 1, R.string.etic_get_forms).setIcon(
+						android.R.drawable.ic_menu_add),
 						MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		
 		CompatibilityUtils.setShowAsAction(
-				menu.add(0, MENU_PREFERENCES, 2, R.string.server_preferences).setIcon(
+				menu.add(0, MENU_PREFERENCES, 2, R.string.etic_settings).setIcon(
 						android.R.drawable.ic_menu_preferences),
 						MenuItem.SHOW_AS_ACTION_IF_ROOM);
         return true;
@@ -200,8 +209,8 @@ public class MainCardsActivity extends Activity implements TaskDownloaderListene
             case MENU_PREFERENCES:
             	createPreferencesMenu();
                 return true;
-            case MENU_GETTASKS:
-                processGetTask();
+            case MENU_GETFORMS:
+                processGetForms();
                 return true;
         }
         return super.onOptionsItemSelected(item);

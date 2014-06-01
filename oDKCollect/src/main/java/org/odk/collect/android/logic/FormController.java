@@ -472,7 +472,6 @@ public class FormController {
      * constraint checking. Only use this if you know what you're doing. For normal form filling you
      * should always use answerQuestion().
      *
-     * @param index
      * @param data
      * @return true if saved successfully, false otherwise.
      */
@@ -782,8 +781,6 @@ public class FormController {
 
     /**
      * Creates a new repeated instance of the group referenced by the current FormIndex.
-     *
-     * @param questionIndex
      */
     public void newRepeat() {
         mFormEntryController.newRepeat();
