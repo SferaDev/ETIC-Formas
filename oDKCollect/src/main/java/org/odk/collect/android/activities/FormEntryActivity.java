@@ -235,7 +235,7 @@ public class FormEntryActivity extends Activity implements AnimationListener,
         mAdminPreferences = getSharedPreferences(
                 AdminPreferencesActivity.ADMIN_PREFERENCES, 0);
 
-        mGoTo = (ImageButton) findViewById(R.id.touch);
+        mGoTo = (ImageButton) findViewById(R.id.form_goto);
         mGoTo.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
