@@ -27,7 +27,7 @@
     <string name="show_unsent_forms">Show Complete Forms</string>
 
     <!-- ETIC Strings import -->
-    <string name="etic_dialog">Please provide your credentials to log into FORMAS</string>
+    <string name="etic_dialog">Please provide your credentials to log in</string>
     <string name="etic_enter_data">Start Survey</string>
     <string name="etic_enter_data_caption">Start a survey from an existing form</string>
     <string name="etic_send_data">Submit Finished Forms</string>

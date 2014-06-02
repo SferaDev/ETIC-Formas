@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+		Copyright (C) 2014 ETIC Licensed under the Apache
+		License, Version 2.0 (the "License"); you may not use this file except
+		in compliance with the License. You may obtain a copy of the License
+		at http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+		applicable law or agreed to in writing, software distributed under the
+		License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+		CONDITIONS OF ANY KIND, either express or implied. See the License for
+		the specific language governing permissions and limitations under the
+		License.
+
+		This file contains strings that are specific to the fieldTask
+-->
+<resources
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Imported original Strings -->
+    <string name="change_password">Cambiar contraseña</string>
+    <string name="change_server_url">Cambiar servidor</string>
+    <string name="change_username">Cambiar nombre de usuario</string>
+    <string name="click_to_web">Ir al sitio web ETIC</string>
+    <string name="constraint_behavior">Restricciones</string>
+    <string name="data">Datos</string>
+    <string name="forms">Formularios</string>
+    <string name="show_sent_and_unsent_forms">Mostrar Formularios completos e incompletos</string>
+    <string name="show_unsent_forms">Mostrar Formularios completos</string>
+
+    <!-- ETIC Strings import -->
+    <string name="etic_dialog">Por favor, indique sus credenciales para iniciar sesión</string>
+    <string name="etic_enter_data">Iniciar Encuesta</string>
+    <string name="etic_enter_data_caption">Iniciar una encuesta de un formulario existente</string>
+    <string name="etic_send_data">Enviar Formularios terminados</string>
+    <string name="etic_send_data_caption">Subir encuestas terminadas al servidor</string>
+    <string name="etic_delete_data">Eliminar Formularios</string>
+    <string name="etic_delete_data_caption">Borrar encuestas o formularios existentes</string>
+    <string name="etic_get_forms">Obtener nuevos Formularios</string>
+    <string name="etic_settings">Configuración</string>
+</resources>

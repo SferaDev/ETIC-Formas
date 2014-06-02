@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+		Copyright (C) 2014 ETIC Licensed under the Apache
+		License, Version 2.0 (the "License"); you may not use this file except
+		in compliance with the License. You may obtain a copy of the License
+		at http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+		applicable law or agreed to in writing, software distributed under the
+		License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+		CONDITIONS OF ANY KIND, either express or implied. See the License for
+		the specific language governing permissions and limitations under the
+		License.
+
+		This file contains strings that are specific to the fieldTask
+-->
+<resources
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Imported original Strings -->
+    <string name="change_password">Canvia la contrasenya</string>
+    <string name="change_server_url">Canviar servidor</string>
+    <string name="change_username">Canviar nom d'usuari</string>
+    <string name="click_to_web">Anar al lloc web ETIC</string>
+    <string name="constraint_behavior">Restriccions</string>
+    <string name="data">Dades</string>
+    <string name="forms">Formularis</string>
+    <string name="show_sent_and_unsent_forms">Mostra els formularis complerts i incomplerts</string>
+    <string name="show_unsent_forms">Mostra els formularis complerts</string>
+
+    <!-- ETIC Strings import -->
+    <string name="etic_dialog">Si us plau, indiqui els seus credencials per iniciar sessió</string>
+    <string name="etic_enter_data">Inicieu Enquesta</string>
+    <string name="etic_enter_data_caption">Inicieu una enquesta d'un formulari existent</string>
+    <string name="etic_send_data">Enviar formularis acabats</string>
+    <string name="etic_send_data_caption">Pujar enquestes acabades al servidor</string>
+    <string name="etic_delete_data">Eliminar els formularis</string>
+    <string name="etic_delete_data_caption">Netegeu enquestes o formularis existents</string>
+    <string name="etic_get_forms">Obtenir nous formularis</string>
+    <string name="etic_settings">Configuració</string>
+</resources>
