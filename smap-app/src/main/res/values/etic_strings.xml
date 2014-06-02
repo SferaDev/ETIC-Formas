@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+		Copyright (C) 2014 ETIC Licensed under the Apache
+		License, Version 2.0 (the "License"); you may not use this file except
+		in compliance with the License. You may obtain a copy of the License
+		at http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+		applicable law or agreed to in writing, software distributed under the
+		License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+		CONDITIONS OF ANY KIND, either express or implied. See the License for
+		the specific language governing permissions and limitations under the
+		License.
+
+		This file contains strings that are specific to the fieldTask
+-->
+<resources
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Imported original Strings -->
+    <string name="change_password">Change Password</string>
+    <string name="change_server_url">Change Server</string>
+    <string name="change_username">Change Username</string>
+    <string name="click_to_web">Touch for ETIC web site</string>
+    <string name="constraint_behavior">Constraints</string>
+    <string name="data">Data</string>
+    <string name="forms">Forms</string>
+    <string name="show_sent_and_unsent_forms">Show Complete and Incomplete Forms</string>
+    <string name="show_unsent_forms">Show Complete Forms</string>
+
+    <!-- ETIC Strings import -->
+    <string name="etic_dialog">Please provide your credentials to log in</string>
+    <string name="etic_enter_data">Start Survey</string>
+    <string name="etic_enter_data_caption">Start a survey from an existing form</string>
+    <string name="etic_send_data">Submit Finished Forms</string>
+    <string name="etic_send_data_caption">Upload finished surveys to the server</string>
+    <string name="etic_delete_data">Delete Forms</string>
+    <string name="etic_delete_data_caption">Clean up existing surveys or forms</string>
+    <string name="etic_get_forms">Get New Forms</string>
+    <string name="etic_settings">Settings</string>
+</resources>
