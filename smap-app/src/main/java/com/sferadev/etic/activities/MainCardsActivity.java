@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2011 Cloudtec Pty Ltd
+ * Copyright (C) 2014 Alexis Rico - SferaDev
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
@@ -12,10 +12,9 @@
  * the License.
  */
 
-/**
- * Responsible for managing the tabs on the main screen.
- * 
- * @author Neil Penman 
+ /**
+ * @author Alexis Rico - SferaDev
+ * based on Neil Penman's work
  */
 
 package com.sferadev.etic.activities;
@@ -30,7 +29,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
@@ -56,8 +54,6 @@ import org.odk.collect.android.utilities.CompatibilityUtils;
 
 import com.fima.cardsui.views.CardUI;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
@@ -108,26 +104,6 @@ public class MainCardsActivity extends Activity implements TaskDownloaderListene
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         if(sharedPreferences.getString("username", null) == null){
             signIn();
-        }
-
-        loadTimeBomb();
-    }
-
-    private void loadTimeBomb(){
-        Calendar expirationDate = Calendar.getInstance();
-        expirationDate.set(2014, Calendar.JUNE, 4);
-        Calendar t;
-        t = Calendar.getInstance();
-        if (t.compareTo(expirationDate) == 1) {
-            Toast toast = Toast.makeText(MainCardsActivity.this, "Timebombed Preview APK, ask for a recent one", Toast.LENGTH_LONG);
-            toast.show();
-            finish();
-        }
-        else{
-            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-            String sRemaining = "This apk is valid up to: " + sdf.format(expirationDate.getTime());
-            Toast toast = Toast.makeText(MainCardsActivity.this, sRemaining, Toast.LENGTH_LONG);
-            toast.show();
         }
     }
 
