@@ -197,11 +197,7 @@ public class FormEntryActivity extends Activity implements AnimationListener,
 
     private ImageButton mNextButton;
     private ImageButton mBackButton;
-    private Button mFirstButton;
-    private Button mLastButton;
-    private ImageButton mTouch;
-    private LinearLayout mButtonHolder;
-    private Button mPos;
+    private ImageButton mGoTo;
 
     enum AnimationType {
         LEFT, RIGHT, FADE
@@ -239,22 +235,10 @@ public class FormEntryActivity extends Activity implements AnimationListener,
         mAdminPreferences = getSharedPreferences(
                 AdminPreferencesActivity.ADMIN_PREFERENCES, 0);
 
-        mTouch = (ImageButton) findViewById(R.id.touch);
-        mTouch.setOnClickListener(new OnClickListener() {
+        mGoTo = (ImageButton) findViewById(R.id.touch);
+        mGoTo.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                /** TODO Depending on Master's opinion
-                Toast t = Toast.makeText(FormEntryActivity.this, "Dumb", Toast.LENGTH_LONG);
-                t.show();
-                mButtonHolder = (LinearLayout) findViewById(R.id.buttonholder);
-                if (mButtonHolder.getVisibility() == View.VISIBLE){
-                    mButtonHolder.setVisibility(View.GONE);
-                }
-                else {
-                    mButtonHolder.setVisibility(View.VISIBLE);
-                }**/
-
-                //Do nazi stuff for nao
                 showGoTo();
             }
         });
@@ -274,36 +258,6 @@ public class FormEntryActivity extends Activity implements AnimationListener,
             public void onClick(View v) {
                 mBeenSwiped = true;
                 showPreviousView();
-            }
-        });
-
-        mFirstButton = (Button) findViewById(R.id.form_first);
-        mFirstButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FormController formController = Collect.getInstance().getFormController();
-                formController.jumpToIndex(FormIndex
-                        .createBeginningOfFormIndex());
-                refreshCurrentView();
-            }
-        });
-
-        mLastButton = (Button) findViewById(R.id.form_last);
-        mLastButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FormController formController = Collect.getInstance().getFormController();
-                formController.jumpToIndex(FormIndex
-                        .createEndOfFormIndex());
-                refreshCurrentView();
-            }
-        });
-
-        mPos = (Button) findViewById(R.id.form_pos);
-        mPos.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showGoTo();
             }
         });
 
