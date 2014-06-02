@@ -18,7 +18,7 @@
     <!-- Imported original Strings -->
     <string name="change_password">Canvia la contrasenya</string>
     <string name="change_server_url">Canviar servidor</string>
-    <string name="change_username">Canviar nom d'usuari</string>
+    <string name="change_username">Canviar nom d\'usuari</string>
     <string name="click_to_web">Anar al lloc web ETIC</string>
     <string name="constraint_behavior">Restriccions</string>
     <string name="data">Dades</string>
@@ -29,7 +29,7 @@
     <!-- ETIC Strings import -->
     <string name="etic_dialog">Si us plau, indiqui els seus credencials per iniciar sessió</string>
     <string name="etic_enter_data">Inicieu Enquesta</string>
-    <string name="etic_enter_data_caption">Inicieu una enquesta d'un formulari existent</string>
+    <string name="etic_enter_data_caption">Inicieu una enquesta d\'un formulari existent</string>
     <string name="etic_send_data">Enviar formularis acabats</string>
     <string name="etic_send_data_caption">Pujar enquestes acabades al servidor</string>
     <string name="etic_delete_data">Eliminar els formularis</string>

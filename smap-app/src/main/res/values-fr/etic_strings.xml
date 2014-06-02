@@ -27,9 +27,9 @@
     <string name="show_unsent_forms">Montrer les formulaires complets</string>
 
     <!-- ETIC Strings import -->
-    <string name="etic_dialog">S\'il vous plaît fournir vos informations d'identification pour vous connecter</string>
+    <string name="etic_dialog">S\'il vous plaît fournir vos informations d\'identification pour vous connecter</string>
     <string name="etic_enter_data">Demarrer l\'enquette</string>
-    <string name="etic_enter_data_caption">Lancer une enquête à partir d'un formulaire existant</string>
+    <string name="etic_enter_data_caption">Lancer une enquête à partir d\'un formulaire existant</string>
     <string name="etic_send_data">Envoyer les donnees</string>
     <string name="etic_send_data_caption">Envoyez enquêtes finis au serveur</string>
     <string name="etic_delete_data">Supprimer les Formulaires</string>
