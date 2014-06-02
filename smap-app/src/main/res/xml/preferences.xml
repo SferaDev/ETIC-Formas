@@ -67,12 +67,4 @@
             android:key="font_size"
             android:title="@string/font_size" />
     </PreferenceCategory>
-	<PreferenceCategory android:title="@string/smap_task_preferences">
-			<CheckBoxPreference
-			android:id="@+id/enable_tasks"
-			android:key="enable_tasks"
-			android:title="@string/smap_enable_tasks"
-			android:defaultValue="true"
-			android:summary="@string/smap_enable_tasks_summary" />
-	</PreferenceCategory>
 </PreferenceScreen>
