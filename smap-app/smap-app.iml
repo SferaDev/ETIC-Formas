@@ -72,20 +72,13 @@
     <orderEntry type="jdk" jdkName="Android API 19 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="regexp-me" level="project" />
-    <orderEntry type="library" exported="" name="1_regexp-me" level="project" />
     <orderEntry type="library" exported="" name="joda-time-2.0" level="project" />
     <orderEntry type="library" exported="" name="1_joda-time-2.0" level="project" />
-    <orderEntry type="library" exported="" name="httpclientandroidlib-4.2.1" level="project" />
-    <orderEntry type="library" exported="" name="nineoldandroids-2.4.0" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-19.1.0" level="project" />
     <orderEntry type="library" exported="" name="apache-mime4j-0.6" level="project" />
-    <orderEntry type="library" exported="" name="1_apache-mime4j-0.6" level="project" />
     <orderEntry type="library" exported="" name="gson-2.2.2" level="project" />
     <orderEntry type="library" exported="" name="support-v4-19.1.0" level="project" />
-    <orderEntry type="library" exported="" name="javarosa-libraries-2013-08-08" level="project" />
-    <orderEntry type="library" exported="" name="kxml2-2.3.0" level="project" />
     <orderEntry type="library" exported="" name="httpmime-4.0" level="project" />
-    <orderEntry type="library" exported="" name="1_httpmime-4.0" level="project" />
     <orderEntry type="module" module-name="CardsUI" exported="" />
     <orderEntry type="module" module-name="oDKCollect" exported="" />
   </component>

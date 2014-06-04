@@ -25,6 +25,7 @@ import java.io.IOException;
 import org.javarosa.core.model.FormDef;
 import org.javarosa.core.model.FormIndex;
 import org.javarosa.core.model.condition.EvaluationContext;
+import org.javarosa.core.model.instance.InstanceInitializationFactory;
 import org.javarosa.core.model.instance.TreeElement;
 import org.javarosa.core.model.instance.TreeReference;
 import org.javarosa.core.reference.ReferenceManager;
@@ -237,12 +238,12 @@ public class FormLoaderTask extends AsyncTask<String, String, FormLoaderTask.FEC
             	if ( instance.exists() ) {
 	                // This order is important. Import data, then initialize.
 	                importData(instance, fec);
-	                fd.initialize(false);
+	                fd.initialize(false, new InstanceInitializationFactory());
             	} else {
-            		fd.initialize(true);
+            		fd.initialize(true, new InstanceInitializationFactory());
             	}
             } else {
-                fd.initialize(true);
+                fd.initialize(true, new InstanceInitializationFactory());
             }
         } catch (RuntimeException e) {
             mErrorMsg = e.getMessage();

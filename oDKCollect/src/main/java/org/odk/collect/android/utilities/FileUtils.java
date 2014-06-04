@@ -253,6 +253,9 @@ public class FileUtils {
             Document doc;
             try {
                 doc = XFormParser.getXMLDocument(isr);
+            } catch (IOException e) {
+                e.printStackTrace();
+                throw new IllegalStateException("Unable to parse XML document", e);
             } finally {
                 try {
                     isr.close();
