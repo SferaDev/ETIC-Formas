@@ -1,31 +1,30 @@
-
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-	<PreferenceScreen
-		android:id="@+id/info"
-		android:key="info"
-		android:title="@string/app_name"
-		android:summary="@string/click_to_web">
-		<intent
-			android:action="android.intent.action.VIEW"
-			android:data="http://etic.sa.com/" />
-	</PreferenceScreen>
-	<PreferenceCategory android:title="@string/server_preferences">
-		<EditTextPreference
-			android:id="@+id/username"
-			android:key="username"
-			android:title="@string/username"
-			android:dialogTitle="@string/change_username" />
-		<EditTextPreference
-			android:id="@+id/password"
-			android:key="password"
-			android:title="@string/password"
-			android:inputType="textPassword"
-			android:dialogTitle="@string/change_password" />
-		<!-- android:password="true" -->
-	</PreferenceCategory>
-	    <PreferenceCategory
+    <PreferenceScreen
+        android:id="@+id/info"
+        android:key="info"
+        android:summary="@string/click_to_web"
+        android:title="@string/app_name">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:data="http://etic.sa.com/" />
+    </PreferenceScreen>
+    <PreferenceCategory android:title="@string/server_preferences">
+        <EditTextPreference
+            android:id="@+id/username"
+            android:dialogTitle="@string/change_username"
+            android:key="username"
+            android:title="@string/username" />
+        <EditTextPreference
+            android:id="@+id/password"
+            android:dialogTitle="@string/change_password"
+            android:inputType="textPassword"
+            android:key="password"
+            android:title="@string/password" />
+        <!-- android:password="true" -->
+    </PreferenceCategory>
+    <PreferenceCategory
         android:key="@string/autosend"
-        android:title="@string/autosend" >
+        android:title="@string/autosend">
         <CheckBoxPreference
             android:id="@+id/autosend_wifi"
             android:defaultValue="false"
@@ -41,8 +40,8 @@
     </PreferenceCategory>
     <PreferenceCategory
         android:key="@string/client"
-        android:title="@string/client" >
-       <ListPreference
+        android:title="@string/client">
+        <ListPreference
             android:id="@+id/navigation"
             android:defaultValue="swipe_buttons"
             android:dialogTitle="@string/navigation"
@@ -50,7 +49,7 @@
             android:entryValues="@array/navigation_entry_values"
             android:key="navigation"
             android:title="@string/navigation" />
-       <ListPreference
+        <ListPreference
             android:id="@+id/constraint_behavior"
             android:defaultValue="on_swipe"
             android:dialogTitle="@string/constraint_behavior"

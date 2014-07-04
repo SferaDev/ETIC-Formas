@@ -46,7 +46,7 @@ import java.util.Vector;
  * a field-list with a bunch of list widgets below. This widget provides the labels, so that the
  * list widgets can hide their labels and reduce the screen clutter. This class is essentially
  * ListWidget with all the answer generating code removed.
- * 
+ *
  * @author Jeff Beorse
  */
 public class LabelWidget extends QuestionWidget {
@@ -75,8 +75,8 @@ public class LabelWidget extends QuestionWidget {
 
                 String imageURI = null;
                 imageURI =
-                    prompt.getSpecialFormSelectChoiceText(mItems.get(i),
-                        FormEntryCaption.TEXT_FORM_IMAGE);
+                        prompt.getSpecialFormSelectChoiceText(mItems.get(i),
+                                FormEntryCaption.TEXT_FORM_IMAGE);
 
                 // build image view (if an image is provided)
                 mImageView = null;
@@ -89,19 +89,19 @@ public class LabelWidget extends QuestionWidget {
                 if (imageURI != null) {
                     try {
                         String imageFilename =
-                            ReferenceManager._().DeriveReference(imageURI).getLocalURI();
+                                ReferenceManager._().DeriveReference(imageURI).getLocalURI();
                         final File imageFile = new File(imageFilename);
                         if (imageFile.exists()) {
                             Bitmap b = null;
                             try {
                                 Display display =
-                                    ((WindowManager) getContext().getSystemService(
-                                        Context.WINDOW_SERVICE)).getDefaultDisplay();
+                                        ((WindowManager) getContext().getSystemService(
+                                                Context.WINDOW_SERVICE)).getDefaultDisplay();
                                 int screenWidth = display.getWidth();
                                 int screenHeight = display.getHeight();
                                 b =
-                                    FileUtils.getBitmapScaledToDisplay(imageFile, screenHeight,
-                                        screenWidth);
+                                        FileUtils.getBitmapScaledToDisplay(imageFile, screenHeight,
+                                                screenWidth);
                             } catch (OutOfMemoryError e) {
                                 errorMsg = "ERROR: " + e.getMessage();
                             }
@@ -156,22 +156,22 @@ public class LabelWidget extends QuestionWidget {
                         new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
                 headerParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
                 headerParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
-                
+
                 if (mImageView != null) {
-                	mImageView.setScaleType(ScaleType.CENTER);
+                    mImageView.setScaleType(ScaleType.CENTER);
                     answer.addView(mImageView, headerParams);
                 } else if (mMissingImage != null) {
                     answer.addView(mMissingImage, headerParams);
                 } else {
-                	label.setId(labelId);
+                    label.setId(labelId);
                     answer.addView(label, headerParams);
                 }
                 answer.setPadding(4, 0, 4, 0);
 
                 // Each button gets equal weight
                 LayoutParams answerParams =
-                    new LayoutParams(LayoutParams.FILL_PARENT,
-                            LayoutParams.WRAP_CONTENT);
+                        new LayoutParams(LayoutParams.FILL_PARENT,
+                                LayoutParams.WRAP_CONTENT);
                 answerParams.weight = 1;
 
                 buttonLayout.addView(answer, answerParams);
@@ -188,7 +188,7 @@ public class LabelWidget extends QuestionWidget {
 
         // The buttons take up the right half of the screen
         LayoutParams buttonParams =
-            new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
+                new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
         buttonParams.weight = 1;
 
         questionLayout.addView(buttonLayout, buttonParams);
@@ -213,7 +213,7 @@ public class LabelWidget extends QuestionWidget {
     public void setFocus(Context context) {
         // Hide the soft keyboard if it's showing.
         InputMethodManager inputManager =
-            (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         inputManager.hideSoftInputFromWindow(this.getWindowToken(), 0);
     }
 
@@ -239,7 +239,7 @@ public class LabelWidget extends QuestionWidget {
 
         // Put the question text on the left half of the screen
         LayoutParams labelParams =
-            new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
+                new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
         labelParams.weight = 1;
 
         questionLayout = new LinearLayout(getContext());

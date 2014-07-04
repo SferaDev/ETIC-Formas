@@ -26,19 +26,18 @@ import android.view.MenuItem;
  * Compatibility utilities for backward-compatible support of Android APIs above SDK 8
  *
  * @author mitchellsundt@gmail.com
- *
  */
 public class CompatibilityUtils {
     public static void setShowAsAction(MenuItem item, int action) {
         Log.i("setShowaction: ", String.valueOf(Build.VERSION.SDK_INT));
-        if ( Build.VERSION.SDK_INT >= 11 ) {
+        if (Build.VERSION.SDK_INT >= 11) {
             Log.i("setShowAsAction: ", item.toString());
             item.setShowAsAction(action);
         }
     }
 
     public static void invalidateOptionsMenu(final Activity a) {
-        if ( Build.VERSION.SDK_INT >= 11 ) {
+        if (Build.VERSION.SDK_INT >= 11) {
             a.runOnUiThread(new Runnable() {
 
                 @Override
@@ -51,7 +50,7 @@ public class CompatibilityUtils {
     }
 
     public static boolean useMapsV2(final Context context) {
-        if ( Build.VERSION.SDK_INT >= 8 ) {
+        if (Build.VERSION.SDK_INT >= 8) {
             final ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
             final ConfigurationInfo configurationInfo = activityManager.getDeviceConfigurationInfo();
             boolean supportsEs2 = configurationInfo.reqGlEsVersion >= 0x20000;

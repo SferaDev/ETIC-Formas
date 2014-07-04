@@ -40,7 +40,7 @@ import java.util.Vector;
  * http://code.google.com/p/android/issues/detail?id=922 This bug causes text to be white in alert
  * boxes, which makes the select options invisible in this widget. For this reason, this widget
  * should not be used on phones with android versions lower than 2.0.
- * 
+ *
  * @author Jeff Beorse (jeff@beorse.net)
  */
 public class SpinnerMultiWidget extends QuestionWidget {
@@ -94,35 +94,37 @@ public class SpinnerMultiWidget extends QuestionWidget {
             public void onClick(View v) {
 
                 alert_builder.setTitle(mPrompt.getQuestionText()).setPositiveButton(R.string.ok,
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            boolean first = true;
-                            selectionText.setText("");
-                            for (int i = 0; i < selections.length; i++) {
-                                if (selections[i]) {
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                boolean first = true;
+                                selectionText.setText("");
+                                for (int i = 0; i < selections.length; i++) {
+                                    if (selections[i]) {
 
-                                    if (first) {
-                                        first = false;
-                                        selectionText.setText(context.getString(R.string.selected)
-                                                + answer_items[i].toString());
-                                        selectionText.setVisibility(View.VISIBLE);
-                                    } else {
-                                        selectionText.setText(selectionText.getText() + ", "
-                                                + answer_items[i].toString());
+                                        if (first) {
+                                            first = false;
+                                            selectionText.setText(context.getString(R.string.selected)
+                                                    + answer_items[i].toString());
+                                            selectionText.setVisibility(View.VISIBLE);
+                                        } else {
+                                            selectionText.setText(selectionText.getText() + ", "
+                                                    + answer_items[i].toString());
+                                        }
                                     }
                                 }
                             }
                         }
-                    });
+                );
 
                 alert_builder.setMultiChoiceItems(answer_items, selections,
-                    new DialogInterface.OnMultiChoiceClickListener() {
+                        new DialogInterface.OnMultiChoiceClickListener() {
 
-                        @Override
-                        public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                            selections[which] = isChecked;
+                            @Override
+                            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                                selections[which] = isChecked;
+                            }
                         }
-                    });
+                );
                 AlertDialog alert = alert_builder.create();
                 alert.show();
             }
@@ -172,7 +174,7 @@ public class SpinnerMultiWidget extends QuestionWidget {
 
     @Override
     public IAnswerData getAnswer() {
-    	clearFocus();
+        clearFocus();
         Vector<Selection> vc = new Vector<Selection>();
         for (int i = 0; i < mItems.size(); i++) {
             if (selections[i]) {
@@ -203,7 +205,7 @@ public class SpinnerMultiWidget extends QuestionWidget {
     public void setFocus(Context context) {
         // Hide the soft keyboard if it's showing.
         InputMethodManager inputManager =
-            (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         inputManager.hideSoftInputFromWindow(this.getWindowToken(), 0);
 
     }

@@ -43,17 +43,13 @@ import java.util.HashMap;
  * @author carlhartung
  */
 public class DownloadFormListTask extends AsyncTask<Void, String, HashMap<String, FormDetails>> {
-    private static final String t = "DownloadFormsTask";
-
     // used to store error message if one occurs
     public static final String DL_ERROR_MSG = "dlerrormessage";
     public static final String DL_AUTH_REQUIRED = "dlauthrequired";
-
-    private FormListDownloaderListener mStateListener;
-
+    private static final String t = "DownloadFormsTask";
     private static final String NAMESPACE_OPENROSA_ORG_XFORMS_XFORMS_LIST =
-        "http://openrosa.org/xforms/xformsList";
-
+            "http://openrosa.org/xforms/xformsList";
+    private FormListDownloaderListener mStateListener;
 
     private boolean isXformsListNamespacedElement(Element e) {
         return e.getNamespace().equalsIgnoreCase(NAMESPACE_OPENROSA_ORG_XFORMS_XFORMS_LIST);
@@ -63,14 +59,14 @@ public class DownloadFormListTask extends AsyncTask<Void, String, HashMap<String
     @Override
     protected HashMap<String, FormDetails> doInBackground(Void... values) {
         SharedPreferences settings =
-            PreferenceManager.getDefaultSharedPreferences(Collect.getInstance().getBaseContext());
+                PreferenceManager.getDefaultSharedPreferences(Collect.getInstance().getBaseContext());
         String downloadListUrl = Collect.getInstance().getString(R.string.default_server_url);
         // NOTE: /formlist must not be translated! It is the well-known path on the server.
         String formListUrl = Collect.getInstance().getApplicationContext().getString(R.string.default_odk_formlist);
         String downloadPath = settings.getString(PreferencesActivity.KEY_FORMLIST_URL, formListUrl);
         downloadListUrl += downloadPath;
 
-    	Collect.getInstance().getActivityLogger().logAction(this, formListUrl, downloadListUrl);
+        Collect.getInstance().getActivityLogger().logAction(this, formListUrl, downloadListUrl);
 
         // We populate this with available forms from the specified server.
         // <formname, details>
@@ -88,14 +84,14 @@ public class DownloadFormListTask extends AsyncTask<Void, String, HashMap<String
         String server = Collect.getInstance().getString(R.string.default_server_url);
         //final String url =
         //        server + settings.getString(PreferencesActivity.KEY_FORMLIST_URL, "/formList");
-        if(username != null && password != null) {
-        	Uri u = Uri.parse(downloadListUrl);
-        	WebUtils.addCredentials(username, password, u.getHost());
+        if (username != null && password != null) {
+            Uri u = Uri.parse(downloadListUrl);
+            WebUtils.addCredentials(username, password, u.getHost());
         }
         // Smap End
-        
+
         DocumentFetchResult result =
-            WebUtils.getXmlDocument(downloadListUrl, localContext, httpclient);
+                WebUtils.getXmlDocument(downloadListUrl, localContext, httpclient);
 
         // If we can't get the document, return the error, cancel the task
         if (result.errorMessage != null) {
@@ -114,9 +110,10 @@ public class DownloadFormListTask extends AsyncTask<Void, String, HashMap<String
                 String error = "root element is not <xforms> : " + xformsElement.getName();
                 Log.e(t, "Parsing OpenRosa reply -- " + error);
                 formList.put(
-                    DL_ERROR_MSG,
-                    new FormDetails(Collect.getInstance().getString(
-                        R.string.parse_openrosa_formlist_failed, error)));
+                        DL_ERROR_MSG,
+                        new FormDetails(Collect.getInstance().getString(
+                                R.string.parse_openrosa_formlist_failed, error))
+                );
                 return formList;
             }
             String namespace = xformsElement.getNamespace();
@@ -124,9 +121,10 @@ public class DownloadFormListTask extends AsyncTask<Void, String, HashMap<String
                 String error = "root element namespace is incorrect:" + namespace;
                 Log.e(t, "Parsing OpenRosa reply -- " + error);
                 formList.put(
-                    DL_ERROR_MSG,
-                    new FormDetails(Collect.getInstance().getString(
-                        R.string.parse_openrosa_formlist_failed, error)));
+                        DL_ERROR_MSG,
+                        new FormDetails(Collect.getInstance().getString(
+                                R.string.parse_openrosa_formlist_failed, error))
+                );
                 return formList;
             }
             int nElements = xformsElement.getChildCount();
@@ -180,7 +178,7 @@ public class DownloadFormListTask extends AsyncTask<Void, String, HashMap<String
                     } else if (tag.equals("version")) {
                         version = XFormParser.getXMLText(child, true);
                         if (version != null && version.length() == 0) {
-                        	version = null;
+                            version = null;
                         }
                     } else if (tag.equals("majorMinorVersion")) {
                         majorMinorVersion = XFormParser.getXMLText(child, true);
@@ -206,14 +204,15 @@ public class DownloadFormListTask extends AsyncTask<Void, String, HashMap<String
                 }
                 if (formId == null || downloadUrl == null || formName == null) {
                     String error =
-                        "Forms list entry " + Integer.toString(i)
-                                + " is missing one or more tags: formId, name, or downloadUrl";
+                            "Forms list entry " + Integer.toString(i)
+                                    + " is missing one or more tags: formId, name, or downloadUrl";
                     Log.e(t, "Parsing OpenRosa reply -- " + error);
                     formList.clear();
                     formList.put(
-                        DL_ERROR_MSG,
-                        new FormDetails(Collect.getInstance().getString(
-                            R.string.parse_openrosa_formlist_failed, error)));
+                            DL_ERROR_MSG,
+                            new FormDetails(Collect.getInstance().getString(
+                                    R.string.parse_openrosa_formlist_failed, error))
+                    );
                     return formList;
                 }
                 formList.put(formId, new FormDetails(formName, downloadUrl, manifestUrl, formId, (version != null) ? version : majorMinorVersion));
@@ -249,14 +248,15 @@ public class DownloadFormListTask extends AsyncTask<Void, String, HashMap<String
                     }
                     if (downloadUrl == null || formName == null) {
                         String error =
-                            "Forms list entry " + Integer.toString(i)
-                                    + " is missing form name or url attribute";
+                                "Forms list entry " + Integer.toString(i)
+                                        + " is missing form name or url attribute";
                         Log.e(t, "Parsing OpenRosa reply -- " + error);
                         formList.clear();
                         formList.put(
-                            DL_ERROR_MSG,
-                            new FormDetails(Collect.getInstance().getString(
-                                R.string.parse_legacy_formlist_failed, error)));
+                                DL_ERROR_MSG,
+                                new FormDetails(Collect.getInstance().getString(
+                                        R.string.parse_legacy_formlist_failed, error))
+                        );
                         return formList;
                     }
                     formList.put(formName, new FormDetails(formName, downloadUrl, null, formId, null));

@@ -49,14 +49,14 @@ public class Collect extends Application {
     public static final String FORMS_PATH = ODK_ROOT + File.separator + "forms";
     public static final String INSTANCES_PATH = ODK_ROOT + File.separator + "instances";
     public static final String CACHE_PATH = ODK_ROOT + File.separator + ".cache";
-    public static final String METADATA_PATH = ODK_ROOT + File.separator + "metadata";
     public static final String TMPFILE_PATH = CACHE_PATH + File.separator + "tmp.jpg";
     public static final String TMPDRAWFILE_PATH = CACHE_PATH + File.separator + "tmpDraw.jpg";
     public static final String TMPXML_PATH = CACHE_PATH + File.separator + "tmp.xml";
+    public static final String METADATA_PATH = ODK_ROOT + File.separator + "metadata";
     public static final String LOG_PATH = ODK_ROOT + File.separator + "log";
 
     public static final String DEFAULT_FONTSIZE = "21";
-
+    private static Collect singleton = null;
     // share all session cookies across all sessions...
     private CookieStore cookieStore = new BasicCookieStore();
     // retain credentials for 7 minutes...
@@ -64,22 +64,8 @@ public class Collect extends Application {
     private ActivityLogger mActivityLogger;
     private FormController mFormController = null;
 
-    private static Collect singleton = null;
-
     public static Collect getInstance() {
         return singleton;
-    }
-
-    public ActivityLogger getActivityLogger() {
-        return mActivityLogger;
-    }
-
-    public FormController getFormController() {
-        return mFormController;
-    }
-
-    public void setFormController(FormController controller) {
-        mFormController = controller;
     }
 
     public static int getQuestionFontsize() {
@@ -89,21 +75,6 @@ public class Collect extends Application {
                 Collect.DEFAULT_FONTSIZE);
         int questionFontsize = Integer.valueOf(question_font);
         return questionFontsize;
-    }
-
-    public String getVersionedAppName() {
-        String versionDetail = "";
-        try {
-            PackageInfo pinfo;
-            pinfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-            int versionNumber = pinfo.versionCode;
-            String versionName = pinfo.versionName;
-            versionDetail = " " + versionName + " (" + versionNumber + ")";
-        } catch (NameNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return getString(R.string.app_name) + versionDetail;
     }
 
     /**
@@ -152,21 +123,48 @@ public class Collect extends Application {
      * @return
      */
     public static boolean isODKTablesInstanceDataDirectory(File directory) {
-		/**
-		 * Special check to prevent deletion of files that
-		 * could be in use by ODK Tables.
-		 */
-    	String dirPath = directory.getAbsolutePath();
-    	if ( dirPath.startsWith(Collect.ODK_ROOT) ) {
-    		dirPath = dirPath.substring(Collect.ODK_ROOT.length());
-    		String[] parts = dirPath.split(File.separator);
-    		// [appName, instances, tableId, instanceId ]
-    		if ( parts.length == 4 && parts[1].equals("instances") ) {
-    			return true;
-    		}
-    	}
-    	return false;
-	}
+        /**
+         * Special check to prevent deletion of files that
+         * could be in use by ODK Tables.
+         */
+        String dirPath = directory.getAbsolutePath();
+        if (dirPath.startsWith(Collect.ODK_ROOT)) {
+            dirPath = dirPath.substring(Collect.ODK_ROOT.length());
+            String[] parts = dirPath.split(File.separator);
+            // [appName, instances, tableId, instanceId ]
+            if (parts.length == 4 && parts[1].equals("instances")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public ActivityLogger getActivityLogger() {
+        return mActivityLogger;
+    }
+
+    public FormController getFormController() {
+        return mFormController;
+    }
+
+    public void setFormController(FormController controller) {
+        mFormController = controller;
+    }
+
+    public String getVersionedAppName() {
+        String versionDetail = "";
+        try {
+            PackageInfo pinfo;
+            pinfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+            int versionNumber = pinfo.versionCode;
+            String versionName = pinfo.versionName;
+            versionDetail = " " + versionName + " (" + versionNumber + ")";
+        } catch (NameNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return getString(R.string.app_name) + versionDetail;
+    }
 
     /**
      * Construct and return a session context with shared cookieStore and credsProvider so a user

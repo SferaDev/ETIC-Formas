@@ -48,63 +48,11 @@ public class InstanceProvider extends ContentProvider {
     private static final String DATABASE_NAME = "instances.db";
     private static final int DATABASE_VERSION = 3;
     private static final String INSTANCES_TABLE_NAME = "instances";
-
-    private static HashMap<String, String> sInstancesProjectionMap;
-
     private static final int INSTANCES = 1;
     private static final int INSTANCE_ID = 2;
-
     private static final UriMatcher sUriMatcher;
-
-    /**
-     * This class helps open, create, and upgrade the database file.
-     */
-    private static class DatabaseHelper extends ODKSQLiteOpenHelper {
-
-        DatabaseHelper(String databaseName) {
-            super(Collect.METADATA_PATH, databaseName, null, DATABASE_VERSION);
-        }
-
-
-        @Override
-        public void onCreate(SQLiteDatabase db) {
-           db.execSQL("CREATE TABLE " + INSTANCES_TABLE_NAME + " ("
-               + InstanceColumns._ID + " integer primary key, "
-               + InstanceColumns.DISPLAY_NAME + " text not null, "
-               + InstanceColumns.SUBMISSION_URI + " text, "
-               + InstanceColumns.CAN_EDIT_WHEN_COMPLETE + " text, "
-               + InstanceColumns.INSTANCE_FILE_PATH + " text not null, "
-               + InstanceColumns.JR_FORM_ID + " text not null, "
-               + InstanceColumns.JR_VERSION + " text, "
-               + InstanceColumns.STATUS + " text not null, "
-               + InstanceColumns.LAST_STATUS_CHANGE_DATE + " date not null, "
-               + InstanceColumns.DISPLAY_SUBTEXT + " text not null );");
-        }
-
-
-        @Override
-        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        	int initialVersion = oldVersion;
-        	if ( oldVersion == 1 ) {
-        		db.execSQL("ALTER TABLE " + INSTANCES_TABLE_NAME + " ADD COLUMN " +
-        					InstanceColumns.CAN_EDIT_WHEN_COMPLETE + " text;");
-        		db.execSQL("UPDATE " + INSTANCES_TABLE_NAME + " SET " +
-        					InstanceColumns.CAN_EDIT_WHEN_COMPLETE + " = '" + Boolean.toString(true) + "' WHERE " +
-        					InstanceColumns.STATUS + " IS NOT NULL AND " +
-        					InstanceColumns.STATUS + " != '" + InstanceProviderAPI.STATUS_INCOMPLETE + "'");
-        		oldVersion = 2;
-        	}
-        	if ( oldVersion == 2 ) {
-        		db.execSQL("ALTER TABLE " + INSTANCES_TABLE_NAME + " ADD COLUMN " +
-    					InstanceColumns.JR_VERSION + " text;");
-        	}
-            Log.w(t, "Successfully upgraded database from version " + initialVersion + " to " + newVersion
-                    + ", without destroying all the old data");
-        }
-    }
-
+    private static HashMap<String, String> sInstancesProjectionMap;
     private DatabaseHelper mDbHelper;
-
 
     @Override
     public boolean onCreate() {
@@ -119,10 +67,9 @@ public class InstanceProvider extends ContentProvider {
         return true;
     }
 
-
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs,
-            String sortOrder) {
+                        String sortOrder) {
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
         qb.setTables(INSTANCES_TABLE_NAME);
 
@@ -149,7 +96,6 @@ public class InstanceProvider extends ContentProvider {
         return c;
     }
 
-
     @Override
     public String getType(Uri uri) {
         switch (sUriMatcher.match(uri)) {
@@ -163,7 +109,6 @@ public class InstanceProvider extends ContentProvider {
                 throw new IllegalArgumentException("Unknown URI " + uri);
         }
     }
-
 
     @Override
     public Uri insert(Uri uri, ContentValues initialValues) {
@@ -201,8 +146,8 @@ public class InstanceProvider extends ContentProvider {
         if (rowId > 0) {
             Uri instanceUri = ContentUris.withAppendedId(InstanceColumns.CONTENT_URI, rowId);
             getContext().getContentResolver().notifyChange(instanceUri, null);
-        	Collect.getInstance().getActivityLogger().logActionParam(this, "insert",
-        			instanceUri.toString(), values.getAsString(InstanceColumns.INSTANCE_FILE_PATH));
+            Collect.getInstance().getActivityLogger().logActionParam(this, "insert",
+                    instanceUri.toString(), values.getAsString(InstanceColumns.INSTANCE_FILE_PATH));
             return instanceUri;
         }
 
@@ -211,28 +156,28 @@ public class InstanceProvider extends ContentProvider {
 
     private String getDisplaySubtext(String state, Date date) {
         if (state == null) {
-        	return new SimpleDateFormat(getContext().getString(R.string.added_on_date_at_time), Locale.getDefault()).format(date);
+            return new SimpleDateFormat(getContext().getString(R.string.added_on_date_at_time), Locale.getDefault()).format(date);
         } else if (InstanceProviderAPI.STATUS_INCOMPLETE.equalsIgnoreCase(state)) {
-        	return new SimpleDateFormat(getContext().getString(R.string.saved_on_date_at_time), Locale.getDefault()).format(date);
+            return new SimpleDateFormat(getContext().getString(R.string.saved_on_date_at_time), Locale.getDefault()).format(date);
         } else if (InstanceProviderAPI.STATUS_COMPLETE.equalsIgnoreCase(state)) {
-        	return new SimpleDateFormat(getContext().getString(R.string.finalized_on_date_at_time), Locale.getDefault()).format(date);
+            return new SimpleDateFormat(getContext().getString(R.string.finalized_on_date_at_time), Locale.getDefault()).format(date);
         } else if (InstanceProviderAPI.STATUS_SUBMITTED.equalsIgnoreCase(state)) {
-        	return new SimpleDateFormat(getContext().getString(R.string.sent_on_date_at_time), Locale.getDefault()).format(date);
+            return new SimpleDateFormat(getContext().getString(R.string.sent_on_date_at_time), Locale.getDefault()).format(date);
         } else if (InstanceProviderAPI.STATUS_SUBMISSION_FAILED.equalsIgnoreCase(state)) {
-        	return new SimpleDateFormat(getContext().getString(R.string.sending_failed_on_date_at_time), Locale.getDefault()).format(date);
+            return new SimpleDateFormat(getContext().getString(R.string.sending_failed_on_date_at_time), Locale.getDefault()).format(date);
         } else {
-        	return new SimpleDateFormat(getContext().getString(R.string.added_on_date_at_time), Locale.getDefault()).format(date);
+            return new SimpleDateFormat(getContext().getString(R.string.added_on_date_at_time), Locale.getDefault()).format(date);
         }
     }
 
     private void deleteAllFilesInDirectory(File directory) {
         if (directory.exists()) {
-        	// do not delete the directory if it might be an
-        	// ODK Tables instance data directory. Let ODK Tables
-        	// manage the lifetimes of its filled-in form data
-        	// media attachments.
+            // do not delete the directory if it might be an
+            // ODK Tables instance data directory. Let ODK Tables
+            // manage the lifetimes of its filled-in form data
+            // media attachments.
             if (directory.isDirectory() && !Collect.isODKTablesInstanceDataDirectory(directory)) {
-            	// delete any media entries for files in this directory...
+                // delete any media entries for files in this directory...
                 int images = MediaUtils.deleteImagesInFolderFromMediaProvider(directory);
                 int audio = MediaUtils.deleteAudioInFolderFromMediaProvider(directory);
                 int video = MediaUtils.deleteVideoInFolderFromMediaProvider(directory);
@@ -253,7 +198,6 @@ public class InstanceProvider extends ContentProvider {
         }
     }
 
-
     /**
      * This method removes the entry from the content provider, and also removes any associated files.
      * files:  form.xml, [formmd5].formdef, formname-media {directory}
@@ -267,20 +211,20 @@ public class InstanceProvider extends ContentProvider {
             case INSTANCES:
                 Cursor del = null;
                 try {
-                	del = this.query(uri, null, where, whereArgs, null);
-                	if (del.getCount() > 0) {
-                		del.moveToFirst();
-                		do {
-		                    String instanceFile = del.getString(del.getColumnIndex(InstanceColumns.INSTANCE_FILE_PATH));
-		                    Collect.getInstance().getActivityLogger().logAction(this, "delete", instanceFile);
-		                    File instanceDir = (new File(instanceFile)).getParentFile();
-		                    deleteAllFilesInDirectory(instanceDir);
-                		} while (del.moveToNext());
-	                }
+                    del = this.query(uri, null, where, whereArgs, null);
+                    if (del.getCount() > 0) {
+                        del.moveToFirst();
+                        do {
+                            String instanceFile = del.getString(del.getColumnIndex(InstanceColumns.INSTANCE_FILE_PATH));
+                            Collect.getInstance().getActivityLogger().logAction(this, "delete", instanceFile);
+                            File instanceDir = (new File(instanceFile)).getParentFile();
+                            deleteAllFilesInDirectory(instanceDir);
+                        } while (del.moveToNext());
+                    }
                 } finally {
-                	if ( del != null ) {
-                		del.close();
-                	}
+                    if (del != null) {
+                        del.close();
+                    }
                 }
                 count = db.delete(INSTANCES_TABLE_NAME, where, whereArgs);
                 break;
@@ -290,27 +234,28 @@ public class InstanceProvider extends ContentProvider {
 
                 Cursor c = null;
                 try {
-                	c = this.query(uri, null, where, whereArgs, null);
-                	if (c.getCount() > 0) {
-                		c.moveToFirst();
-                		do {
-		                    String instanceFile = c.getString(c.getColumnIndex(InstanceColumns.INSTANCE_FILE_PATH));
-		                    Collect.getInstance().getActivityLogger().logAction(this, "delete", instanceFile);
-		                    File instanceDir = (new File(instanceFile)).getParentFile();
-		                    deleteAllFilesInDirectory(instanceDir);
-                		} while (c.moveToNext());
-	                }
+                    c = this.query(uri, null, where, whereArgs, null);
+                    if (c.getCount() > 0) {
+                        c.moveToFirst();
+                        do {
+                            String instanceFile = c.getString(c.getColumnIndex(InstanceColumns.INSTANCE_FILE_PATH));
+                            Collect.getInstance().getActivityLogger().logAction(this, "delete", instanceFile);
+                            File instanceDir = (new File(instanceFile)).getParentFile();
+                            deleteAllFilesInDirectory(instanceDir);
+                        } while (c.moveToNext());
+                    }
                 } finally {
-                	if ( c != null ) {
-                		c.close();
-                	}
+                    if (c != null) {
+                        c.close();
+                    }
                 }
 
                 count =
-                    db.delete(INSTANCES_TABLE_NAME,
-                        InstanceColumns._ID + "=" + instanceId
-                                + (!TextUtils.isEmpty(where) ? " AND (" + where + ')' : ""),
-                        whereArgs);
+                        db.delete(INSTANCES_TABLE_NAME,
+                                InstanceColumns._ID + "=" + instanceId
+                                        + (!TextUtils.isEmpty(where) ? " AND (" + where + ')' : ""),
+                                whereArgs
+                        );
                 break;
 
             default:
@@ -320,7 +265,6 @@ public class InstanceProvider extends ContentProvider {
         getContext().getContentResolver().notifyChange(uri, null);
         return count;
     }
-
 
     @Override
     public int update(Uri uri, ContentValues values, String where, String[] whereArgs) {
@@ -364,8 +308,8 @@ public class InstanceProvider extends ContentProvider {
                 }
 
                 count =
-                    db.update(INSTANCES_TABLE_NAME, values, InstanceColumns._ID + "=" + instanceId
-                            + (!TextUtils.isEmpty(where) ? " AND (" + where + ')' : ""), whereArgs);
+                        db.update(INSTANCES_TABLE_NAME, values, InstanceColumns._ID + "=" + instanceId
+                                + (!TextUtils.isEmpty(where) ? " AND (" + where + ')' : ""), whereArgs);
                 break;
 
             default:
@@ -375,7 +319,6 @@ public class InstanceProvider extends ContentProvider {
         getContext().getContentResolver().notifyChange(uri, null);
         return count;
     }
-
     static {
         sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
         sUriMatcher.addURI(InstanceProviderAPI.AUTHORITY, "instances", INSTANCES);
@@ -392,6 +335,53 @@ public class InstanceProvider extends ContentProvider {
         sInstancesProjectionMap.put(InstanceColumns.STATUS, InstanceColumns.STATUS);
         sInstancesProjectionMap.put(InstanceColumns.LAST_STATUS_CHANGE_DATE, InstanceColumns.LAST_STATUS_CHANGE_DATE);
         sInstancesProjectionMap.put(InstanceColumns.DISPLAY_SUBTEXT, InstanceColumns.DISPLAY_SUBTEXT);
+    }
+
+    /**
+     * This class helps open, create, and upgrade the database file.
+     */
+    private static class DatabaseHelper extends ODKSQLiteOpenHelper {
+
+        DatabaseHelper(String databaseName) {
+            super(Collect.METADATA_PATH, databaseName, null, DATABASE_VERSION);
+        }
+
+
+        @Override
+        public void onCreate(SQLiteDatabase db) {
+            db.execSQL("CREATE TABLE " + INSTANCES_TABLE_NAME + " ("
+                    + InstanceColumns._ID + " integer primary key, "
+                    + InstanceColumns.DISPLAY_NAME + " text not null, "
+                    + InstanceColumns.SUBMISSION_URI + " text, "
+                    + InstanceColumns.CAN_EDIT_WHEN_COMPLETE + " text, "
+                    + InstanceColumns.INSTANCE_FILE_PATH + " text not null, "
+                    + InstanceColumns.JR_FORM_ID + " text not null, "
+                    + InstanceColumns.JR_VERSION + " text, "
+                    + InstanceColumns.STATUS + " text not null, "
+                    + InstanceColumns.LAST_STATUS_CHANGE_DATE + " date not null, "
+                    + InstanceColumns.DISPLAY_SUBTEXT + " text not null );");
+        }
+
+
+        @Override
+        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+            int initialVersion = oldVersion;
+            if (oldVersion == 1) {
+                db.execSQL("ALTER TABLE " + INSTANCES_TABLE_NAME + " ADD COLUMN " +
+                        InstanceColumns.CAN_EDIT_WHEN_COMPLETE + " text;");
+                db.execSQL("UPDATE " + INSTANCES_TABLE_NAME + " SET " +
+                        InstanceColumns.CAN_EDIT_WHEN_COMPLETE + " = '" + Boolean.toString(true) + "' WHERE " +
+                        InstanceColumns.STATUS + " IS NOT NULL AND " +
+                        InstanceColumns.STATUS + " != '" + InstanceProviderAPI.STATUS_INCOMPLETE + "'");
+                oldVersion = 2;
+            }
+            if (oldVersion == 2) {
+                db.execSQL("ALTER TABLE " + INSTANCES_TABLE_NAME + " ADD COLUMN " +
+                        InstanceColumns.JR_VERSION + " text;");
+            }
+            Log.w(t, "Successfully upgraded database from version " + initialVersion + " to " + newVersion
+                    + ", without destroying all the old data");
+        }
     }
 
 }

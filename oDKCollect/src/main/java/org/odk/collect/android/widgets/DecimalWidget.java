@@ -28,27 +28,11 @@ import java.text.NumberFormat;
 
 /**
  * A widget that restricts values to floating point numbers.
- * 
+ *
  * @author Carl Hartung (carlhartung@gmail.com)
  */
 public class DecimalWidget extends StringWidget {
 
-	private Double getDoubleAnswerValue() {
-		IAnswerData dataHolder = mPrompt.getAnswerValue();
-        Double d = null;
-        if (dataHolder != null) {
-        	Object dataValue = dataHolder.getValue();
-        	if ( dataValue != null ) {
-        		if (dataValue instanceof Integer){
-	                d =  Double.valueOf(((Integer)dataValue).intValue());
-	            } else {
-	                d =  (Double) dataValue;
-	            }
-        	}
-        }
-        return d;
-	}
-	
     public DecimalWidget(Context context, FormEntryPrompt prompt) {
         super(context, prompt, true);
 
@@ -75,7 +59,7 @@ public class DecimalWidget extends StringWidget {
         nf.setMaximumIntegerDigits(15);
         nf.setGroupingUsed(false);
         if (d != null) {
-        	// truncate to 15 digits max...
+            // truncate to 15 digits max...
             String dString = nf.format(d);
             d = Double.parseDouble(dString.replace(',', '.'));
             mAnswer.setText(d.toString());
@@ -87,14 +71,29 @@ public class DecimalWidget extends StringWidget {
             setFocusable(false);
             setClickable(false);
         }
-        
+
         setupChangeListener();
     }
 
+    private Double getDoubleAnswerValue() {
+        IAnswerData dataHolder = mPrompt.getAnswerValue();
+        Double d = null;
+        if (dataHolder != null) {
+            Object dataValue = dataHolder.getValue();
+            if (dataValue != null) {
+                if (dataValue instanceof Integer) {
+                    d = Double.valueOf(((Integer) dataValue).intValue());
+                } else {
+                    d = (Double) dataValue;
+                }
+            }
+        }
+        return d;
+    }
 
     @Override
     public IAnswerData getAnswer() {
-    	clearFocus();
+        clearFocus();
         String s = mAnswer.getText().toString();
         if (s == null || s.equals("")) {
             return null;

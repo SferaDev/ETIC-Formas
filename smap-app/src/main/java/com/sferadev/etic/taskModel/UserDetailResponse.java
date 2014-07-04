@@ -6,8 +6,8 @@ import java.util.List;
 
 public class UserDetailResponse {
 
-	public String message;
-	public String status;
-	@SerializedName("data")
-	public List<UserDetail> userList;
+    public String message;
+    public String status;
+    @SerializedName("data")
+    public List<UserDetail> userList;
 }

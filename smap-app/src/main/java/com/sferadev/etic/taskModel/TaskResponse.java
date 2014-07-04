@@ -8,8 +8,8 @@ import java.util.List;
 
 public class TaskResponse {
 
-	public String message;
-	public String status;
-	@SerializedName("data")
-	public List<TaskAssignment> taskAssignments;
+    public String message;
+    public String status;
+    @SerializedName("data")
+    public List<TaskAssignment> taskAssignments;
 }

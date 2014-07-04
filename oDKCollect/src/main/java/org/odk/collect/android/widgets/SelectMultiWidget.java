@@ -36,14 +36,13 @@ import java.util.Vector;
 
 /**
  * SelctMultiWidget handles multiple selection fields using checkboxes.
- * 
+ *
  * @author Carl Hartung (carlhartung@gmail.com)
  * @author Yaw Anokwa (yanokwa@gmail.com)
  */
 public class SelectMultiWidget extends QuestionWidget {
-    private boolean mCheckboxInit = true;
     Vector<SelectChoice> mItems;
-
+    private boolean mCheckboxInit = true;
     private ArrayList<CheckBox> mCheckboxes;
 
 
@@ -71,7 +70,7 @@ public class SelectMultiWidget extends QuestionWidget {
                 c.setTextSize(TypedValue.COMPLEX_UNIT_DIP, mAnswerFontsize);
                 c.setFocusable(!prompt.isReadOnly());
                 c.setEnabled(!prompt.isReadOnly());
-                
+
                 for (int vi = 0; vi < ve.size(); vi++) {
                     // match based on value, not key
                     if (mItems.get(i).getValue().equals(ve.elementAt(vi).getValue())) {
@@ -88,12 +87,12 @@ public class SelectMultiWidget extends QuestionWidget {
                         if (!mCheckboxInit && mPrompt.isReadOnly()) {
                             if (buttonView.isChecked()) {
                                 buttonView.setChecked(false);
-                               	Collect.getInstance().getActivityLogger().logInstanceAction(this, "onItemClick.deselect", 
-                            			mItems.get((Integer)buttonView.getTag()).getValue(), mPrompt.getIndex());
+                                Collect.getInstance().getActivityLogger().logInstanceAction(this, "onItemClick.deselect",
+                                        mItems.get((Integer) buttonView.getTag()).getValue(), mPrompt.getIndex());
                             } else {
                                 buttonView.setChecked(true);
-                               	Collect.getInstance().getActivityLogger().logInstanceAction(this, "onItemClick.select", 
-                            			mItems.get((Integer)buttonView.getTag()).getValue(), mPrompt.getIndex());
+                                Collect.getInstance().getActivityLogger().logInstanceAction(this, "onItemClick.select",
+                                        mItems.get((Integer) buttonView.getTag()).getValue(), mPrompt.getIndex());
                             }
                         }
                     }
@@ -101,13 +100,13 @@ public class SelectMultiWidget extends QuestionWidget {
 
                 String audioURI = null;
                 audioURI =
-                    prompt.getSpecialFormSelectChoiceText(mItems.get(i),
-                        FormEntryCaption.TEXT_FORM_AUDIO);
+                        prompt.getSpecialFormSelectChoiceText(mItems.get(i),
+                                FormEntryCaption.TEXT_FORM_AUDIO);
 
                 String imageURI = null;
                 imageURI =
-                    prompt.getSpecialFormSelectChoiceText(mItems.get(i),
-                        FormEntryCaption.TEXT_FORM_IMAGE);
+                        prompt.getSpecialFormSelectChoiceText(mItems.get(i),
+                                FormEntryCaption.TEXT_FORM_IMAGE);
 
                 String videoURI = null;
                 videoURI = prompt.getSpecialFormSelectChoiceText(mItems.get(i), "video");
@@ -136,22 +135,22 @@ public class SelectMultiWidget extends QuestionWidget {
 
     @Override
     public void clearAnswer() {
-    	for ( CheckBox c : mCheckboxes ) {
-    		if ( c.isChecked() ) {
-    			c.setChecked(false);
-    		}
-    	}
+        for (CheckBox c : mCheckboxes) {
+            if (c.isChecked()) {
+                c.setChecked(false);
+            }
+        }
     }
 
 
     @Override
     public IAnswerData getAnswer() {
         Vector<Selection> vc = new Vector<Selection>();
-        for ( int i = 0; i < mCheckboxes.size() ; ++i ) {
-        	CheckBox c = mCheckboxes.get(i);
-        	if ( c.isChecked() ) {
-        		vc.add(new Selection(mItems.get(i)));
-        	}
+        for (int i = 0; i < mCheckboxes.size(); ++i) {
+            CheckBox c = mCheckboxes.get(i);
+            if (c.isChecked()) {
+                vc.add(new Selection(mItems.get(i)));
+            }
         }
 
         if (vc.size() == 0) {
@@ -167,7 +166,7 @@ public class SelectMultiWidget extends QuestionWidget {
     public void setFocus(Context context) {
         // Hide the soft keyboard if it's showing.
         InputMethodManager inputManager =
-            (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         inputManager.hideSoftInputFromWindow(this.getWindowToken(), 0);
     }
 

@@ -31,7 +31,7 @@ import java.util.ArrayList;
 
 /**
  * Allows the user to create desktop shortcuts to any form currently avaiable to Collect
- * 
+ *
  * @author ctsims
  * @author carlhartung (modified for ODK)
  */
@@ -67,23 +67,23 @@ public class AndroidShortcuts extends Activity {
 
         Cursor c = null;
         try {
-        	c = getContentResolver().query(FormsColumns.CONTENT_URI, null, null, null, null);
-        
-	        if (c.getCount() > 0) {
-	            c.moveToPosition(-1);
-	            while (c.moveToNext()) {
-	                String formName = c.getString(c.getColumnIndex(FormsColumns.DISPLAY_NAME));
-	                names.add(formName);
-	                Uri uri =
-	                    Uri.withAppendedPath(FormsColumns.CONTENT_URI,
-	                        c.getString(c.getColumnIndex(FormsColumns._ID)));
-	                commands.add(uri);
-	            }
-	        }
+            c = getContentResolver().query(FormsColumns.CONTENT_URI, null, null, null, null);
+
+            if (c.getCount() > 0) {
+                c.moveToPosition(-1);
+                while (c.moveToNext()) {
+                    String formName = c.getString(c.getColumnIndex(FormsColumns.DISPLAY_NAME));
+                    names.add(formName);
+                    Uri uri =
+                            Uri.withAppendedPath(FormsColumns.CONTENT_URI,
+                                    c.getString(c.getColumnIndex(FormsColumns._ID)));
+                    commands.add(uri);
+                }
+            }
         } finally {
-        	if ( c != null ) {
-        		c.close();
-        	}
+            if (c != null) {
+                c.close();
+            }
         }
 
         mNames = names.toArray(new String[0]);

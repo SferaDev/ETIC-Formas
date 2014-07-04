@@ -23,5 +23,6 @@ import java.util.HashMap;
  */
 public interface UserDownloaderListener {
     void userDownloadingComplete(HashMap<String, UserDetail> result);
+
     void userDownloadingProgressUpdate(String progress);
 }

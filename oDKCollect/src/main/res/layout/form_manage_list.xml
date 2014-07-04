@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 Copyright (C) 2009 University of Washington
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -19,15 +18,15 @@ the License.
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:layout_alignParentTop="true" >
-    
-     <LinearLayout
+    android:layout_alignParentTop="true">
+
+    <LinearLayout
         android:id="@+id/buttonholder"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal" >
-        
+        android:orientation="horizontal">
+
         <Button
             android:id="@+id/toggle_button"
             android:layout_width="wrap_content"
@@ -36,7 +35,7 @@ the License.
             android:padding="12dp"
             android:text="@string/toggle_selected"
             android:textSize="16sp" />
-         
+
         <Button
             android:id="@+id/delete_button"
             android:layout_width="wrap_content"
@@ -47,37 +46,33 @@ the License.
             android:textSize="16sp" />
 
     </LinearLayout>
-    
-
-        <TextView
-            android:id="@+id/status_text"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="#DDDDDD"
-            android:padding="5dp"
-            android:paddingTop="0dp"
-            android:text="@string/form_scan_starting"
-            android:textSize="14sp"
-            android:layout_alignParentTop="true" />
-
-        <ListView
-            android:id="@android:id/list"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_below="@+id/status_text"
-            android:layout_above="@+id/buttonholder"
-        	 />
-
-        <TextView
-            android:id="@android:id/empty"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:gravity="center"
-            android:text="@string/no_items_display"
-            android:textSize="21sp" />
 
 
-    
+    <TextView
+        android:id="@+id/status_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="#DDDDDD"
+        android:padding="5dp"
+        android:paddingTop="0dp"
+        android:text="@string/form_scan_starting"
+        android:textSize="14sp" />
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/buttonholder"
+        android:layout_below="@+id/status_text" />
+
+    <TextView
+        android:id="@android:id/empty"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:text="@string/no_items_display"
+        android:textSize="21sp" />
 
 
 </RelativeLayout>

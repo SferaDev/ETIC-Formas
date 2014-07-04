@@ -21,5 +21,6 @@ import org.odk.collect.android.tasks.FormLoaderTask;
  */
 public interface FormLoaderListener {
     void loadingComplete(FormLoaderTask task);
+
     void loadingError(String errorMsg);
 }

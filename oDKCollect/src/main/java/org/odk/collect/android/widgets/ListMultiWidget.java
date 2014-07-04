@@ -56,7 +56,7 @@ import java.util.Vector;
  * widget was at the top of your field list to provide the labels. If audio or video are specified
  * in the select answers they are ignored. This class is almost identical to ListWidget, except it
  * uses checkboxes. It also did not require a custom clickListener class.
- * 
+ *
  * @author Jeff Beorse (jeff@beorse.net)
  */
 public class ListMultiWidget extends QuestionWidget {
@@ -67,7 +67,7 @@ public class ListMultiWidget extends QuestionWidget {
     LinearLayout questionLayout;
 
     private boolean mCheckboxInit = true;
-    
+
     private Vector<SelectChoice> mItems; // may take a while to compute...
 
     private ArrayList<CheckBox> mCheckboxes;
@@ -113,12 +113,12 @@ public class ListMultiWidget extends QuestionWidget {
                         if (!mCheckboxInit && mPrompt.isReadOnly()) {
                             if (buttonView.isChecked()) {
                                 buttonView.setChecked(false);
-                               	Collect.getInstance().getActivityLogger().logInstanceAction(this, "onItemClick.deselect", 
-                            			mItems.get((Integer)buttonView.getTag()).getValue(), mPrompt.getIndex());
+                                Collect.getInstance().getActivityLogger().logInstanceAction(this, "onItemClick.deselect",
+                                        mItems.get((Integer) buttonView.getTag()).getValue(), mPrompt.getIndex());
                             } else {
                                 buttonView.setChecked(true);
-                               	Collect.getInstance().getActivityLogger().logInstanceAction(this, "onItemClick.select", 
-                            			mItems.get((Integer)buttonView.getTag()).getValue(), mPrompt.getIndex());
+                                Collect.getInstance().getActivityLogger().logInstanceAction(this, "onItemClick.select",
+                                        mItems.get((Integer) buttonView.getTag()).getValue(), mPrompt.getIndex());
                             }
                         }
                     }
@@ -126,8 +126,8 @@ public class ListMultiWidget extends QuestionWidget {
 
                 String imageURI = null;
                 imageURI =
-                    prompt.getSpecialFormSelectChoiceText(mItems.get(i),
-                        FormEntryCaption.TEXT_FORM_IMAGE);
+                        prompt.getSpecialFormSelectChoiceText(mItems.get(i),
+                                FormEntryCaption.TEXT_FORM_IMAGE);
 
                 // build image view (if an image is provided)
                 ImageView mImageView = null;
@@ -140,19 +140,19 @@ public class ListMultiWidget extends QuestionWidget {
                 if (imageURI != null) {
                     try {
                         String imageFilename =
-                            ReferenceManager._().DeriveReference(imageURI).getLocalURI();
+                                ReferenceManager._().DeriveReference(imageURI).getLocalURI();
                         final File imageFile = new File(imageFilename);
                         if (imageFile.exists()) {
                             Bitmap b = null;
                             try {
                                 Display display =
-                                    ((WindowManager) getContext().getSystemService(
-                                        Context.WINDOW_SERVICE)).getDefaultDisplay();
+                                        ((WindowManager) getContext().getSystemService(
+                                                Context.WINDOW_SERVICE)).getDefaultDisplay();
                                 int screenWidth = display.getWidth();
                                 int screenHeight = display.getHeight();
                                 b =
-                                    FileUtils.getBitmapScaledToDisplay(imageFile, screenHeight,
-                                        screenWidth);
+                                        FileUtils.getBitmapScaledToDisplay(imageFile, screenHeight,
+                                                screenWidth);
                             } catch (OutOfMemoryError e) {
                                 errorMsg = "ERROR: " + e.getMessage();
                             }
@@ -210,13 +210,13 @@ public class ListMultiWidget extends QuestionWidget {
                         new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
                 headerParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
                 headerParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
-                
+
                 RelativeLayout.LayoutParams buttonParams =
                         new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
                 buttonParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
 
                 if (mImageView != null) {
-                	mImageView.setScaleType(ScaleType.CENTER);
+                    mImageView.setScaleType(ScaleType.CENTER);
                     if (!displayLabel) {
                         mImageView.setVisibility(View.GONE);
                     }
@@ -225,21 +225,21 @@ public class ListMultiWidget extends QuestionWidget {
                     answer.addView(mMissingImage, headerParams);
                 } else {
                     if (displayLabel) {
-                    	label.setId(labelId);
+                        label.setId(labelId);
                         answer.addView(label, headerParams);
                     }
 
                 }
                 if (displayLabel) {
-                	buttonParams.addRule(RelativeLayout.BELOW, labelId);
+                    buttonParams.addRule(RelativeLayout.BELOW, labelId);
                 }
                 answer.addView(c, buttonParams);
                 answer.setPadding(4, 0, 4, 0);
 
                 // /Each button gets equal weight
                 LayoutParams answerParams =
-                    new LayoutParams(LayoutParams.FILL_PARENT,
-                            LayoutParams.WRAP_CONTENT);
+                        new LayoutParams(LayoutParams.FILL_PARENT,
+                                LayoutParams.WRAP_CONTENT);
                 answerParams.weight = 1;
 
                 buttonLayout.addView(answer, answerParams);
@@ -256,7 +256,7 @@ public class ListMultiWidget extends QuestionWidget {
 
         // The buttons take up the right half of the screen
         LayoutParams buttonParams =
-            new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
+                new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
         buttonParams.weight = 1;
 
         questionLayout.addView(buttonLayout, buttonParams);
@@ -268,7 +268,7 @@ public class ListMultiWidget extends QuestionWidget {
     @Override
     public void clearAnswer() {
         for (int i = 0; i < mCheckboxes.size(); i++) {
-        	CheckBox c = mCheckboxes.get(i);
+            CheckBox c = mCheckboxes.get(i);
             if (c.isChecked()) {
                 c.setChecked(false);
             }
@@ -280,7 +280,7 @@ public class ListMultiWidget extends QuestionWidget {
     public IAnswerData getAnswer() {
         Vector<Selection> vc = new Vector<Selection>();
         for (int i = 0; i < mCheckboxes.size(); i++) {
-        	CheckBox c = mCheckboxes.get(i);
+            CheckBox c = mCheckboxes.get(i);
             if (c.isChecked()) {
                 vc.add(new Selection(mItems.get(i)));
             }
@@ -299,7 +299,7 @@ public class ListMultiWidget extends QuestionWidget {
     public void setFocus(Context context) {
         // Hide the soft keyboard if it's showing.
         InputMethodManager inputManager =
-            (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         inputManager.hideSoftInputFromWindow(this.getWindowToken(), 0);
     }
 
@@ -309,7 +309,7 @@ public class ListMultiWidget extends QuestionWidget {
     protected void addQuestionText(FormEntryPrompt p) {
 
         // Add the text view. Textview always exists, regardless of whether there's text.
-    	TextView questionText = new TextView(getContext());
+        TextView questionText = new TextView(getContext());
         questionText.setText(p.getLongText());
         questionText.setTextSize(TypedValue.COMPLEX_UNIT_DIP, mQuestionFontsize);
         questionText.setTypeface(null, Typeface.BOLD);
@@ -325,7 +325,7 @@ public class ListMultiWidget extends QuestionWidget {
 
         // Put the question text on the left half of the screen
         LayoutParams labelParams =
-            new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
+                new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
         labelParams.weight = 1;
 
         questionLayout = new LinearLayout(getContext());

@@ -31,21 +31,15 @@ import org.odk.collect.android.application.Collect;
 
 /**
  * Widget that allows user to scan barcodes and add them to the form.
- * 
+ *
  * @author Yaw Anokwa (yanokwa@gmail.com)
  */
 public class TriggerWidget extends QuestionWidget {
 
+    private static final String mOK = "OK";
     private CheckBox mTriggerButton;
     private TextView mStringAnswer;
-    private static final String mOK = "OK";
-
     private FormEntryPrompt mPrompt;
-
-
-    public FormEntryPrompt getPrompt() {
-        return mPrompt;
-    }
 
 
     public TriggerWidget(Context context, FormEntryPrompt prompt) {
@@ -66,12 +60,12 @@ public class TriggerWidget extends QuestionWidget {
             public void onClick(View v) {
                 if (mTriggerButton.isChecked()) {
                     mStringAnswer.setText(mOK);
-                	Collect.getInstance().getActivityLogger().logInstanceAction(TriggerWidget.this, "triggerButton", 
-                			"OK", mPrompt.getIndex());
+                    Collect.getInstance().getActivityLogger().logInstanceAction(TriggerWidget.this, "triggerButton",
+                            "OK", mPrompt.getIndex());
                 } else {
                     mStringAnswer.setText(null);
-                	Collect.getInstance().getActivityLogger().logInstanceAction(TriggerWidget.this, "triggerButton", 
-                			"null", mPrompt.getIndex());
+                    Collect.getInstance().getActivityLogger().logInstanceAction(TriggerWidget.this, "triggerButton",
+                            "null", mPrompt.getIndex());
                 }
             }
         });
@@ -97,6 +91,9 @@ public class TriggerWidget extends QuestionWidget {
         // this.addView(mStringAnswer);
     }
 
+    public FormEntryPrompt getPrompt() {
+        return mPrompt;
+    }
 
     @Override
     public void clearAnswer() {
@@ -120,7 +117,7 @@ public class TriggerWidget extends QuestionWidget {
     public void setFocus(Context context) {
         // Hide the soft keyboard if it's showing.
         InputMethodManager inputManager =
-            (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         inputManager.hideSoftInputFromWindow(this.getWindowToken(), 0);
     }
 

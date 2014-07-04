@@ -29,7 +29,7 @@ import org.odk.collect.android.application.Collect;
 
 /**
  * A host activity for {@link org.odk.collect.android.activities.InstanceChooserList}.
- * 
+ *
  * @author Yaw Anokwa (yanokwa@gmail.com)
  */
 public class InstanceChooserTabs extends TabActivity {

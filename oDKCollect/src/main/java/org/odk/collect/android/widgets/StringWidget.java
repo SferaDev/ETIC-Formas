@@ -39,14 +39,13 @@ import org.odk.collect.android.application.Collect;
  * @author Yaw Anokwa (yanokwa@gmail.com)
  */
 public class StringWidget extends QuestionWidget {
-	private static final String ROWS = "rows";
-
-    boolean mReadOnly = false;
+    private static final String ROWS = "rows";
     protected EditText mAnswer;
+    boolean mReadOnly = false;
 
     public StringWidget(Context context, FormEntryPrompt prompt) {
-    	this(context, prompt, true);
-    	setupChangeListener();
+        this(context, prompt, true);
+        setupChangeListener();
     }
 
     protected StringWidget(Context context, FormEntryPrompt prompt, boolean derived) {
@@ -71,14 +70,14 @@ public class StringWidget extends QuestionWidget {
          * will set the height of the EditText box to 5 rows high.
          */
         String height = prompt.getQuestion().getAdditionalAttribute(null, ROWS);
-        if ( height != null && height.length() != 0 ) {
-        	try {
-	        	int rows = Integer.valueOf(height);
-	        	mAnswer.setMinLines(rows);
-	        	mAnswer.setGravity(Gravity.TOP); // to write test starting at the top of the edit area
-        	} catch (Exception e) {
-        		Log.e(this.getClass().getName(), "Unable to process the rows setting for the answer field: " + e.toString());
-        	}
+        if (height != null && height.length() != 0) {
+            try {
+                int rows = Integer.valueOf(height);
+                mAnswer.setMinLines(rows);
+                mAnswer.setGravity(Gravity.TOP); // to write test starting at the top of the edit area
+            } catch (Exception e) {
+                Log.e(this.getClass().getName(), "Unable to process the rows setting for the answer field: " + e.toString());
+            }
         }
 
         params.setMargins(7, 5, 7, 5);
@@ -107,25 +106,26 @@ public class StringWidget extends QuestionWidget {
 
     protected void setupChangeListener() {
         mAnswer.addTextChangedListener(new TextWatcher() {
-        	private String oldText = "";
+            private String oldText = "";
 
-			@Override
-			public void afterTextChanged(Editable s) {
-				if (!s.toString().equals(oldText)) {
-					Collect.getInstance().getActivityLogger()
-						.logInstanceAction(this, "answerTextChanged", s.toString(),	getPrompt().getIndex());
-				}
-			}
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (!s.toString().equals(oldText)) {
+                    Collect.getInstance().getActivityLogger()
+                            .logInstanceAction(this, "answerTextChanged", s.toString(), getPrompt().getIndex());
+                }
+            }
 
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {
-				oldText = s.toString();
-			}
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                oldText = s.toString();
+            }
 
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before,
-					int count) { }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before,
+                                      int count) {
+            }
         });
     }
 
@@ -137,8 +137,8 @@ public class StringWidget extends QuestionWidget {
 
     @Override
     public IAnswerData getAnswer() {
-    	clearFocus();
-    	String s = mAnswer.getText().toString();
+        clearFocus();
+        String s = mAnswer.getText().toString();
         if (s == null || s.equals("")) {
             return null;
         } else {
@@ -152,7 +152,7 @@ public class StringWidget extends QuestionWidget {
         // Put focus on text input field and display soft keyboard if appropriate.
         mAnswer.requestFocus();
         InputMethodManager inputManager =
-            (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         if (!mReadOnly) {
             inputManager.showSoftInput(mAnswer, 0);
             /*

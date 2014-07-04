@@ -30,371 +30,370 @@ import java.util.List;
 
 /**
  * Consolidate all interactions with media providers here.
- * 
- * @author mitchellsundt@gmail.com
  *
+ * @author mitchellsundt@gmail.com
  */
 public class MediaUtils {
-	private static final String t = "MediaUtils";
-	
-	private MediaUtils() {
-		// static methods only
-	}
-	
-	private static String escapePath(String path) {
-		String ep = path;
-		ep = ep.replaceAll("\\!", "!!");
-		ep = ep.replaceAll("_", "!_");
-		ep = ep.replaceAll("%", "!%");
-		return ep;
-	}
-	
-	public static final Uri getImageUriFromMediaProvider(String imageFile) {
+    private static final String t = "MediaUtils";
+
+    private MediaUtils() {
+        // static methods only
+    }
+
+    private static String escapePath(String path) {
+        String ep = path;
+        ep = ep.replaceAll("\\!", "!!");
+        ep = ep.replaceAll("_", "!_");
+        ep = ep.replaceAll("%", "!%");
+        return ep;
+    }
+
+    public static final Uri getImageUriFromMediaProvider(String imageFile) {
         String selection = Images.ImageColumns.DATA + "=?";
-        String[] selectArgs = { imageFile };
-        String[] projection = { Images.ImageColumns._ID };
+        String[] selectArgs = {imageFile};
+        String[] projection = {Images.ImageColumns._ID};
         Cursor c = null;
         try {
-        	c = Collect.getInstance().getContentResolver().query(
-                        Images.Media.EXTERNAL_CONTENT_URI,
-                        projection, selection, selectArgs, null);
+            c = Collect.getInstance().getContentResolver().query(
+                    Images.Media.EXTERNAL_CONTENT_URI,
+                    projection, selection, selectArgs, null);
             if (c.getCount() > 0) {
                 c.moveToFirst();
                 String id = c.getString(c.getColumnIndex(Images.ImageColumns._ID));
 
                 return Uri.withAppendedPath(
-                    Images.Media.EXTERNAL_CONTENT_URI, id);
+                        Images.Media.EXTERNAL_CONTENT_URI, id);
             }
             return null;
         } finally {
-        	if ( c != null ) {
-        		c.close();
-        	}
+            if (c != null) {
+                c.close();
+            }
         }
-	}
-	
-	public static final int deleteImageFileFromMediaProvider(String imageFile) {
-		ContentResolver cr = Collect.getInstance().getContentResolver();
+    }
+
+    public static final int deleteImageFileFromMediaProvider(String imageFile) {
+        ContentResolver cr = Collect.getInstance().getContentResolver();
         // images
-		int count = 0;
+        int count = 0;
         Cursor imageCursor = null;
         try {
             String select =
-                    Images.Media.DATA + "=?";   
-            String[] selectArgs = { imageFile };
+                    Images.Media.DATA + "=?";
+            String[] selectArgs = {imageFile};
 
             String[] projection = {
-                Images.ImageColumns._ID
+                    Images.ImageColumns._ID
             };
             imageCursor = cr.query(
-                        Images.Media.EXTERNAL_CONTENT_URI,
-                        projection, select, selectArgs, null);
+                    Images.Media.EXTERNAL_CONTENT_URI,
+                    projection, select, selectArgs, null);
             if (imageCursor.getCount() > 0) {
                 imageCursor.moveToFirst();
                 List<Uri> imagesToDelete = new ArrayList<Uri>();
                 do {
-	                String id =
-	                    imageCursor.getString(imageCursor
-	                            .getColumnIndex(Images.ImageColumns._ID));
-	
-	                	imagesToDelete.add(Uri.withAppendedPath(
-	                                    Images.Media.EXTERNAL_CONTENT_URI,
-	                                    id));
-                } while ( imageCursor.moveToNext());
-                
-                for ( Uri uri : imagesToDelete ) {
-	                Log.i(t,"attempting to delete: " + uri );
-	                count += cr.delete(uri, null, null);
+                    String id =
+                            imageCursor.getString(imageCursor
+                                    .getColumnIndex(Images.ImageColumns._ID));
+
+                    imagesToDelete.add(Uri.withAppendedPath(
+                            Images.Media.EXTERNAL_CONTENT_URI,
+                            id));
+                } while (imageCursor.moveToNext());
+
+                for (Uri uri : imagesToDelete) {
+                    Log.i(t, "attempting to delete: " + uri);
+                    count += cr.delete(uri, null, null);
                 }
             }
-        } catch ( Exception e ) {
-        	Log.e(t, e.toString());
+        } catch (Exception e) {
+            Log.e(t, e.toString());
         } finally {
-        	if ( imageCursor != null ) {
+            if (imageCursor != null) {
                 imageCursor.close();
-        	}
+            }
         }
         File f = new File(imageFile);
-        if ( f.exists() ) {
-        	f.delete();
+        if (f.exists()) {
+            f.delete();
         }
         return count;
-	}
-	
-	public static final int deleteImagesInFolderFromMediaProvider(File folder) {
-		ContentResolver cr = Collect.getInstance().getContentResolver();
+    }
+
+    public static final int deleteImagesInFolderFromMediaProvider(File folder) {
+        ContentResolver cr = Collect.getInstance().getContentResolver();
         // images
-		int count = 0;
+        int count = 0;
         Cursor imageCursor = null;
         try {
             String select =
-                    Images.Media.DATA + " like ? escape '!'";   
-            String[] selectArgs = { escapePath(folder.getAbsolutePath()) };
+                    Images.Media.DATA + " like ? escape '!'";
+            String[] selectArgs = {escapePath(folder.getAbsolutePath())};
 
             String[] projection = {
-                Images.ImageColumns._ID
+                    Images.ImageColumns._ID
             };
             imageCursor = cr.query(
-                        Images.Media.EXTERNAL_CONTENT_URI,
-                        projection, select, selectArgs, null);
+                    Images.Media.EXTERNAL_CONTENT_URI,
+                    projection, select, selectArgs, null);
             if (imageCursor.getCount() > 0) {
                 imageCursor.moveToFirst();
                 List<Uri> imagesToDelete = new ArrayList<Uri>();
                 do {
-	                String id =
-	                    imageCursor.getString(imageCursor
-	                            .getColumnIndex(Images.ImageColumns._ID));
-	
-	                imagesToDelete.add(Uri.withAppendedPath(
-	                                    Images.Media.EXTERNAL_CONTENT_URI,
-	                                    id));
-                } while ( imageCursor.moveToNext());
-                
-                for ( Uri uri : imagesToDelete ) {
-	                Log.i(t,"attempting to delete: " + uri );
-	                count += cr.delete(uri, null, null);
+                    String id =
+                            imageCursor.getString(imageCursor
+                                    .getColumnIndex(Images.ImageColumns._ID));
+
+                    imagesToDelete.add(Uri.withAppendedPath(
+                            Images.Media.EXTERNAL_CONTENT_URI,
+                            id));
+                } while (imageCursor.moveToNext());
+
+                for (Uri uri : imagesToDelete) {
+                    Log.i(t, "attempting to delete: " + uri);
+                    count += cr.delete(uri, null, null);
                 }
             }
-        } catch ( Exception e ) {
-        	Log.e(t, e.toString());
+        } catch (Exception e) {
+            Log.e(t, e.toString());
         } finally {
-        	if ( imageCursor != null ) {
+            if (imageCursor != null) {
                 imageCursor.close();
-        	}
+            }
         }
         return count;
-	}
-	
-	
-	public static final Uri getAudioUriFromMediaProvider(String audioFile) {
+    }
+
+
+    public static final Uri getAudioUriFromMediaProvider(String audioFile) {
         String selection = Audio.AudioColumns.DATA + "=?";
-        String[] selectArgs = { audioFile };
-        String[] projection = { Audio.AudioColumns._ID };
+        String[] selectArgs = {audioFile};
+        String[] projection = {Audio.AudioColumns._ID};
         Cursor c = null;
         try {
-        	c = Collect.getInstance().getContentResolver().query(
-                        Audio.Media.EXTERNAL_CONTENT_URI,
-                        projection, selection, selectArgs, null);
+            c = Collect.getInstance().getContentResolver().query(
+                    Audio.Media.EXTERNAL_CONTENT_URI,
+                    projection, selection, selectArgs, null);
             if (c.getCount() > 0) {
                 c.moveToFirst();
                 String id = c.getString(c.getColumnIndex(Audio.AudioColumns._ID));
 
                 return Uri.withAppendedPath(
-                    Audio.Media.EXTERNAL_CONTENT_URI, id);
+                        Audio.Media.EXTERNAL_CONTENT_URI, id);
             }
             return null;
         } finally {
-        	if ( c != null ) {
-        		c.close();
-        	}
+            if (c != null) {
+                c.close();
+            }
         }
-	}
+    }
 
-	public static final int deleteAudioFileFromMediaProvider(String audioFile) {
-		ContentResolver cr = Collect.getInstance().getContentResolver();
+    public static final int deleteAudioFileFromMediaProvider(String audioFile) {
+        ContentResolver cr = Collect.getInstance().getContentResolver();
         // audio
-		int count = 0;
+        int count = 0;
         Cursor audioCursor = null;
         try {
             String select =
-                    Audio.Media.DATA + "=?";   
-            String[] selectArgs = { audioFile };
+                    Audio.Media.DATA + "=?";
+            String[] selectArgs = {audioFile};
 
             String[] projection = {
-            		Audio.AudioColumns._ID
+                    Audio.AudioColumns._ID
             };
             audioCursor = cr.query(
-                        Audio.Media.EXTERNAL_CONTENT_URI,
-                        projection, select, selectArgs, null);
+                    Audio.Media.EXTERNAL_CONTENT_URI,
+                    projection, select, selectArgs, null);
             if (audioCursor.getCount() > 0) {
                 audioCursor.moveToFirst();
                 List<Uri> audioToDelete = new ArrayList<Uri>();
                 do {
-	                String id =
-	                    audioCursor.getString(audioCursor
-	                            .getColumnIndex(Audio.AudioColumns._ID));
-	
-	                audioToDelete.add(Uri.withAppendedPath(
-	                                    Audio.Media.EXTERNAL_CONTENT_URI,
-	                                    id));
-                } while ( audioCursor.moveToNext());
-                
-                for ( Uri uri : audioToDelete ) {
-	                Log.i(t,"attempting to delete: " + uri );
-	                count += cr.delete(uri, null, null);
+                    String id =
+                            audioCursor.getString(audioCursor
+                                    .getColumnIndex(Audio.AudioColumns._ID));
+
+                    audioToDelete.add(Uri.withAppendedPath(
+                            Audio.Media.EXTERNAL_CONTENT_URI,
+                            id));
+                } while (audioCursor.moveToNext());
+
+                for (Uri uri : audioToDelete) {
+                    Log.i(t, "attempting to delete: " + uri);
+                    count += cr.delete(uri, null, null);
                 }
             }
-        } catch ( Exception e ) {
-        	Log.e(t, e.toString());
+        } catch (Exception e) {
+            Log.e(t, e.toString());
         } finally {
-        	if ( audioCursor != null ) {
+            if (audioCursor != null) {
                 audioCursor.close();
-        	}
+            }
         }
         File f = new File(audioFile);
-        if ( f.exists() ) {
-        	f.delete();
+        if (f.exists()) {
+            f.delete();
         }
         return count;
-	}
+    }
 
-	public static final int deleteAudioInFolderFromMediaProvider(File folder) {
-		ContentResolver cr = Collect.getInstance().getContentResolver();
+    public static final int deleteAudioInFolderFromMediaProvider(File folder) {
+        ContentResolver cr = Collect.getInstance().getContentResolver();
         // audio
-		int count = 0;
+        int count = 0;
         Cursor audioCursor = null;
         try {
             String select =
-                    Audio.Media.DATA + " like ? escape '!'";   
-            String[] selectArgs = { escapePath(folder.getAbsolutePath()) };
+                    Audio.Media.DATA + " like ? escape '!'";
+            String[] selectArgs = {escapePath(folder.getAbsolutePath())};
 
             String[] projection = {
-            		Audio.AudioColumns._ID
+                    Audio.AudioColumns._ID
             };
             audioCursor = cr.query(
-                        Audio.Media.EXTERNAL_CONTENT_URI,
-                        projection, select, selectArgs, null);
+                    Audio.Media.EXTERNAL_CONTENT_URI,
+                    projection, select, selectArgs, null);
             if (audioCursor.getCount() > 0) {
                 audioCursor.moveToFirst();
                 List<Uri> audioToDelete = new ArrayList<Uri>();
                 do {
-	                String id =
-	                    audioCursor.getString(audioCursor
-	                            .getColumnIndex(Audio.AudioColumns._ID));
-	
-	                audioToDelete.add(Uri.withAppendedPath(
-	                                    Audio.Media.EXTERNAL_CONTENT_URI,
-	                                    id));
-                } while ( audioCursor.moveToNext());
-                
-                for ( Uri uri : audioToDelete ) {
-	                Log.i(t,"attempting to delete: " + uri );
-	                count += cr.delete(uri, null, null);
+                    String id =
+                            audioCursor.getString(audioCursor
+                                    .getColumnIndex(Audio.AudioColumns._ID));
+
+                    audioToDelete.add(Uri.withAppendedPath(
+                            Audio.Media.EXTERNAL_CONTENT_URI,
+                            id));
+                } while (audioCursor.moveToNext());
+
+                for (Uri uri : audioToDelete) {
+                    Log.i(t, "attempting to delete: " + uri);
+                    count += cr.delete(uri, null, null);
                 }
             }
-        } catch ( Exception e ) {
-        	Log.e(t, e.toString());
+        } catch (Exception e) {
+            Log.e(t, e.toString());
         } finally {
-        	if ( audioCursor != null ) {
+            if (audioCursor != null) {
                 audioCursor.close();
-        	}
+            }
         }
         return count;
-	}
-	
-	public static final Uri getVideoUriFromMediaProvider(String videoFile) {
+    }
+
+    public static final Uri getVideoUriFromMediaProvider(String videoFile) {
         String selection = Video.VideoColumns.DATA + "=?";
-        String[] selectArgs = { videoFile };
-        String[] projection = { Video.VideoColumns._ID };
+        String[] selectArgs = {videoFile};
+        String[] projection = {Video.VideoColumns._ID};
         Cursor c = null;
         try {
-        	c = Collect.getInstance().getContentResolver().query(
-                        Video.Media.EXTERNAL_CONTENT_URI,
-                        projection, selection, selectArgs, null);
+            c = Collect.getInstance().getContentResolver().query(
+                    Video.Media.EXTERNAL_CONTENT_URI,
+                    projection, selection, selectArgs, null);
             if (c.getCount() > 0) {
                 c.moveToFirst();
                 String id = c.getString(c.getColumnIndex(Video.VideoColumns._ID));
 
                 return Uri.withAppendedPath(
-                    Video.Media.EXTERNAL_CONTENT_URI, id);
+                        Video.Media.EXTERNAL_CONTENT_URI, id);
             }
             return null;
         } finally {
-        	if ( c != null ) {
-        		c.close();
-        	}
+            if (c != null) {
+                c.close();
+            }
         }
-	}
-	
-	public static final int deleteVideoFileFromMediaProvider(String videoFile) {
-		ContentResolver cr = Collect.getInstance().getContentResolver();
+    }
+
+    public static final int deleteVideoFileFromMediaProvider(String videoFile) {
+        ContentResolver cr = Collect.getInstance().getContentResolver();
         // video
-		int count = 0;
+        int count = 0;
         Cursor videoCursor = null;
         try {
             String select =
-                    Video.Media.DATA + "=?";   
-            String[] selectArgs = { videoFile };
+                    Video.Media.DATA + "=?";
+            String[] selectArgs = {videoFile};
 
             String[] projection = {
-            		Video.VideoColumns._ID
+                    Video.VideoColumns._ID
             };
             videoCursor = cr.query(
-                        Video.Media.EXTERNAL_CONTENT_URI,
-                        projection, select, selectArgs, null);
+                    Video.Media.EXTERNAL_CONTENT_URI,
+                    projection, select, selectArgs, null);
             if (videoCursor.getCount() > 0) {
                 videoCursor.moveToFirst();
                 List<Uri> videoToDelete = new ArrayList<Uri>();
                 do {
-	                String id =
-	                    videoCursor.getString(videoCursor
-	                            .getColumnIndex(Video.VideoColumns._ID));
-	
-	                videoToDelete.add(Uri.withAppendedPath(
-	                                    Video.Media.EXTERNAL_CONTENT_URI,
-	                                    id));
-                } while ( videoCursor.moveToNext());
-                
-                for ( Uri uri : videoToDelete ) {
-	                Log.i(t,"attempting to delete: " + uri );
-	                count += cr.delete(uri, null, null);
+                    String id =
+                            videoCursor.getString(videoCursor
+                                    .getColumnIndex(Video.VideoColumns._ID));
+
+                    videoToDelete.add(Uri.withAppendedPath(
+                            Video.Media.EXTERNAL_CONTENT_URI,
+                            id));
+                } while (videoCursor.moveToNext());
+
+                for (Uri uri : videoToDelete) {
+                    Log.i(t, "attempting to delete: " + uri);
+                    count += cr.delete(uri, null, null);
                 }
             }
-        } catch ( Exception e ) {
-        	Log.e(t, e.toString());
+        } catch (Exception e) {
+            Log.e(t, e.toString());
         } finally {
-        	if ( videoCursor != null ) {
+            if (videoCursor != null) {
                 videoCursor.close();
-        	}
+            }
         }
         File f = new File(videoFile);
-        if ( f.exists() ) {
-        	f.delete();
+        if (f.exists()) {
+            f.delete();
         }
         return count;
-	}
-	
-	public static final int deleteVideoInFolderFromMediaProvider(File folder) {
-		ContentResolver cr = Collect.getInstance().getContentResolver();
+    }
+
+    public static final int deleteVideoInFolderFromMediaProvider(File folder) {
+        ContentResolver cr = Collect.getInstance().getContentResolver();
         // video
-		int count = 0;
+        int count = 0;
         Cursor videoCursor = null;
         try {
             String select =
-                    Video.Media.DATA + " like ? escape '!'";   
-            String[] selectArgs = { escapePath(folder.getAbsolutePath()) };
+                    Video.Media.DATA + " like ? escape '!'";
+            String[] selectArgs = {escapePath(folder.getAbsolutePath())};
 
             String[] projection = {
-            		Video.VideoColumns._ID
+                    Video.VideoColumns._ID
             };
             videoCursor = cr.query(
-                        Video.Media.EXTERNAL_CONTENT_URI,
-                        projection, select, selectArgs, null);
+                    Video.Media.EXTERNAL_CONTENT_URI,
+                    projection, select, selectArgs, null);
             if (videoCursor.getCount() > 0) {
                 videoCursor.moveToFirst();
                 List<Uri> videoToDelete = new ArrayList<Uri>();
                 do {
-	                String id =
-	                    videoCursor.getString(videoCursor
-	                            .getColumnIndex(Video.VideoColumns._ID));
-	
-	                videoToDelete.add(Uri.withAppendedPath(
-	                                    Video.Media.EXTERNAL_CONTENT_URI,
-	                                    id));
-                } while ( videoCursor.moveToNext());
-                
-                for ( Uri uri : videoToDelete ) {
-	                Log.i(t,"attempting to delete: " + uri );
-	                count += cr.delete(uri, null, null);
+                    String id =
+                            videoCursor.getString(videoCursor
+                                    .getColumnIndex(Video.VideoColumns._ID));
+
+                    videoToDelete.add(Uri.withAppendedPath(
+                            Video.Media.EXTERNAL_CONTENT_URI,
+                            id));
+                } while (videoCursor.moveToNext());
+
+                for (Uri uri : videoToDelete) {
+                    Log.i(t, "attempting to delete: " + uri);
+                    count += cr.delete(uri, null, null);
                 }
             }
-        } catch ( Exception e ) {
-        	Log.e(t, e.toString());
+        } catch (Exception e) {
+            Log.e(t, e.toString());
         } finally {
-        	if ( videoCursor != null ) {
+            if (videoCursor != null) {
                 videoCursor.close();
-        	}
+            }
         }
         return count;
-	}
+    }
 }

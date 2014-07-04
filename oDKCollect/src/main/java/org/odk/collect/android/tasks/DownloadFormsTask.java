@@ -69,11 +69,9 @@ public class DownloadFormsTask extends
     private static final String t = "DownloadFormsTask";
 
     private static final String MD5_COLON_PREFIX = "md5:";
-
-    private FormDownloaderListener mStateListener;
-
     private static final String NAMESPACE_OPENROSA_ORG_XFORMS_XFORMS_MANIFEST =
-        "http://openrosa.org/xforms/xformsManifest";
+            "http://openrosa.org/xforms/xformsManifest";
+    private FormDownloaderListener mStateListener;
 
     private boolean isXformsManifestNamespacedElement(Element e) {
         return e.getNamespace().equalsIgnoreCase(NAMESPACE_OPENROSA_ORG_XFORMS_XFORMS_MANIFEST);
@@ -86,7 +84,7 @@ public class DownloadFormsTask extends
 
         int total = toDownload.size();
         int count = 1;
-    	Collect.getInstance().getActivityLogger().logAction(this, "downloadForms", String.valueOf(total));
+        Collect.getInstance().getActivityLogger().logAction(this, "downloadForms", String.valueOf(total));
 
         HashMap<FormDetails, String> result = new HashMap<FormDetails, String>();
 
@@ -109,64 +107,64 @@ public class DownloadFormsTask extends
                             FormsColumns._ID, FormsColumns.FORM_FILE_PATH
                     };
                     String[] selectionArgs = {
-                        dl.getAbsolutePath()
+                            dl.getAbsolutePath()
                     };
                     String selection = FormsColumns.FORM_FILE_PATH + "=?";
                     alreadyExists = Collect.getInstance()
                             .getContentResolver()
                             .query(FormsColumns.CONTENT_URI, projection, selection, selectionArgs,
-                                null);
+                                    null);
 
-	                if (alreadyExists.getCount() <= 0) {
-	                    // doesn't exist, so insert it
-	                    ContentValues v = new ContentValues();
-	                    v.put(FormsColumns.FORM_FILE_PATH, dl.getAbsolutePath());
+                    if (alreadyExists.getCount() <= 0) {
+                        // doesn't exist, so insert it
+                        ContentValues v = new ContentValues();
+                        v.put(FormsColumns.FORM_FILE_PATH, dl.getAbsolutePath());
 
-	                    HashMap<String, String> formInfo = FileUtils.parseXML(dl);
-	                    v.put(FormsColumns.DISPLAY_NAME, formInfo.get(FileUtils.TITLE));
-	                    v.put(FormsColumns.JR_VERSION, formInfo.get(FileUtils.VERSION));
-	                    v.put(FormsColumns.JR_FORM_ID, formInfo.get(FileUtils.FORMID));
-	                    v.put(FormsColumns.SUBMISSION_URI, formInfo.get(FileUtils.SUBMISSIONURI));
-	                    v.put(FormsColumns.BASE64_RSA_PUBLIC_KEY, formInfo.get(FileUtils.BASE64_RSA_PUBLIC_KEY));
-	                    uri =
-	                        Collect.getInstance().getContentResolver()
-	                                .insert(FormsColumns.CONTENT_URI, v);
-	                	Collect.getInstance().getActivityLogger().logAction(this, "insert", dl.getAbsolutePath());
+                        HashMap<String, String> formInfo = FileUtils.parseXML(dl);
+                        v.put(FormsColumns.DISPLAY_NAME, formInfo.get(FileUtils.TITLE));
+                        v.put(FormsColumns.JR_VERSION, formInfo.get(FileUtils.VERSION));
+                        v.put(FormsColumns.JR_FORM_ID, formInfo.get(FileUtils.FORMID));
+                        v.put(FormsColumns.SUBMISSION_URI, formInfo.get(FileUtils.SUBMISSIONURI));
+                        v.put(FormsColumns.BASE64_RSA_PUBLIC_KEY, formInfo.get(FileUtils.BASE64_RSA_PUBLIC_KEY));
+                        uri =
+                                Collect.getInstance().getContentResolver()
+                                        .insert(FormsColumns.CONTENT_URI, v);
+                        Collect.getInstance().getActivityLogger().logAction(this, "insert", dl.getAbsolutePath());
 
-	                } else {
-	                    alreadyExists.moveToFirst();
-	                    uri =
-	                        Uri.withAppendedPath(FormsColumns.CONTENT_URI,
-	                            alreadyExists.getString(alreadyExists.getColumnIndex(FormsColumns._ID)));
-	                	Collect.getInstance().getActivityLogger().logAction(this, "refresh", dl.getAbsolutePath());
-	                }
+                    } else {
+                        alreadyExists.moveToFirst();
+                        uri =
+                                Uri.withAppendedPath(FormsColumns.CONTENT_URI,
+                                        alreadyExists.getString(alreadyExists.getColumnIndex(FormsColumns._ID)));
+                        Collect.getInstance().getActivityLogger().logAction(this, "refresh", dl.getAbsolutePath());
+                    }
                 } finally {
-                	if ( alreadyExists != null ) {
-                		alreadyExists.close();
-                	}
+                    if (alreadyExists != null) {
+                        alreadyExists.close();
+                    }
                 }
 
                 if (fd.manifestUrl != null) {
-                	String formMediaPath = null;
-                	Cursor c = null;
-                	try {
-                		c = Collect.getInstance().getContentResolver()
+                    String formMediaPath = null;
+                    Cursor c = null;
+                    try {
+                        c = Collect.getInstance().getContentResolver()
                                 .query(uri, null, null, null, null);
-	                    if (c.getCount() > 0) {
-	                        // should be exactly 1
-	                        c.moveToFirst();
-	                        formMediaPath = c.getString(c.getColumnIndex(FormsColumns.FORM_MEDIA_PATH));
-	                    }
-                	} finally {
-                		if ( c != null ) {
-                			c.close();
-                		}
-                	}
+                        if (c.getCount() > 0) {
+                            // should be exactly 1
+                            c.moveToFirst();
+                            formMediaPath = c.getString(c.getColumnIndex(FormsColumns.FORM_MEDIA_PATH));
+                        }
+                    } finally {
+                        if (c != null) {
+                            c.close();
+                        }
+                    }
 
-                	if ( formMediaPath != null ) {
+                    if (formMediaPath != null) {
                         String error =
-                            downloadManifestAndMediaFiles(formMediaPath, fd,
-                                count, total);
+                                downloadManifestAndMediaFiles(formMediaPath, fd,
+                                        count, total);
                         if (error != null) {
                             message += error;
                         }
@@ -205,7 +203,7 @@ public class DownloadFormsTask extends
      * @return
      * @throws Exception
      */
-    public File downloadXform(String formName, String url) throws Exception {	// Smap (made public)
+    public File downloadXform(String formName, String url) throws Exception {    // Smap (made public)
         File f = null;
 
         // clean up friendly form name...
@@ -228,31 +226,31 @@ public class DownloadFormsTask extends
         // we've downloaded the file, and we may have renamed it
         // make sure it's not the same as a file we already have
         String[] projection = {
-            FormsColumns.FORM_FILE_PATH
+                FormsColumns.FORM_FILE_PATH
         };
         String[] selectionArgs = {
-            FileUtils.getMd5Hash(f)
+                FileUtils.getMd5Hash(f)
         };
         String selection = FormsColumns.MD5_HASH + "=?";
 
         Cursor c = null;
         try {
-        	c = Collect.getInstance().getContentResolver()
+            c = Collect.getInstance().getContentResolver()
                     .query(FormsColumns.CONTENT_URI, projection, selection, selectionArgs, null);
-	        if (c.getCount() > 0) {
-	            // Should be at most, 1
-	            c.moveToFirst();
+            if (c.getCount() > 0) {
+                // Should be at most, 1
+                c.moveToFirst();
 
-	            // delete the file we just downloaded, because it's a duplicate
-	            f.delete();
+                // delete the file we just downloaded, because it's a duplicate
+                f.delete();
 
-	            // set the file returned to the file we already had
-	            f = new File(c.getString(c.getColumnIndex(FormsColumns.FORM_FILE_PATH)));
-	        }
+                // set the file returned to the file we already had
+                f = new File(c.getString(c.getColumnIndex(FormsColumns.FORM_FILE_PATH)));
+            }
         } finally {
-        	if ( c != null ) {
-        		c.close();
-        	}
+            if (c != null) {
+                c.close();
+            }
         }
 
         return f;
@@ -267,7 +265,7 @@ public class DownloadFormsTask extends
      * @param downloadUrl
      * @throws Exception
      */
-    public void downloadFile(File f, String downloadUrl) throws Exception {	// smap (made public)
+    public void downloadFile(File f, String downloadUrl) throws Exception {    // smap (made public)
         URI uri = null;
         try {
             // assume the downloadUrl is escaped properly
@@ -287,125 +285,111 @@ public class DownloadFormsTask extends
         boolean success = false;
         int attemptCount = 0;
         final int MAX_ATTEMPT_COUNT = 2;
-        while ( !success && ++attemptCount <= MAX_ATTEMPT_COUNT ) {
-	        // get shared HttpContext so that authentication and cookies are retained.
-	        HttpContext localContext = Collect.getInstance().getHttpContext();
+        while (!success && ++attemptCount <= MAX_ATTEMPT_COUNT) {
+            // get shared HttpContext so that authentication and cookies are retained.
+            HttpContext localContext = Collect.getInstance().getHttpContext();
 
-	        HttpClient httpclient = WebUtils.createHttpClient(WebUtils.CONNECTION_TIMEOUT);
-	
-	        // ---------------- Smap Start
-	        // Add credentials
-	        SharedPreferences settings =
-	            PreferenceManager.getDefaultSharedPreferences(Collect.getInstance());
-	        
-	        String username = settings.getString(PreferencesActivity.KEY_USERNAME, null);
-	        String password = settings.getString(PreferencesActivity.KEY_PASSWORD, null);
+            HttpClient httpclient = WebUtils.createHttpClient(WebUtils.CONNECTION_TIMEOUT);
+
+            // ---------------- Smap Start
+            // Add credentials
+            SharedPreferences settings =
+                    PreferenceManager.getDefaultSharedPreferences(Collect.getInstance());
+
+            String username = settings.getString(PreferencesActivity.KEY_USERNAME, null);
+            String password = settings.getString(PreferencesActivity.KEY_PASSWORD, null);
 
             String server = Collect.getInstance().getString(R.string.default_server_url);
-	        final String url =
-	                server + settings.getString(PreferencesActivity.KEY_FORMLIST_URL, "/formList");
-	        if(username != null && password != null) {
-	        	Uri u = Uri.parse(url);
-	        	WebUtils.addCredentials(username, password, u.getHost());
-	        }
-	        // Smap End
-	        
-	        // set up request...
-	        HttpGet req = WebUtils.createOpenRosaHttpGet(uri);
-	        req.addHeader(WebUtils.ACCEPT_ENCODING_HEADER, WebUtils.GZIP_CONTENT_ENCODING);
+            final String url =
+                    server + settings.getString(PreferencesActivity.KEY_FORMLIST_URL, "/formList");
+            if (username != null && password != null) {
+                Uri u = Uri.parse(url);
+                WebUtils.addCredentials(username, password, u.getHost());
+            }
+            // Smap End
 
-	        HttpResponse response = null;
-	        try {
-	            response = httpclient.execute(req, localContext);
-	            int statusCode = response.getStatusLine().getStatusCode();
+            // set up request...
+            HttpGet req = WebUtils.createOpenRosaHttpGet(uri);
+            req.addHeader(WebUtils.ACCEPT_ENCODING_HEADER, WebUtils.GZIP_CONTENT_ENCODING);
 
-	            if (statusCode != HttpStatus.SC_OK) {
-	            	WebUtils.discardEntityBytes(response);
-	            	if (statusCode == HttpStatus.SC_UNAUTHORIZED) {
-	            		// clear the cookies -- should not be necessary?
-	            		Collect.getInstance().getCookieStore().clear();
-	            	}
-	                String errMsg =
-	                    Collect.getInstance().getString(R.string.file_fetch_failed, downloadUrl,
-	                        response.getStatusLine().getReasonPhrase(), statusCode);
-	                Log.e(t, errMsg);
-	                throw new Exception(errMsg);
-	            }
+            HttpResponse response = null;
+            try {
+                response = httpclient.execute(req, localContext);
+                int statusCode = response.getStatusLine().getStatusCode();
 
-	            // write connection to file
-	            InputStream is = null;
-	            OutputStream os = null;
-	            try {
-	            	HttpEntity entity = response.getEntity();
-	                is = entity.getContent();
-	                Header contentEncoding = entity.getContentEncoding();
-	                if ( contentEncoding != null && contentEncoding.getValue().equalsIgnoreCase(WebUtils.GZIP_CONTENT_ENCODING) ) {
-	                	is = new GZIPInputStream(is);
-	                }
-	                os = new FileOutputStream(f);
-	                byte buf[] = new byte[1024];
-	                int len;
-	                while ((len = is.read(buf)) > 0) {
-	                    os.write(buf, 0, len);
-	                }
-	                os.flush();
-	                success = true;
-	            } finally {
-	                if (os != null) {
-	                    try {
-	                        os.close();
-	                    } catch (Exception e) {
-	                    }
-	                }
-	                if (is != null) {
-	                	try {
-	                		// ensure stream is consumed...
-	                        final long count = 1024L;
-	                        while (is.skip(count) == count)
-	                            ;
-	                	} catch (Exception e) {
-	                		// no-op
-	                	}
-	                    try {
-	                        is.close();
-	                    } catch (Exception e) {
-	                    }
-	                }
-	            }
+                if (statusCode != HttpStatus.SC_OK) {
+                    WebUtils.discardEntityBytes(response);
+                    if (statusCode == HttpStatus.SC_UNAUTHORIZED) {
+                        // clear the cookies -- should not be necessary?
+                        Collect.getInstance().getCookieStore().clear();
+                    }
+                    String errMsg =
+                            Collect.getInstance().getString(R.string.file_fetch_failed, downloadUrl,
+                                    response.getStatusLine().getReasonPhrase(), statusCode);
+                    Log.e(t, errMsg);
+                    throw new Exception(errMsg);
+                }
 
-	        } catch (Exception e) {
-	        	Log.e(t, e.toString());
-	            e.printStackTrace();
-	            // silently retry unless this is the last attempt,
-	            // in which case we rethrow the exception.
-	            if ( attemptCount == MAX_ATTEMPT_COUNT ) {
-	            	throw e;
-	            }
-	        }
+                // write connection to file
+                InputStream is = null;
+                OutputStream os = null;
+                try {
+                    HttpEntity entity = response.getEntity();
+                    is = entity.getContent();
+                    Header contentEncoding = entity.getContentEncoding();
+                    if (contentEncoding != null && contentEncoding.getValue().equalsIgnoreCase(WebUtils.GZIP_CONTENT_ENCODING)) {
+                        is = new GZIPInputStream(is);
+                    }
+                    os = new FileOutputStream(f);
+                    byte buf[] = new byte[1024];
+                    int len;
+                    while ((len = is.read(buf)) > 0) {
+                        os.write(buf, 0, len);
+                    }
+                    os.flush();
+                    success = true;
+                } finally {
+                    if (os != null) {
+                        try {
+                            os.close();
+                        } catch (Exception e) {
+                        }
+                    }
+                    if (is != null) {
+                        try {
+                            // ensure stream is consumed...
+                            final long count = 1024L;
+                            while (is.skip(count) == count)
+                                ;
+                        } catch (Exception e) {
+                            // no-op
+                        }
+                        try {
+                            is.close();
+                        } catch (Exception e) {
+                        }
+                    }
+                }
+
+            } catch (Exception e) {
+                Log.e(t, e.toString());
+                e.printStackTrace();
+                // silently retry unless this is the last attempt,
+                // in which case we rethrow the exception.
+                if (attemptCount == MAX_ATTEMPT_COUNT) {
+                    throw e;
+                }
+            }
         }
     }
-
-    private static class MediaFile {
-        final String filename;
-        final String hash;
-        final String downloadUrl;
-
-
-        MediaFile(String filename, String hash, String downloadUrl) {
-            this.filename = filename;
-            this.hash = hash;
-            this.downloadUrl = downloadUrl;
-        }
-    }
-
 
     private String downloadManifestAndMediaFiles(String mediaPath, FormDetails fd, int count,
-            int total) {
+                                                 int total) {
         if (fd.manifestUrl == null)
             return null;
 
         publishProgress(Collect.getInstance().getString(R.string.fetching_manifest, fd.formName),
-            Integer.valueOf(count).toString(), Integer.valueOf(total).toString());
+                Integer.valueOf(count).toString(), Integer.valueOf(total).toString());
 
         List<MediaFile> files = new ArrayList<MediaFile>();
         // get shared HttpContext so that authentication and cookies are retained.
@@ -414,7 +398,7 @@ public class DownloadFormsTask extends
         HttpClient httpclient = WebUtils.createHttpClient(WebUtils.CONNECTION_TIMEOUT);
 
         DocumentFetchResult result =
-            WebUtils.getXmlDocument(fd.manifestUrl, localContext, httpclient);
+                WebUtils.getXmlDocument(fd.manifestUrl, localContext, httpclient);
 
         if (result.errorMessage != null) {
             return result.errorMessage;
@@ -432,8 +416,8 @@ public class DownloadFormsTask extends
         Element manifestElement = result.doc.getRootElement();
         if (!manifestElement.getName().equals("manifest")) {
             errMessage +=
-                Collect.getInstance().getString(R.string.root_element_error,
-                    manifestElement.getName());
+                    Collect.getInstance().getString(R.string.root_element_error,
+                            manifestElement.getName());
             Log.e(t, errMessage);
             return errMessage;
         }
@@ -491,8 +475,8 @@ public class DownloadFormsTask extends
                 }
                 if (filename == null || downloadUrl == null || hash == null) {
                     errMessage +=
-                        Collect.getInstance().getString(R.string.manifest_tag_error,
-                            Integer.toString(i));
+                            Collect.getInstance().getString(R.string.manifest_tag_error,
+                                    Integer.toString(i));
                     Log.e(t, errMessage);
                     return errMessage;
                 }
@@ -512,9 +496,10 @@ public class DownloadFormsTask extends
                 }
                 ++mediaCount;
                 publishProgress(
-                    Collect.getInstance().getString(R.string.form_download_progress, fd.formName,
-                        mediaCount, files.size()), Integer.valueOf(count).toString(), Integer
-                            .valueOf(total).toString());
+                        Collect.getInstance().getString(R.string.form_download_progress, fd.formName,
+                                mediaCount, files.size()), Integer.valueOf(count).toString(), Integer
+                                .valueOf(total).toString()
+                );
                 try {
                     File mediaFile = new File(mediaDir, toDownload.filename);
 
@@ -532,7 +517,7 @@ public class DownloadFormsTask extends
                         } else {
                             // exists, and the hash is the same
                             // no need to download it again
-                        	Log.i(t, "Skipping media file fetch -- file hashes identical: " + mediaFile.getAbsolutePath());
+                            Log.i(t, "Skipping media file fetch -- file hashes identical: " + mediaFile.getAbsolutePath());
                         }
                     }
                 } catch (Exception e) {
@@ -543,7 +528,6 @@ public class DownloadFormsTask extends
         return null;
     }
 
-
     @Override
     protected void onPostExecute(HashMap<FormDetails, String> value) {
         synchronized (this) {
@@ -553,24 +537,35 @@ public class DownloadFormsTask extends
         }
     }
 
-
     @Override
     protected void onProgressUpdate(String... values) {
         synchronized (this) {
             if (mStateListener != null) {
                 // update progress and total
                 mStateListener.progressUpdate(values[0],
-                	Integer.valueOf(values[1]),
-                    Integer.valueOf(values[2]));
+                        Integer.valueOf(values[1]),
+                        Integer.valueOf(values[2]));
             }
         }
 
     }
 
-
     public void setDownloaderListener(FormDownloaderListener sl) {
         synchronized (this) {
             mStateListener = sl;
+        }
+    }
+
+    private static class MediaFile {
+        final String filename;
+        final String hash;
+        final String downloadUrl;
+
+
+        MediaFile(String filename, String hash, String downloadUrl) {
+            this.filename = filename;
+            this.hash = hash;
+            this.downloadUrl = downloadUrl;
         }
     }
 

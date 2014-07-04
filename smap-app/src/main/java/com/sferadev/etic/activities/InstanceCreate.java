@@ -26,13 +26,13 @@ import com.sferadev.etic.utilities.ManageFormResponse;
  * Creates an instance with initial data
  * This instance represents a task
  * Parameters:
- * 	1) form name
- *  2) form url 
- *  3) Initial instance data url
+ * 1) form name
+ * 2) form url
+ * 3) Initial instance data url
  */
 public class InstanceCreate extends Activity {
-	
-	ManageFormResponse mfResponse = null;
+
+    ManageFormResponse mfResponse = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,27 +46,33 @@ public class InstanceCreate extends Activity {
          * 3. Get the instance path
          * 4. Write the instance initial data to the sdcard
          * 5. Create the new instance entry in the content provider
-         */     
+         */
         String taskId = null;
         String formURL = null;
         String initialDataURL = null;
 
-        
-         // Get the input parameters
-        Bundle extras = getIntent().getExtras();
-		if (extras != null) {
-			taskId = extras.getString("taskId");
-			formURL = extras.getString("formURL");
-			initialDataURL = extras.getString("initialDataURL");
-		}  
 
-		if(taskId != null) {Log.i("InstanceCreate taskid", taskId);}	// Debug
-		if(formURL != null) {Log.i("InstanceCreate formURL", formURL);}	// Debug
-		if(initialDataURL != null) {Log.i("InstanceCreate instanceData", initialDataURL);}	// Debug
-		
-		ManageForm mf = new ManageForm();
-		mfResponse = mf.insertForm(taskId, formURL, initialDataURL,"1");
-   
+        // Get the input parameters
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            taskId = extras.getString("taskId");
+            formURL = extras.getString("formURL");
+            initialDataURL = extras.getString("initialDataURL");
+        }
+
+        if (taskId != null) {
+            Log.i("InstanceCreate taskid", taskId);
+        }    // Debug
+        if (formURL != null) {
+            Log.i("InstanceCreate formURL", formURL);
+        }    // Debug
+        if (initialDataURL != null) {
+            Log.i("InstanceCreate instanceData", initialDataURL);
+        }    // Debug
+
+        ManageForm mf = new ManageForm();
+        mfResponse = mf.insertForm(taskId, formURL, initialDataURL, "1");
+
         finish();
     }
 
@@ -78,25 +84,25 @@ public class InstanceCreate extends Activity {
      */
     @Override
     public void finish() {
-    	Intent data = new Intent();
-    	
-    	if(mfResponse != null) {
-	    	if(mfResponse.isError) {
-	    		
-		    	data.putExtra("status", "error");
-		    	data.putExtra("message", mfResponse.statusMsg);
-	    		
-	    	} else {
-	    		
-		    	String instanceUri = mfResponse.mUri.toString();	    		
-		    	data.putExtra("status", "success");
-		    	data.putExtra("instanceUri", instanceUri);
-		    	
-	    	}
-	    	setResult(RESULT_OK, data);
-    	}
-    	super.finish();
+        Intent data = new Intent();
+
+        if (mfResponse != null) {
+            if (mfResponse.isError) {
+
+                data.putExtra("status", "error");
+                data.putExtra("message", mfResponse.statusMsg);
+
+            } else {
+
+                String instanceUri = mfResponse.mUri.toString();
+                data.putExtra("status", "success");
+                data.putExtra("instanceUri", instanceUri);
+
+            }
+            setResult(RESULT_OK, data);
+        }
+        super.finish();
     }
-    
+
 
 }

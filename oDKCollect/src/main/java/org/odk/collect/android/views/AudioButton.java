@@ -40,14 +40,37 @@ import java.io.IOException;
  */
 public class AudioButton extends ImageButton implements OnClickListener {
     private final static String t = "AudioButton";
+    AudioHandler handler;
+
+    public AudioButton(Context context, FormIndex index, String selectionDesignator, String URI) {
+        super(context);
+        this.setOnClickListener(this);
+        handler = new AudioHandler(index, selectionDesignator, URI);
+        Bitmap b =
+                BitmapFactory.decodeResource(context.getResources(),
+                        android.R.drawable.ic_lock_silent_mode_off);
+        this.setImageBitmap(b);
+    }
+
+    public void playAudio() {
+        handler.playAudio(getContext());
+    }
+
+    @Override
+    public void onClick(View v) {
+        playAudio();
+    }
+
+    public void stopPlaying() {
+        handler.stopPlaying();
+    }
 
     /**
      * Useful class for handling the playing and stopping of audio prompts.
      * This is used here, and also in the GridMultiWidget and GridWidget
      * to play prompts as items are selected.
-     * 
-     * @author mitchellsundt@gmail.com
      *
+     * @author mitchellsundt@gmail.com
      */
     public static class AudioHandler {
         private FormIndex index;
@@ -61,13 +84,14 @@ public class AudioButton extends ImageButton implements OnClickListener {
             this.URI = URI;
             player = null;
         }
+
         public void playAudio(Context c) {
-        	Collect.getInstance().getActivityLogger().logInstanceAction(this, "onClick.playAudioPrompt", selectionDesignator, index);
+            Collect.getInstance().getActivityLogger().logInstanceAction(this, "onClick.playAudioPrompt", selectionDesignator, index);
             if (URI == null) {
                 // No audio file specified
                 Log.e(t, "No audio file was specified");
                 Toast.makeText(c, c.getString(R.string.audio_file_error),
-                    Toast.LENGTH_LONG).show();
+                        Toast.LENGTH_LONG).show();
                 return;
             }
 
@@ -109,7 +133,7 @@ public class AudioButton extends ImageButton implements OnClickListener {
                 Toast.makeText(c, errorMsg, Toast.LENGTH_LONG).show();
                 e.printStackTrace();
             }
-        	
+
         }
 
         public void stopPlaying() {
@@ -117,31 +141,5 @@ public class AudioButton extends ImageButton implements OnClickListener {
                 player.release();
             }
         }
-    }
-
-    AudioHandler handler; 
-    
-    public AudioButton(Context context, FormIndex index, String selectionDesignator, String URI) {
-        super(context);
-        this.setOnClickListener(this);
-        handler = new AudioHandler( index, selectionDesignator, URI);
-        Bitmap b =
-            BitmapFactory.decodeResource(context.getResources(),
-                android.R.drawable.ic_lock_silent_mode_off);
-        this.setImageBitmap(b);
-    }
-
-    public void playAudio() {
-    	handler.playAudio(getContext());
-    }
-
-    @Override
-    public void onClick(View v) {
-    	playAudio();
-    }
-
-
-    public void stopPlaying() {
-        handler.stopPlaying();
     }
 }

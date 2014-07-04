@@ -1,13 +1,13 @@
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <Preference
         android:key="odk_preferences"
         android:summary="@string/admin_access_settings"
-        android:title="@string/general_preferences" >
+        android:title="@string/general_preferences">
         <intent
             android:action="android.intent.action.VIEW"
             android:targetClass="org.odk.collect.android.preferences.PreferencesActivity"
-            android:targetPackage="org.odk.collect.android" >
+            android:targetPackage="org.odk.collect.android">
             <extra
                 android:name="adminMode"
                 android:value="true" />
@@ -21,7 +21,7 @@
         android:key="admin_pw"
         android:title="Admin Password" />
 
-    <PreferenceCategory android:title="@string/user_access_main_menu" >
+    <PreferenceCategory android:title="@string/user_access_main_menu">
         <CheckBoxPreference
             android:id="@+id/edit_saved"
             android:defaultValue="true"
@@ -42,12 +42,12 @@
             android:title="@string/get_forms" />
         <CheckBoxPreference
             android:id="@+id/delete_saved"
-            android:summary="@string/found_in_main"
             android:defaultValue="true"
             android:key="delete_saved"
+            android:summary="@string/found_in_main"
             android:title="@string/manage_files" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="@string/user_access_preferences" >
+    <PreferenceCategory android:title="@string/user_access_preferences">
         <CheckBoxPreference
             android:id="@+id/change_url"
             android:defaultValue="true"
@@ -115,7 +115,7 @@
             android:summary="@string/found_in_settings"
             android:title="@string/show_splash" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="@string/user_access_form_entry" >
+    <PreferenceCategory android:title="@string/user_access_form_entry">
         <CheckBoxPreference
             android:id="@+id/access_settings"
             android:defaultValue="true"

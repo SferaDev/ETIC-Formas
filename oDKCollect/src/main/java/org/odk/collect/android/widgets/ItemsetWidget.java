@@ -51,9 +51,8 @@ public class ItemsetWidget extends QuestionWidget implements
         CompoundButton.OnCheckedChangeListener {
 
     private static String tag = "ItemsetWidget";
-
-    boolean mReadOnly;
     protected RadioGroup mButtons;
+    boolean mReadOnly;
     private String mAnswer = null;
     // Hashmap linking label:value
     private HashMap<String, String> mAnswers;
@@ -63,7 +62,7 @@ public class ItemsetWidget extends QuestionWidget implements
     }
 
     protected ItemsetWidget(Context context, FormEntryPrompt prompt,
-            boolean derived) {
+                            boolean derived) {
         super(context, prompt);
         mButtons = new RadioGroup(context);
         mButtons.setId(QuestionWidget.newUniqueId());

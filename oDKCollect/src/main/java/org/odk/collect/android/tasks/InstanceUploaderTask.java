@@ -72,25 +72,21 @@ public class InstanceUploaderTask extends AsyncTask<Long, Integer, InstanceUploa
 
     private InstanceUploaderListener mStateListener;
 
-    public static class Outcome {
-        public Uri mAuthRequestingServer = null;
-        public HashMap<String, String> mResults = new HashMap<String,String>();
-    }
-
     /**
      * Uploads to urlString the submission identified by id with filepath of instance
-     * @param urlString destination URL
+     *
+     * @param urlString        destination URL
      * @param id
      * @param instanceFilePath
-     * @param toUpdate - Instance URL for recording status update.
-     * @param localContext - context (e.g., credentials, cookies) for client connection
-     * @param uriRemap - mapping of Uris to avoid redirects on subsequent invocations
+     * @param toUpdate         - Instance URL for recording status update.
+     * @param localContext     - context (e.g., credentials, cookies) for client connection
+     * @param uriRemap         - mapping of Uris to avoid redirects on subsequent invocations
      * @return false if credentials are required and we should terminate immediately.
      */
     private boolean uploadOneSubmission(String urlString, String id, String instanceFilePath,
-    			Uri toUpdate, HttpContext localContext, Map<Uri, Uri> uriRemap, Outcome outcome, String status) {		// smap add status
+                                        Uri toUpdate, HttpContext localContext, Map<Uri, Uri> uriRemap, Outcome outcome, String status) {        // smap add status
 
-    	Collect.getInstance().getActivityLogger().logAction(this, urlString, instanceFilePath);
+        Collect.getInstance().getActivityLogger().logAction(this, urlString, instanceFilePath);
 
         ContentValues cv = new ContentValues();
         Uri u = Uri.parse(urlString);
@@ -106,16 +102,16 @@ public class InstanceUploaderTask extends AsyncTask<Long, Integer, InstanceUploa
             u = uriRemap.get(u);
 
             // if https then enable preemptive basic auth...
-            if ( u.getScheme().equals("https") ) {
-            	WebUtils.enablePreemptiveBasicAuth(localContext, u.getHost());
+            if (u.getScheme().equals("https")) {
+                WebUtils.enablePreemptiveBasicAuth(localContext, u.getHost());
             }
 
             Log.i(t, "Using Uri remap for submission " + id + ". Now: " + u.toString());
         } else {
 
             // if https then enable preemptive basic auth...
-            if ( u.getScheme().equals("https") ) {
-            	WebUtils.enablePreemptiveBasicAuth(localContext, u.getHost());
+            if (u.getScheme().equals("https")) {
+                WebUtils.enablePreemptiveBasicAuth(localContext, u.getHost());
             }
 
             // we need to issue a head request
@@ -129,13 +125,13 @@ public class InstanceUploaderTask extends AsyncTask<Long, Integer, InstanceUploa
                 response = httpclient.execute(httpHead, localContext);
                 int statusCode = response.getStatusLine().getStatusCode();
                 if (statusCode == HttpStatus.SC_UNAUTHORIZED) {
-            		// clear the cookies -- should not be necessary?
-            		Collect.getInstance().getCookieStore().clear();
+                    // clear the cookies -- should not be necessary?
+                    Collect.getInstance().getCookieStore().clear();
 
-                	WebUtils.discardEntityBytes(response);
-            		// we need authentication, so stop and return what we've
+                    WebUtils.discardEntityBytes(response);
+                    // we need authentication, so stop and return what we've
                     // done so far.
-                	/*
+                    /*
                 	 * Smap Start
                 	 *   just fail the request, the user will need to update userid and password in the parameters
                 	 *   Smap does not at this stage support submissionURL's per survey each with a different user id and password
@@ -144,14 +140,14 @@ public class InstanceUploaderTask extends AsyncTask<Long, Integer, InstanceUploa
                     //mAuthRequestingServer = u;
                     //return false;
                     outcome.mResults.put(id, fail
-                    			+ "Authentication failure.  You will need to fix the username, password or URL in the settings screen.  ");
+                            + "Authentication failure.  You will need to fix the username, password or URL in the settings screen.  ");
                     //cv.put(InstanceColumns.STATUS, InstanceProviderAPI.STATUS_SUBMISSION_FAILED); smap
                     Collect.getInstance().getContentResolver().update(toUpdate, cv, null, null);
                     return true;
                     // Smap end
                 } else if (statusCode == 204) {
-                	Header[] locations = response.getHeaders("Location");
-                	WebUtils.discardEntityBytes(response);
+                    Header[] locations = response.getHeaders("Location");
+                    WebUtils.discardEntityBytes(response);
                     if (locations != null && locations.length == 1) {
                         try {
                             Uri uNew = Uri.parse(URLDecoder.decode(locations[0].getValue(), "utf-8"));
@@ -164,11 +160,12 @@ public class InstanceUploaderTask extends AsyncTask<Long, Integer, InstanceUploa
                             } else {
                                 // Don't follow a redirection attempt to a different host.
                                 // We can't tell if this is a spoof or not.
-                            	outcome.mResults.put(
-                                    id,
-                                    fail
-                                            + "Unexpected redirection attempt to a different host: "
-                                            + uNew.toString());
+                                outcome.mResults.put(
+                                        id,
+                                        fail
+                                                + "Unexpected redirection attempt to a different host: "
+                                                + uNew.toString()
+                                );
                                 //cv.put(InstanceColumns.STATUS,
                                 //    InstanceProviderAPI.STATUS_SUBMISSION_FAILED);  smap
                                 Collect.getInstance().getContentResolver()
@@ -187,14 +184,15 @@ public class InstanceUploaderTask extends AsyncTask<Long, Integer, InstanceUploa
                     }
                 } else {
                     // may be a server that does not handle
-                	WebUtils.discardEntityBytes(response);
+                    WebUtils.discardEntityBytes(response);
 
                     Log.w(t, "Status code on Head request: " + statusCode);
                     if (statusCode >= HttpStatus.SC_OK && statusCode < HttpStatus.SC_MULTIPLE_CHOICES) {
-                    	outcome.mResults.put(
-                            id,
-                            fail
-                                    + "Invalid status code on Head request.  If you have a web proxy, you may need to login to your network. ");
+                        outcome.mResults.put(
+                                id,
+                                fail
+                                        + "Invalid status code on Head request.  If you have a web proxy, you may need to login to your network. "
+                        );
                         //cv.put(InstanceColumns.STATUS,
                         //    InstanceProviderAPI.STATUS_SUBMISSION_FAILED); smap
                         Collect.getInstance().getContentResolver()
@@ -207,7 +205,7 @@ public class InstanceUploaderTask extends AsyncTask<Long, Integer, InstanceUploa
                 Log.e(t, e.toString());
                 WebUtils.clearHttpConnectionManager();
                 outcome.mResults.put(id, fail + "Client Protocol Exception");
-               // cv.put(InstanceColumns.STATUS, InstanceProviderAPI.STATUS_SUBMISSION_FAILED); smap
+                // cv.put(InstanceColumns.STATUS, InstanceProviderAPI.STATUS_SUBMISSION_FAILED); smap
                 Collect.getInstance().getContentResolver().update(toUpdate, cv, null, null);
                 return true;
             } catch (ConnectTimeoutException e) {
@@ -242,11 +240,11 @@ public class InstanceUploaderTask extends AsyncTask<Long, Integer, InstanceUploa
                 //cv.put(InstanceColumns.STATUS, InstanceProviderAPI.STATUS_SUBMISSION_FAILED); smap
                 Collect.getInstance().getContentResolver().update(toUpdate, cv, null, null);
                 return true;
-            } catch (IllegalArgumentException e) {	// smap
+            } catch (IllegalArgumentException e) {    // smap
                 e.printStackTrace();
                 Log.e(t, e.getMessage());
                 outcome.mResults.put(id,
-                    fail + "invalid url: " + urlString + " :: details: " + e.toString());
+                        fail + "invalid url: " + urlString + " :: details: " + e.toString());
                 // cv.put(InstanceColumns.STATUS, InstanceProviderAPI.STATUS_SUBMISSION_FAILED); smap
                 Collect.getInstance().getContentResolver().update(toUpdate, cv, null, null);
                 return true;
@@ -283,14 +281,14 @@ public class InstanceUploaderTask extends AsyncTask<Long, Integer, InstanceUploa
         // will be sent to the server and the server will have to
         // figure out what to do with them.
         File submissionFile = new File(instanceFile.getParentFile(), "submission.xml");
-        if ( submissionFile.exists() ) {
+        if (submissionFile.exists()) {
             Log.w(t, "submission.xml will be uploaded instead of " + instanceFile.getAbsolutePath());
         } else {
             submissionFile = instanceFile;
         }
 
         if (!instanceFile.exists() && !submissionFile.exists()) {
-        	outcome.mResults.put(id, fail + "instance XML file does not exist!");
+            outcome.mResults.put(id, fail + "instance XML file does not exist!");
             // cv.put(InstanceColumns.STATUS, InstanceProviderAPI.STATUS_SUBMISSION_FAILED); smap
             Collect.getInstance().getContentResolver().update(toUpdate, cv, null, null);
             return true;
@@ -337,11 +335,11 @@ public class InstanceUploaderTask extends AsyncTask<Long, Integer, InstanceUploa
         int j = 0;
         int lastJ;
         while (j < files.size() || first) {
-        	lastJ = j;
+            lastJ = j;
             first = false;
 
             HttpPost httppost = WebUtils.createOpenRosaHttpPost(u);
-            httppost.setHeader("form_status", status);						// smap add form_status header
+            httppost.setHeader("form_status", status);                        // smap add form_status header
             Log.i("uploadOneSubmission", "Post to: " + u.toString());
 
             MimeTypeMap m = MimeTypeMap.getSingleton();
@@ -413,7 +411,7 @@ public class InstanceUploaderTask extends AsyncTask<Long, Integer, InstanceUploa
                     entity.addPart(f.getName(), fb);
                     byteCount += f.length();
                     Log.i(t,
-                        "added recognized filetype (" + contentType + ") " + f.getName());
+                            "added recognized filetype (" + contentType + ") " + f.getName());
                 } else {
                     contentType = "application/octet-stream";
                     fb = new FileBody(f, contentType);
@@ -424,7 +422,7 @@ public class InstanceUploaderTask extends AsyncTask<Long, Integer, InstanceUploa
 
                 // we've added at least one attachment to the request...
                 if (j + 1 < files.size()) {
-                    if ((j-lastJ+1 > 100) || (byteCount + files.get(j + 1).length() > 10000000L)) {
+                    if ((j - lastJ + 1 > 100) || (byteCount + files.get(j + 1).length() > 10000000L)) {
                         // the next file would exceed the 10MB threshold...
                         Log.i(t, "Extremely long post is being split into multiple posts");
                         try {
@@ -454,14 +452,14 @@ public class InstanceUploaderTask extends AsyncTask<Long, Integer, InstanceUploa
                 // If it wasn't, the submission has failed.
                 if (responseCode != HttpStatus.SC_CREATED && responseCode != HttpStatus.SC_ACCEPTED) {
                     if (responseCode == HttpStatus.SC_OK) {
-                    	outcome.mResults.put(id, fail + "Network login failure? Again?");
+                        outcome.mResults.put(id, fail + "Network login failure? Again?");
                     } else if (responseCode == HttpStatus.SC_UNAUTHORIZED) {
-                		// clear the cookies -- should not be necessary?
-                    	Collect.getInstance().getCookieStore().clear();
-                    	outcome.mResults.put(id, fail + response.getStatusLine().getReasonPhrase()
+                        // clear the cookies -- should not be necessary?
+                        Collect.getInstance().getCookieStore().clear();
+                        outcome.mResults.put(id, fail + response.getStatusLine().getReasonPhrase()
                                 + " (" + responseCode + ") at " + urlString);
                     } else {
-                    	outcome.mResults.put(id, fail + response.getStatusLine().getReasonPhrase()
+                        outcome.mResults.put(id, fail + response.getStatusLine().getReasonPhrase()
                                 + " (" + responseCode + ") at " + urlString);
                     }
                     //cv.put(InstanceColumns.STATUS,
@@ -498,21 +496,21 @@ public class InstanceUploaderTask extends AsyncTask<Long, Integer, InstanceUploa
     // TODO: This method is like 350 lines long, down from 400.
     // still. ridiculous. make it smaller.
     protected Outcome doInBackground(Long... values) {
-    	Outcome outcome = new Outcome();
+        Outcome outcome = new Outcome();
 
         String selection = InstanceColumns._ID + "=?";
         String[] selectionArgs = new String[(values == null) ? 0 : values.length];
-        if ( values != null ) {
-	        for (int i = 0; i < values.length; i++) {
-	            if (i != values.length - 1) {
-	                selection += " or " + InstanceColumns._ID + "=?";
-	            }
-	            selectionArgs[i] = values[i].toString();
-	        }
+        if (values != null) {
+            for (int i = 0; i < values.length; i++) {
+                if (i != values.length - 1) {
+                    selection += " or " + InstanceColumns._ID + "=?";
+                }
+                selectionArgs[i] = values[i].toString();
+            }
         }
 
         String deviceId = new PropertyManager(Collect.getInstance().getApplicationContext())
-        						.getSingularProperty(PropertyManager.OR_DEVICE_ID_PROPERTY);
+                .getSingularProperty(PropertyManager.OR_DEVICE_ID_PROPERTY);
 
         // get shared HttpContext so that authentication and cookies are retained.
         HttpContext localContext = Collect.getInstance().getHttpContext();
@@ -521,69 +519,69 @@ public class InstanceUploaderTask extends AsyncTask<Long, Integer, InstanceUploa
 
         Cursor c = null;
         try {
-        	c = Collect.getInstance().getContentResolver()
+            c = Collect.getInstance().getContentResolver()
                     .query(InstanceColumns.CONTENT_URI, null, selection, selectionArgs, null);
 
-	        if (c.getCount() > 0) {
-	            c.moveToPosition(-1);
-	            while (c.moveToNext()) {
-	                if (isCancelled()) {
-	                    return outcome;
-	                }
-	                publishProgress(c.getPosition() + 1, c.getCount());
-	                String instance = c.getString(c.getColumnIndex(InstanceColumns.INSTANCE_FILE_PATH));
-	                String id = c.getString(c.getColumnIndex(InstanceColumns._ID));
-	                Uri toUpdate = Uri.withAppendedPath(InstanceColumns.CONTENT_URI, id);
+            if (c.getCount() > 0) {
+                c.moveToPosition(-1);
+                while (c.moveToNext()) {
+                    if (isCancelled()) {
+                        return outcome;
+                    }
+                    publishProgress(c.getPosition() + 1, c.getCount());
+                    String instance = c.getString(c.getColumnIndex(InstanceColumns.INSTANCE_FILE_PATH));
+                    String id = c.getString(c.getColumnIndex(InstanceColumns._ID));
+                    Uri toUpdate = Uri.withAppendedPath(InstanceColumns.CONTENT_URI, id);
 
-	                int subIdx = c.getColumnIndex(InstanceColumns.SUBMISSION_URI);
-	                String urlString = c.isNull(subIdx) ? null : c.getString(subIdx);
-	                if (urlString == null) {
-	                    SharedPreferences settings =
-	                        PreferenceManager.getDefaultSharedPreferences(Collect.getInstance());
+                    int subIdx = c.getColumnIndex(InstanceColumns.SUBMISSION_URI);
+                    String urlString = c.isNull(subIdx) ? null : c.getString(subIdx);
+                    if (urlString == null) {
+                        SharedPreferences settings =
+                                PreferenceManager.getDefaultSharedPreferences(Collect.getInstance());
                         urlString = Collect.getInstance().getString(R.string.default_server_url);
-	                    if ( urlString.charAt(urlString.length()-1) == '/') {
-	                    	urlString = urlString.substring(0, urlString.length()-1);
-	                    }
-	                    // NOTE: /submission must not be translated! It is the well-known path on the server.
-	                    String submissionUrl =
-	                        settings.getString(PreferencesActivity.KEY_SUBMISSION_URL,
-	                        		Collect.getInstance().getString(R.string.default_odk_submission));
-	                    if ( submissionUrl.charAt(0) != '/') {
-	                    	submissionUrl = "/" + submissionUrl;
-	                    }
+                        if (urlString.charAt(urlString.length() - 1) == '/') {
+                            urlString = urlString.substring(0, urlString.length() - 1);
+                        }
+                        // NOTE: /submission must not be translated! It is the well-known path on the server.
+                        String submissionUrl =
+                                settings.getString(PreferencesActivity.KEY_SUBMISSION_URL,
+                                        Collect.getInstance().getString(R.string.default_odk_submission));
+                        if (submissionUrl.charAt(0) != '/') {
+                            submissionUrl = "/" + submissionUrl;
+                        }
 
-	                    urlString = urlString + submissionUrl;
-	                    
-	                    // ---------------- Smap Start
-	                    // Add credentials pre-emptively
-	                    
-	                    String username = settings.getString(PreferencesActivity.KEY_USERNAME, null);
-	                    String password = settings.getString(PreferencesActivity.KEY_PASSWORD, null);
+                        urlString = urlString + submissionUrl;
+
+                        // ---------------- Smap Start
+                        // Add credentials pre-emptively
+
+                        String username = settings.getString(PreferencesActivity.KEY_USERNAME, null);
+                        String password = settings.getString(PreferencesActivity.KEY_PASSWORD, null);
 
                         String server = Collect.getInstance().getString(R.string.default_server_url);
-	                    //final String url =
-	                    //        server + settings.getString(PreferencesActivity.KEY_FORMLIST_URL, "/formList");
-	                    if(username != null && password != null) {
-	                    	Uri u = Uri.parse(urlString);
-	                    	WebUtils.addCredentials(username, password, u.getHost());
-	                    }
-	                    
-	                    // Smap End
-	                }
+                        //final String url =
+                        //        server + settings.getString(PreferencesActivity.KEY_FORMLIST_URL, "/formList");
+                        if (username != null && password != null) {
+                            Uri u = Uri.parse(urlString);
+                            WebUtils.addCredentials(username, password, u.getHost());
+                        }
 
-	                // add the deviceID to the request...
-	                String status = c.getString(c.getColumnIndex(InstanceColumns.STATUS));	// smap get status
-	                try {
-						urlString += "?deviceID=" + URLEncoder.encode(deviceId, "UTF-8");
-					} catch (UnsupportedEncodingException e) {
-						// unreachable...
-					}
+                        // Smap End
+                    }
 
-	                if ( !uploadOneSubmission(urlString, id, instance, toUpdate, localContext, uriRemap, outcome, status) ) {	// smap add status
-	                	return outcome; // get credentials...
-	                }
-	            }
-	        }
+                    // add the deviceID to the request...
+                    String status = c.getString(c.getColumnIndex(InstanceColumns.STATUS));    // smap get status
+                    try {
+                        urlString += "?deviceID=" + URLEncoder.encode(deviceId, "UTF-8");
+                    } catch (UnsupportedEncodingException e) {
+                        // unreachable...
+                    }
+
+                    if (!uploadOneSubmission(urlString, id, instance, toUpdate, localContext, uriRemap, outcome, status)) {    // smap add status
+                        return outcome; // get credentials...
+                    }
+                }
+            }
         } finally {
             if (c != null) {
                 c.close();
@@ -592,7 +590,6 @@ public class InstanceUploaderTask extends AsyncTask<Long, Integer, InstanceUploa
 
         return outcome;
     }
-
 
     @Override
     protected void onPostExecute(Outcome outcome) {
@@ -607,7 +604,6 @@ public class InstanceUploaderTask extends AsyncTask<Long, Integer, InstanceUploa
         }
     }
 
-
     @Override
     protected void onProgressUpdate(Integer... values) {
         synchronized (this) {
@@ -618,10 +614,14 @@ public class InstanceUploaderTask extends AsyncTask<Long, Integer, InstanceUploa
         }
     }
 
-
     public void setUploaderListener(InstanceUploaderListener sl) {
         synchronized (this) {
             mStateListener = sl;
         }
+    }
+
+    public static class Outcome {
+        public Uri mAuthRequestingServer = null;
+        public HashMap<String, String> mResults = new HashMap<String, String>();
     }
 }

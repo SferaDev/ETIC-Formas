@@ -28,73 +28,73 @@ public class NetworkReceiver extends BroadcastReceiver implements InstanceUpload
     // turning on wifi often gets two CONNECTED events. we only want to run one thread at a time
     public static boolean running = false;
     InstanceUploaderTask mInstanceUploaderTask;
-    Context mContext = null;		// smap
+    Context mContext = null;        // smap
 
 
-   @Override
-	public void onReceive(Context context, Intent intent) {
+    @Override
+    public void onReceive(Context context, Intent intent) {
         // make sure sd card is ready, if not don't try to send
         if (!Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             return;
         }
-        
-		String action = intent.getAction();
 
-		NetworkInfo currentNetworkInfo = (NetworkInfo) intent
-				.getParcelableExtra(ConnectivityManager.EXTRA_NETWORK_INFO);
+        String action = intent.getAction();
 
-		if (action.equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
-			if (currentNetworkInfo.getState() == NetworkInfo.State.CONNECTED) {
-				if (interfaceIsEnabled(context, currentNetworkInfo)) {
-					uploadForms(context);
-				}
-			}
-		} else if (action.equals("org.odk.collect.android.FormSaved")) {
-			ConnectivityManager connectivityManager = (ConnectivityManager) context
-					.getSystemService(Context.CONNECTIVITY_SERVICE);
-			NetworkInfo ni = connectivityManager.getActiveNetworkInfo();
+        NetworkInfo currentNetworkInfo = (NetworkInfo) intent
+                .getParcelableExtra(ConnectivityManager.EXTRA_NETWORK_INFO);
 
-			if (ni == null || !ni.isConnected()) {
-				// not connected, do nothing
-			} else {
-				if (interfaceIsEnabled(context, ni)) {
-					uploadForms(context);
-				}
-			}
-		}
-	}
+        if (action.equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
+            if (currentNetworkInfo.getState() == NetworkInfo.State.CONNECTED) {
+                if (interfaceIsEnabled(context, currentNetworkInfo)) {
+                    uploadForms(context);
+                }
+            }
+        } else if (action.equals("org.odk.collect.android.FormSaved")) {
+            ConnectivityManager connectivityManager = (ConnectivityManager) context
+                    .getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo ni = connectivityManager.getActiveNetworkInfo();
 
-	private boolean interfaceIsEnabled(Context context,
-			NetworkInfo currentNetworkInfo) {
-		// make sure autosend is enabled on the given connected interface
-		SharedPreferences sharedPreferences = PreferenceManager
-				.getDefaultSharedPreferences(context);
-		boolean sendwifi = sharedPreferences.getBoolean(
-				PreferencesActivity.KEY_AUTOSEND_WIFI, false);
-		boolean sendnetwork = sharedPreferences.getBoolean(
-				PreferencesActivity.KEY_AUTOSEND_NETWORK, false);
+            if (ni == null || !ni.isConnected()) {
+                // not connected, do nothing
+            } else {
+                if (interfaceIsEnabled(context, ni)) {
+                    uploadForms(context);
+                }
+            }
+        }
+    }
 
-		return (currentNetworkInfo.getType() == ConnectivityManager.TYPE_WIFI
-				&& sendwifi || currentNetworkInfo.getType() == ConnectivityManager.TYPE_MOBILE
-				&& sendnetwork);
-	}
+    private boolean interfaceIsEnabled(Context context,
+                                       NetworkInfo currentNetworkInfo) {
+        // make sure autosend is enabled on the given connected interface
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(context);
+        boolean sendwifi = sharedPreferences.getBoolean(
+                PreferencesActivity.KEY_AUTOSEND_WIFI, false);
+        boolean sendnetwork = sharedPreferences.getBoolean(
+                PreferencesActivity.KEY_AUTOSEND_NETWORK, false);
+
+        return (currentNetworkInfo.getType() == ConnectivityManager.TYPE_WIFI
+                && sendwifi || currentNetworkInfo.getType() == ConnectivityManager.TYPE_MOBILE
+                && sendnetwork);
+    }
 
 
     private void uploadForms(Context context) {
         if (!running) {
-        	mContext = context;			// smap
+            mContext = context;            // smap
             running = true;
 
             String selection = InstanceColumns.STATUS + "=? or " + InstanceColumns.STATUS + "=?";
             String selectionArgs[] =
-                {
-                        InstanceProviderAPI.STATUS_COMPLETE,
-                        InstanceProviderAPI.STATUS_SUBMISSION_FAILED
-                };
+                    {
+                            InstanceProviderAPI.STATUS_COMPLETE,
+                            InstanceProviderAPI.STATUS_SUBMISSION_FAILED
+                    };
 
             Cursor c =
-                context.getContentResolver().query(InstanceColumns.CONTENT_URI, null, selection,
-                    selectionArgs, null);
+                    context.getContentResolver().query(InstanceColumns.CONTENT_URI, null, selection,
+                            selectionArgs, null);
 
             ArrayList<Long> toUpload = new ArrayList<Long>();
             if (c != null && c.getCount() > 0) {
@@ -103,7 +103,7 @@ public class NetworkReceiver extends BroadcastReceiver implements InstanceUpload
                     Long l = c.getLong(c.getColumnIndex(InstanceColumns._ID));
                     toUpload.add(Long.valueOf(l));
                 }
-                
+
                 // get the username, password, and server from preferences
                 SharedPreferences settings =
                         PreferenceManager.getDefaultSharedPreferences(context);
@@ -113,7 +113,7 @@ public class NetworkReceiver extends BroadcastReceiver implements InstanceUpload
                 String server = context.getString(R.string.default_server_url);
                 String url = server
                         + settings.getString(PreferencesActivity.KEY_FORMLIST_URL,
-                                context.getString(R.string.default_odk_formlist));
+                        context.getString(R.string.default_odk_formlist));
 
                 Uri u = Uri.parse(url);
                 WebUtils.addCredentials(storedUsername, storedPassword, u.getHost());
@@ -134,16 +134,16 @@ public class NetworkReceiver extends BroadcastReceiver implements InstanceUpload
     @Override
     public void uploadingComplete(HashMap<String, String> result) {
         // task is done
-    	if(mContext != null) {
-	        mInstanceUploaderTask.setUploaderListener(null);
-	        running = false;
-	        //  Smap Refresh the task list  - start
-	        Intent intent = new Intent("refresh");
-	        LocalBroadcastManager.getInstance(mContext).sendBroadcast(intent);
-	        // End Smap
-    	}
+        if (mContext != null) {
+            mInstanceUploaderTask.setUploaderListener(null);
+            running = false;
+            //  Smap Refresh the task list  - start
+            Intent intent = new Intent("refresh");
+            LocalBroadcastManager.getInstance(mContext).sendBroadcast(intent);
+            // End Smap
+        }
 
-         
+
     }
 
 

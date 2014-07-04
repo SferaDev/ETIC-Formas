@@ -34,29 +34,12 @@ import java.text.NumberFormat;
 /**
  * Launch an external app to supply a decimal value. If the app
  * does not launch, enable the text area for regular data entry.
- *
+ * <p/>
  * See {@link ExStringWidget} for usage.
  *
  * @author mitchellsundt@gmail.com
- *
  */
 public class ExDecimalWidget extends ExStringWidget {
-
-	private Double getDoubleAnswerValue() {
-		IAnswerData dataHolder = mPrompt.getAnswerValue();
-        Double d = null;
-        if (dataHolder != null) {
-        	Object dataValue = dataHolder.getValue();
-        	if ( dataValue != null ) {
-        		if (dataValue instanceof Integer){
-	                d =  Double.valueOf(((Integer)dataValue).intValue());
-	            } else {
-	                d =  (Double) dataValue;
-	            }
-        	}
-        }
-        return d;
-	}
 
     public ExDecimalWidget(Context context, FormEntryPrompt prompt) {
         super(context, prompt);
@@ -79,19 +62,34 @@ public class ExDecimalWidget extends ExStringWidget {
         nf.setMaximumIntegerDigits(15);
         nf.setGroupingUsed(false);
         if (d != null) {
-        	// truncate to 15 digits max...
+            // truncate to 15 digits max...
             String dString = nf.format(d);
             d = Double.parseDouble(dString.replace(',', '.')); // in case , is decimal pt
             mAnswer.setText(d.toString());
         }
     }
 
+    private Double getDoubleAnswerValue() {
+        IAnswerData dataHolder = mPrompt.getAnswerValue();
+        Double d = null;
+        if (dataHolder != null) {
+            Object dataValue = dataHolder.getValue();
+            if (dataValue != null) {
+                if (dataValue instanceof Integer) {
+                    d = Double.valueOf(((Integer) dataValue).intValue());
+                } else {
+                    d = (Double) dataValue;
+                }
+            }
+        }
+        return d;
+    }
 
     @Override
     protected void fireActivity(Intent i) throws ActivityNotFoundException {
-    	i.putExtra("value", getDoubleAnswerValue());
-       	Collect.getInstance().getActivityLogger().logInstanceAction(this, "launchIntent",
-    			i.getAction(), mPrompt.getIndex());
+        i.putExtra("value", getDoubleAnswerValue());
+        Collect.getInstance().getActivityLogger().logInstanceAction(this, "launchIntent",
+                i.getAction(), mPrompt.getIndex());
         ((Activity) getContext()).startActivityForResult(i,
                 FormEntryActivity.EX_DECIMAL_CAPTURE);
     }
@@ -117,8 +115,8 @@ public class ExDecimalWidget extends ExStringWidget {
      */
     @Override
     public void setBinaryData(Object answer) {
-    	mAnswer.setText( answer == null ? null : ((Double) answer).toString());
-    	Collect.getInstance().getFormController().setIndexWaitingForData(null);
+        mAnswer.setText(answer == null ? null : ((Double) answer).toString());
+        Collect.getInstance().getFormController().setIndexWaitingForData(null);
     }
 
 }

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
 		Copyright (C) 2013 Smap Consulting Pty Ltd Licensed under the Apache
 		License, Version 2.0 (the "License"); you may not use this file except
 		in compliance with the License. You may obtain a copy of the License
@@ -8,17 +7,16 @@
 		License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
 		CONDITIONS OF ANY KIND, either express or implied. See the License for
 		the specific language governing permissions and limitations under the
-		License.
+		License.
+
 		This file contains strings that are specific to the fieldTask
 -->
-<resources
-  xmlns:tools="http://schemas.android.com/tools"
-  tools:ignore="MissingTranslation">
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
 
     <string name="smap_accept_task">Accept the task</string>
-    <string name="smap_accepted">: accepted. </string> 
-    <string name="smap_cannot_accept">Unable to accept task</string> 
-    <string name="smap_cannot_complete">Unable to complete task</string>  
+    <string name="smap_accepted">: accepted. </string>
+    <string name="smap_cannot_accept">Unable to accept task</string>
+    <string name="smap_cannot_complete">Unable to complete task</string>
     <string name="smap_cannot_reject">Unable to reject task</string>
     <string name="smap_complete_task">Complete Task</string>
     <string name="smap_destination_not_found">The destination for the route is not set</string>

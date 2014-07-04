@@ -21,5 +21,6 @@ import java.util.HashMap;
  */
 public interface TaskDownloaderListener {
     void taskDownloadingComplete(HashMap<String, String> result);
+
     void progressUpdate(String progress);
 }

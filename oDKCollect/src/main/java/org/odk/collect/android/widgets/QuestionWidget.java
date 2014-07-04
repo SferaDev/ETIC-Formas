@@ -41,29 +41,14 @@ public abstract class QuestionWidget extends LinearLayout {
     @SuppressWarnings("unused")
     private final static String t = "QuestionWidget";
 
-	private static int idGenerator = 1211322;
-
-	/**
-	 * Generate a unique ID to keep Android UI happy when the screen orientation
-	 * changes.
-	 *
-	 * @return
-	 */
-	public static int newUniqueId() {
-		return ++idGenerator;
-	}
-
-    private LayoutParams mLayout;
-    protected FormEntryPrompt mPrompt;
-
+    private static int idGenerator = 1211322;
     protected final int mQuestionFontsize;
     protected final int mAnswerFontsize;
-
+    protected FormEntryPrompt mPrompt;
+    private LayoutParams mLayout;
     private TextView mQuestionText;
     private MediaLayout mediaLayout;
     private TextView mHelpText;
-
-
     public QuestionWidget(Context context, FormEntryPrompt p) {
         super(context);
 
@@ -77,59 +62,68 @@ public abstract class QuestionWidget extends LinearLayout {
         setPadding(0, 7, 0, 0);
 
         mLayout =
-            new LayoutParams(LayoutParams.FILL_PARENT,
-                    LayoutParams.WRAP_CONTENT);
+                new LayoutParams(LayoutParams.FILL_PARENT,
+                        LayoutParams.WRAP_CONTENT);
         mLayout.setMargins(10, 0, 10, 0);
 
         addQuestionText(p);
         addHelpText(p);
     }
 
+    /**
+     * Generate a unique ID to keep Android UI happy when the screen orientation
+     * changes.
+     *
+     * @return
+     */
+    public static int newUniqueId() {
+        return ++idGenerator;
+    }
+
     public void playAudio() {
-    	mediaLayout.playAudio();
+        mediaLayout.playAudio();
     }
 
     public void playVideo() {
-    	mediaLayout.playVideo();
+        mediaLayout.playVideo();
     }
 
     public FormEntryPrompt getPrompt() {
         return mPrompt;
     }
 
-   	// http://code.google.com/p/android/issues/detail?id=8488
+    // http://code.google.com/p/android/issues/detail?id=8488
     private void recycleDrawablesRecursive(ViewGroup viewGroup, List<ImageView> images) {
 
         int childCount = viewGroup.getChildCount();
-        for(int index = 0; index < childCount; index++)
-        {
-          View child = viewGroup.getChildAt(index);
-          if ( child instanceof ImageView ) {
-        	  images.add((ImageView)child);
-          } else if ( child instanceof ViewGroup ) {
-        	  recycleDrawablesRecursive((ViewGroup) child, images);
-          }
+        for (int index = 0; index < childCount; index++) {
+            View child = viewGroup.getChildAt(index);
+            if (child instanceof ImageView) {
+                images.add((ImageView) child);
+            } else if (child instanceof ViewGroup) {
+                recycleDrawablesRecursive((ViewGroup) child, images);
+            }
         }
         viewGroup.destroyDrawingCache();
     }
 
-   	// http://code.google.com/p/android/issues/detail?id=8488
+    // http://code.google.com/p/android/issues/detail?id=8488
     public void recycleDrawables() {
-    	List<ImageView> images = new ArrayList<ImageView>();
-    	// collect all the image views
-    	recycleDrawablesRecursive(this, images);
-    	for ( ImageView imageView : images ) {
-    		imageView.destroyDrawingCache();
-    		Drawable d = imageView.getDrawable();
-    		if ( d != null && d instanceof BitmapDrawable) {
-    			imageView.setImageDrawable(null);
-    			BitmapDrawable bd = (BitmapDrawable) d;
-    			Bitmap bmp = bd.getBitmap();
-    			if ( bmp != null ) {
-    				bmp.recycle();
-    			}
-    		}
-    	}
+        List<ImageView> images = new ArrayList<ImageView>();
+        // collect all the image views
+        recycleDrawablesRecursive(this, images);
+        for (ImageView imageView : images) {
+            imageView.destroyDrawingCache();
+            Drawable d = imageView.getDrawable();
+            if (d != null && d instanceof BitmapDrawable) {
+                imageView.setImageDrawable(null);
+                BitmapDrawable bd = (BitmapDrawable) d;
+                Bitmap bmp = bd.getBitmap();
+                if (bmp != null) {
+                    bmp.recycle();
+                }
+            }
+        }
     }
 
     // Abstract methods
@@ -146,6 +140,7 @@ public abstract class QuestionWidget extends LinearLayout {
 
     /**
      * Override this to implement fling gesture suppression (e.g. for embedded WebView treatments).
+     *
      * @param e1
      * @param e2
      * @param velocityX
@@ -153,7 +148,7 @@ public abstract class QuestionWidget extends LinearLayout {
      * @return true if the fling gesture should be suppressed
      */
     public boolean suppressFlingGesture(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-    	return false;
+        return false;
     }
 
     /**

@@ -23,6 +23,8 @@ import java.util.HashMap;
  */
 public interface InstanceUploaderListener {
     void uploadingComplete(HashMap<String, String> result);
+
     void progressUpdate(int progress, int total);
+
     void authRequest(Uri url, HashMap<String, String> doneSoFar);
 }

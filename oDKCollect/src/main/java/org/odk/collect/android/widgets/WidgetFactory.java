@@ -32,14 +32,14 @@ public class WidgetFactory {
     /**
      * Returns the appropriate QuestionWidget for the given FormEntryPrompt.
      *
-     * @param fep prompt element to be rendered
+     * @param fep     prompt element to be rendered
      * @param context Android context
      */
     static public QuestionWidget createWidgetFromPrompt(FormEntryPrompt fep, Context context) {
 
-    	// get appearance hint and clean it up so it is lower case and never null...
+        // get appearance hint and clean it up so it is lower case and never null...
         String appearance = fep.getAppearanceHint();
-        if ( appearance == null ) appearance = "";
+        if (appearance == null) appearance = "";
         // for now, all appearance tags are in english...
         appearance = appearance.toLowerCase(Locale.ENGLISH);
 
@@ -57,24 +57,24 @@ public class WidgetFactory {
                         questionWidget = new TimeWidget(context, fep);
                         break;
                     case Constants.DATATYPE_DECIMAL:
-                    	if ( appearance.startsWith("ex:") ) {
-                    		questionWidget = new ExDecimalWidget(context, fep);
-                    	} else {
-                    		questionWidget = new DecimalWidget(context, fep);
-                    	}
+                        if (appearance.startsWith("ex:")) {
+                            questionWidget = new ExDecimalWidget(context, fep);
+                        } else {
+                            questionWidget = new DecimalWidget(context, fep);
+                        }
                         break;
                     case Constants.DATATYPE_INTEGER:
-                    	if ( appearance.startsWith("ex:") ) {
-                    		questionWidget = new ExIntegerWidget(context, fep);
-                    	} else {
-                    		questionWidget = new IntegerWidget(context, fep);
-                    	}
+                        if (appearance.startsWith("ex:")) {
+                            questionWidget = new ExIntegerWidget(context, fep);
+                        } else {
+                            questionWidget = new IntegerWidget(context, fep);
+                        }
                         break;
                     case Constants.DATATYPE_BARCODE:
                         questionWidget = new BarcodeWidget(context, fep);
                         break;
                     case Constants.DATATYPE_TEXT:
-                    	String query = fep.getQuestion().getAdditionalAttribute(null, "query");
+                        String query = fep.getQuestion().getAdditionalAttribute(null, "query");
                         if (query != null) {
                             questionWidget = new ItemsetWidget(context, fep);
                         } else if (appearance.startsWith("printer")) {
@@ -93,19 +93,19 @@ public class WidgetFactory {
                 }
                 break;
             case Constants.CONTROL_IMAGE_CHOOSE:
-            	if (appearance.equals("web")) {
-            		questionWidget = new ImageWebViewWidget(context, fep);
-        		} else if(appearance.equals("signature")) {
-            		questionWidget = new SignatureWidget(context, fep);
-            	} else if(appearance.equals("annotate")) {
-            		questionWidget = new AnnotateWidget(context, fep);
-            	} else if(appearance.equals("draw")) {
-            		questionWidget = new DrawWidget(context, fep);
-            	} else if(appearance.startsWith("align:")) {
-            		questionWidget = new AlignedImageWidget(context, fep);
-            	} else {
-            		questionWidget = new ImageWidget(context, fep);
-            	}
+                if (appearance.equals("web")) {
+                    questionWidget = new ImageWebViewWidget(context, fep);
+                } else if (appearance.equals("signature")) {
+                    questionWidget = new SignatureWidget(context, fep);
+                } else if (appearance.equals("annotate")) {
+                    questionWidget = new AnnotateWidget(context, fep);
+                } else if (appearance.equals("draw")) {
+                    questionWidget = new DrawWidget(context, fep);
+                } else if (appearance.startsWith("align:")) {
+                    questionWidget = new AlignedImageWidget(context, fep);
+                } else {
+                    questionWidget = new ImageWidget(context, fep);
+                }
                 break;
             case Constants.CONTROL_AUDIO_CAPTURE:
                 questionWidget = new AudioWidget(context, fep);
@@ -117,11 +117,11 @@ public class WidgetFactory {
                 if (appearance.contains("compact")) {
                     int numColumns = -1;
                     try {
-                    	int idx = appearance.indexOf("-");
-                    	if ( idx != -1 ) {
-                    		numColumns =
-                    				Integer.parseInt(appearance.substring(idx + 1));
-                    	}
+                        int idx = appearance.indexOf("-");
+                        if (idx != -1) {
+                            numColumns =
+                                    Integer.parseInt(appearance.substring(idx + 1));
+                        }
                     } catch (Exception e) {
                         // Do nothing, leave numColumns as -1
                         Log.e("WidgetFactory", "Exception parsing numColumns");
@@ -162,11 +162,11 @@ public class WidgetFactory {
                 if (appearance.contains("compact")) {
                     int numColumns = -1;
                     try {
-                    	int idx = appearance.indexOf("-");
-                    	if ( idx != -1 ) {
-                    		numColumns =
-                    				Integer.parseInt(appearance.substring(idx + 1));
-                    	}
+                        int idx = appearance.indexOf("-");
+                        if (idx != -1) {
+                            numColumns =
+                                    Integer.parseInt(appearance.substring(idx + 1));
+                        }
                     } catch (Exception e) {
                         // Do nothing, leave numColumns as -1
                         Log.e("WidgetFactory", "Exception parsing numColumns");

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
      Copyright (C) 2009 University of Washington Licensed under the Apache
 	License, Version 2.0 (the "License"); you may not use this file except in
 	compliance with the License. You may obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0
@@ -11,14 +10,24 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.odk.collect.android"
     android:versionCode="1035"
-    android:versionName="1.4" >
+    android:versionName="1.4">
 
-    <uses-feature android:name="android.hardware.location" android:required="false" />
-    <uses-feature android:name="android.hardware.location.network" android:required="false" />
-    <uses-feature android:name="android.hardware.location.gps" android:required="false" />
+    <uses-feature
+        android:name="android.hardware.location"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.location.network"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.location.gps"
+        android:required="false" />
 
-    <uses-feature android:name="android.hardware.telephony" android:required="false" />
-    <uses-feature android:name="android.hardware.wifi" android:required="false" />
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.wifi"
+        android:required="false" />
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -31,39 +40,40 @@
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-    <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="19" />
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="19" />
 
     <supports-screens
         android:anyDensity="true"
-        android:xlargeScreens="true"
         android:largeScreens="true"
         android:normalScreens="true"
         android:resizeable="true"
-        android:smallScreens="true" />
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
 
     <application
         android:name="org.odk.collect.android.application.Collect"
-        android:largeHeap="true"
-        android:label="@string/app_name" >
+        android:label="@string/app_name"
+        android:largeHeap="true">
         <provider
-            android:exported="true"
             android:name="org.odk.collect.android.provider.FormsProvider"
-            android:authorities="org.odk.collect.android.provider.odk.forms.smap" />
+            android:authorities="org.odk.collect.android.provider.odk.forms.smap"
+            android:exported="true" />
         <provider
-            android:exported="true"
             android:name="org.odk.collect.android.provider.InstanceProvider"
-            android:authorities="org.odk.collect.android.provider.odk.instances.smap" />
+            android:authorities="org.odk.collect.android.provider.odk.instances.smap"
+            android:exported="true" />
 
         <activity
             android:name=".activities.MainMenuActivity"
             android:configChanges="orientation"
-            android:label="@string/app_name" >
-        </activity>
+            android:label="@string/app_name"></activity>
         <activity
             android:name=".activities.FormEntryActivity"
             android:configChanges="orientation"
             android:label="@string/app_name"
-            android:windowSoftInputMode="adjustResize" >
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.EDIT" />
@@ -95,7 +105,7 @@
             android:label="@string/app_name" />
         <activity
             android:name=".activities.FormChooserList"
-            android:label="@string/app_name" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.EDIT" />
@@ -121,12 +131,12 @@
         <activity
             android:name=".activities.InstanceUploaderList"
             android:label="@string/app_name">
-	        <intent-filter>
-	            <action android:name="android.intent.action.VIEW" />
-	            <action android:name="android.intent.action.EDIT" />
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.EDIT" />
 
-	            <category android:name="android.intent.category.DEFAULT" />
-	        </intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".activities.InstanceUploaderActivity"
@@ -142,16 +152,16 @@
             android:label="@string/app_name" />
         <activity
             android:name=".activities.FormGoToActivity"
+            android:clearTaskOnLaunch="true"
+            android:configChanges="orientation|screenSize"
+            android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.FloatingWindow.Popup"
-            android:configChanges="orientation|screenSize"
-            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"
-            android:clearTaskOnLaunch="true"
-            android:exported="true"/>
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
         <activity
             android:name=".activities.SplashScreenActivity"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Dialog" >
+            android:theme="@android:style/Theme.Dialog">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -160,7 +170,7 @@
         <activity
             android:name=".activities.AndroidShortcuts"
             android:label="ODK Form"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
             <intent-filter>
                 <action android:name="android.intent.action.CREATE_SHORTCUT" />
 
@@ -169,7 +179,7 @@
         </activity>
         <receiver
             android:name=".receivers.NetworkReceiver"
-            android:enabled="true" >
+            android:enabled="true">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>

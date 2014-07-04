@@ -46,7 +46,7 @@ import java.io.File;
 /**
  * This layout is used anywhere we can have image/audio/video/text. TODO: It would probably be nice
  * to put this in a layout.xml file of some sort at some point.
- * 
+ *
  * @author carlhartung
  */
 public class MediaLayout extends RelativeLayout {
@@ -59,7 +59,7 @@ public class MediaLayout extends RelativeLayout {
     private ImageButton mVideoButton;
     private ImageView mImageView;
     private TextView mMissingImage;
-    
+
     private String mVideoURI = null;
 
 
@@ -74,17 +74,17 @@ public class MediaLayout extends RelativeLayout {
     }
 
     public void playAudio() {
-    	if ( mAudioButton != null ) {
-    		mAudioButton.playAudio();
-    	}
+        if (mAudioButton != null) {
+            mAudioButton.playAudio();
+        }
     }
 
     public void playVideo() {
-    	if ( mVideoURI != null ) {
+        if (mVideoURI != null) {
             String videoFilename = "";
             try {
                 videoFilename =
-                    ReferenceManager._().DeriveReference(mVideoURI).getLocalURI();
+                        ReferenceManager._().DeriveReference(mVideoURI).getLocalURI();
             } catch (InvalidReferenceException e) {
                 Log.e(t, "Invalid reference exception");
                 e.printStackTrace();
@@ -94,7 +94,7 @@ public class MediaLayout extends RelativeLayout {
             if (!videoFile.exists()) {
                 // We should have a video clip, but the file doesn't exist.
                 String errorMsg =
-                    getContext().getString(R.string.file_missing, videoFilename);
+                        getContext().getString(R.string.file_missing, videoFilename);
                 Log.e(t, errorMsg);
                 Toast.makeText(getContext(), errorMsg, Toast.LENGTH_LONG).show();
                 return;
@@ -106,36 +106,36 @@ public class MediaLayout extends RelativeLayout {
                 ((Activity) getContext()).startActivity(i);
             } catch (ActivityNotFoundException e) {
                 Toast.makeText(getContext(),
-                    getContext().getString(R.string.activity_not_found, "view video"),
-                    Toast.LENGTH_SHORT).show();
+                        getContext().getString(R.string.activity_not_found, "view video"),
+                        Toast.LENGTH_SHORT).show();
             }
-    	}
+        }
     }
 
     public void setAVT(FormIndex index, String selectionDesignator, TextView text, String audioURI, String imageURI, String videoURI,
-            final String bigImageURI) {
-    	mSelectionDesignator = selectionDesignator;
-    	mIndex = index;
+                       final String bigImageURI) {
+        mSelectionDesignator = selectionDesignator;
+        mIndex = index;
         mView_Text = text;
         mView_Text.setId(QuestionWidget.newUniqueId());
         mVideoURI = videoURI;
 
         // Layout configurations for our elements in the relative layout
         LayoutParams textParams =
-            new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+                new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         LayoutParams audioParams =
-            new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+                new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         LayoutParams imageParams =
-            new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+                new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         LayoutParams videoParams =
-            new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+                new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 
         // First set up the audio button
         if (audioURI != null) {
             // An audio file is specified
             mAudioButton = new AudioButton(getContext(), mIndex, mSelectionDesignator, audioURI);
             mAudioButton.setId(QuestionWidget.newUniqueId()); // random ID to be used by the
-                                                                      // relative layout.
+            // relative layout.
         } else {
             // No audio file specified, so ignore.
         }
@@ -146,14 +146,14 @@ public class MediaLayout extends RelativeLayout {
             mVideoButton = new ImageButton(getContext());
             Bitmap b =
                     BitmapFactory.decodeResource(getContext().getResources(),
-                        android.R.drawable.ic_media_play);
+                            android.R.drawable.ic_media_play);
             mVideoButton.setImageBitmap(b);
             mVideoButton.setOnClickListener(new OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
-                	Collect.getInstance().getActivityLogger().logInstanceAction(this, "onClick", "playVideoPrompt"+mSelectionDesignator, mIndex);
-                	MediaLayout.this.playVideo();
+                    Collect.getInstance().getActivityLogger().logInstanceAction(this, "onClick", "playVideoPrompt" + mSelectionDesignator, mIndex);
+                    MediaLayout.this.playVideo();
                 }
 
             });
@@ -171,8 +171,8 @@ public class MediaLayout extends RelativeLayout {
                 final File imageFile = new File(imageFilename);
                 if (imageFile.exists()) {
                     Display display =
-                        ((WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE))
-                                .getDefaultDisplay();
+                            ((WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE))
+                                    .getDefaultDisplay();
                     int screenWidth = display.getWidth();
                     int screenHeight = display.getHeight();
                     Bitmap b = FileUtils.getBitmapScaledToDisplay(imageFile, screenHeight, screenWidth);
@@ -185,14 +185,14 @@ public class MediaLayout extends RelativeLayout {
 
                         if (bigImageURI != null) {
                             mImageView.setOnClickListener(new OnClickListener() {
-                            	String bigImageFilename = ReferenceManager._()
+                                String bigImageFilename = ReferenceManager._()
                                         .DeriveReference(bigImageURI).getLocalURI();
                                 File bigImage = new File(bigImageFilename);
 
 
                                 @Override
                                 public void onClick(View v) {
-                                	Collect.getInstance().getActivityLogger().logInstanceAction(this, "onClick", "showImagePromptBigImage"+mSelectionDesignator, mIndex);
+                                    Collect.getInstance().getActivityLogger().logInstanceAction(this, "onClick", "showImagePromptBigImage" + mSelectionDesignator, mIndex);
 
                                     Intent i = new Intent("android.intent.action.VIEW");
                                     i.setDataAndType(Uri.fromFile(bigImage), "image/*");
@@ -200,9 +200,10 @@ public class MediaLayout extends RelativeLayout {
                                         getContext().startActivity(i);
                                     } catch (ActivityNotFoundException e) {
                                         Toast.makeText(
-                                            getContext(),
-                                            getContext().getString(R.string.activity_not_found,
-                                                "view image"), Toast.LENGTH_SHORT).show();
+                                                getContext(),
+                                                getContext().getString(R.string.activity_not_found,
+                                                        "view image"), Toast.LENGTH_SHORT
+                                        ).show();
                                     }
                                 }
                             });
@@ -289,7 +290,7 @@ public class MediaLayout extends RelativeLayout {
             if (mAudioButton != null && mVideoButton == null) {
                 audioParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
                 textParams.addRule(RelativeLayout.LEFT_OF, mAudioButton.getId());
-          } else if (mAudioButton == null && mVideoButton != null) {
+            } else if (mAudioButton == null && mVideoButton != null) {
                 videoParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
                 textParams.addRule(RelativeLayout.LEFT_OF, mVideoButton.getId());
             } else if (mAudioButton != null && mVideoButton != null) {
@@ -324,12 +325,12 @@ public class MediaLayout extends RelativeLayout {
 
     /**
      * This adds a divider at the bottom of this layout. Used to separate fields in lists.
-     * 
+     *
      * @param v
      */
     public void addDivider(ImageView v) {
         LayoutParams dividerParams =
-            new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
+                new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
         if (mImageView != null) {
             dividerParams.addRule(RelativeLayout.BELOW, mImageView.getId());
         } else if (mMissingImage != null) {

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- File created by the Android Action Bar Style Generator
+<?xml version="1.0" encoding="utf-8"?><!-- File created by the Android Action Bar Style Generator
 
      Copyright (C) 2011 The Android Open Source Project
      Copyright (C) 2012 readyState Software Ltd
@@ -50,7 +49,7 @@
     </style>
 
     <style name="PopupMenu.Etic" parent="@android:style/Widget.Holo.Light.ListPopupWindow">
-        <item name="android:popupBackground">@drawable/menu_dropdown_panel_etic</item>	
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_etic</item>
     </style>
 
     <style name="DropDownListView.Etic" parent="@android:style/Widget.Holo.Light.ListView.DropDown">
@@ -66,11 +65,11 @@
         <item name="android:popupBackground">@drawable/menu_dropdown_panel_etic</item>
         <item name="android:dropDownSelector">@drawable/selectable_background_etic</item>
     </style>
-    
+
     <style name="ProgressBar.Etic" parent="@android:style/Widget.Holo.Light.ProgressBar.Horizontal">
         <item name="android:progressDrawable">@drawable/progress_horizontal_etic</item>
     </style>
-    
+
     <style name="ActionButton.CloseMode.Etic" parent="@android:style/Widget.Holo.Light.ActionButton.CloseMode">
         <item name="android:background">@drawable/btn_cab_done_etic</item>
     </style>
@@ -86,7 +85,8 @@
         <item name="android:windowEnterAnimation">@anim/activity_slide_up</item>
         <item name="android:windowExitAnimation">@anim/activity_slide_down</item>
     </style>
-    <style name="Theme.FloatingWindow.Popup" parent="Theme.Etic" >
+
+    <style name="Theme.FloatingWindow.Popup" parent="Theme.Etic">
         <item name="android:windowIsFloating">false</item>
         <item name="android:windowSoftInputMode">stateUnchanged</item>
         <item name="android:windowContentOverlay">@null</item>

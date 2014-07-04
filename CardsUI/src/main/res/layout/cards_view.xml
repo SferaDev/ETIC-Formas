@@ -12,8 +12,7 @@
         android:overScrollMode="never"
         android:paddingLeft="0dp"
         android:paddingRight="0dp"
-        android:scrollbars="vertical" >
-    </com.fima.cardsui.views.QuickReturnListView>
+        android:scrollbars="vertical"></com.fima.cardsui.views.QuickReturnListView>
 
     <FrameLayout
         android:id="@+id/sticky"

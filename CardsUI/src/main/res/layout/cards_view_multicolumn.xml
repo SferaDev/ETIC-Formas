@@ -5,13 +5,12 @@
     <ScrollView
         android:id="@+id/ScrollView1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
 
         <TableLayout
             android:id="@+id/tableLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-        </TableLayout>
+            android:layout_height="wrap_content"></TableLayout>
     </ScrollView>
 
     <FrameLayout

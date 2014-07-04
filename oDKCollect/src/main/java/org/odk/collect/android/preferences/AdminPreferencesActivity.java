@@ -41,11 +41,10 @@ import java.io.ObjectOutputStream;
  */
 public class AdminPreferencesActivity extends PreferenceActivity {
 
+    private static final int SAVE_PREFS_MENU = Menu.FIRST;
     public static String ADMIN_PREFERENCES = "admin_prefs";
-
     // key for this preference screen
     public static String KEY_ADMIN_PW = "admin_pw";
-
     // keys for each preference
     // main menu
     public static String KEY_EDIT_SAVED = "edit_saved";
@@ -70,14 +69,42 @@ public class AdminPreferencesActivity extends PreferenceActivity {
     public static String KEY_ACCESS_SETTINGS = "access_settings";
     public static String KEY_SAVE_AS = "save_as";
     public static String KEY_MARK_AS_FINALIZED = "mark_as_finalized";
-
     public static String KEY_AUTOSEND_WIFI = "autosend_wifi";
     public static String KEY_AUTOSEND_NETWORK = "autosend_network";
-
     public static String KEY_NAVIGATION = "navigation";
     public static String KEY_CONSTRAINT_BEHAVIOR = "constraint_behavior";
 
-    private static final int SAVE_PREFS_MENU = Menu.FIRST;
+    public static boolean saveSharedPreferencesToFile(File dst, Context context) {
+        // this should be in a thread if it gets big, but for now it's tiny
+        boolean res = false;
+        ObjectOutputStream output = null;
+        try {
+            output = new ObjectOutputStream(new FileOutputStream(dst));
+            SharedPreferences pref = PreferenceManager
+                    .getDefaultSharedPreferences(context);
+            SharedPreferences adminPreferences = context.getSharedPreferences(
+                    AdminPreferencesActivity.ADMIN_PREFERENCES, 0);
+
+            output.writeObject(pref.getAll());
+            output.writeObject(adminPreferences.getAll());
+
+            res = true;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (output != null) {
+                    output.flush();
+                    output.close();
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return res;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,85 +120,55 @@ public class AdminPreferencesActivity extends PreferenceActivity {
     }
 
     @Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		Collect.getInstance().getActivityLogger()
-			.logAction(this, "onCreateOptionsMenu", "show");
-		super.onCreateOptionsMenu(menu);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        Collect.getInstance().getActivityLogger()
+                .logAction(this, "onCreateOptionsMenu", "show");
+        super.onCreateOptionsMenu(menu);
 
-		CompatibilityUtils.setShowAsAction(
-    		menu.add(0, SAVE_PREFS_MENU, 0, R.string.save_preferences)
-				.setIcon(R.drawable.ic_menu_save),
-			MenuItem.SHOW_AS_ACTION_NEVER);
-		return true;
-	}
+        CompatibilityUtils.setShowAsAction(
+                menu.add(0, SAVE_PREFS_MENU, 0, R.string.save_preferences)
+                        .setIcon(R.drawable.ic_menu_save),
+                MenuItem.SHOW_AS_ACTION_NEVER
+        );
+        return true;
+    }
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case SAVE_PREFS_MENU:
-			File writeDir = new File(Collect.ODK_ROOT + "/settings");
-			if (!writeDir.exists()) {
-				if (!writeDir.mkdirs()) {
-					Toast.makeText(
-							this,
-							"Error creating directory "
-									+ writeDir.getAbsolutePath(),
-							Toast.LENGTH_SHORT).show();
-					return false;
-				}
-			}
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case SAVE_PREFS_MENU:
+                File writeDir = new File(Collect.ODK_ROOT + "/settings");
+                if (!writeDir.exists()) {
+                    if (!writeDir.mkdirs()) {
+                        Toast.makeText(
+                                this,
+                                "Error creating directory "
+                                        + writeDir.getAbsolutePath(),
+                                Toast.LENGTH_SHORT
+                        ).show();
+                        return false;
+                    }
+                }
 
-			File dst = new File(writeDir.getAbsolutePath()
-					+ "/collect.settings");
-			boolean success = AdminPreferencesActivity.saveSharedPreferencesToFile(dst, this);
-			if (success) {
-				Toast.makeText(
-						this,
-						"Settings successfully written to "
-								+ dst.getAbsolutePath(), Toast.LENGTH_LONG)
-						.show();
-			} else {
-				Toast.makeText(this,
-						"Error writing settings to " + dst.getAbsolutePath(),
-						Toast.LENGTH_LONG).show();
-			}
-			return true;
+                File dst = new File(writeDir.getAbsolutePath()
+                        + "/collect.settings");
+                boolean success = AdminPreferencesActivity.saveSharedPreferencesToFile(dst, this);
+                if (success) {
+                    Toast.makeText(
+                            this,
+                            "Settings successfully written to "
+                                    + dst.getAbsolutePath(), Toast.LENGTH_LONG
+                    )
+                            .show();
+                } else {
+                    Toast.makeText(this,
+                            "Error writing settings to " + dst.getAbsolutePath(),
+                            Toast.LENGTH_LONG).show();
+                }
+                return true;
 
-		}
-		return super.onOptionsItemSelected(item);
-	}
-
-
-	public static boolean saveSharedPreferencesToFile(File dst, Context context) {
-		// this should be in a thread if it gets big, but for now it's tiny
-		boolean res = false;
-		ObjectOutputStream output = null;
-		try {
-			output = new ObjectOutputStream(new FileOutputStream(dst));
-			SharedPreferences pref = PreferenceManager
-					.getDefaultSharedPreferences(context);
-			SharedPreferences adminPreferences = context.getSharedPreferences(
-					AdminPreferencesActivity.ADMIN_PREFERENCES, 0);
-
-			output.writeObject(pref.getAll());
-			output.writeObject(adminPreferences.getAll());
-
-			res = true;
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (output != null) {
-					output.flush();
-					output.close();
-				}
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		}
-		return res;
-	}
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 }

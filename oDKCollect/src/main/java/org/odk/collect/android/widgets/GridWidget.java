@@ -98,7 +98,7 @@ public class GridWidget extends QuestionWidget {
     int resizeWidth;
 
     public GridWidget(Context context, FormEntryPrompt prompt, int numColumns,
-            final boolean quickAdvance) {
+                      final boolean quickAdvance) {
         super(context, prompt);
         mItems = prompt.getSelectChoices();
         mPrompt = prompt;
@@ -126,15 +126,15 @@ public class GridWidget extends QuestionWidget {
         int screenWidth = display.getWidth();
         int screenHeight = display.getHeight();
 
-        if ( display.getOrientation() % 2 == 1 ) {
-        	// rotated 90 degrees...
-        	int temp = screenWidth;
-        	screenWidth = screenHeight;
-        	screenHeight = temp;
+        if (display.getOrientation() % 2 == 1) {
+            // rotated 90 degrees...
+            int temp = screenWidth;
+            screenWidth = screenHeight;
+            screenHeight = temp;
         }
 
-        if ( numColumns > 0 ) {
-        	resizeWidth = ((screenWidth - 2*HORIZONTAL_PADDING - SCROLL_WIDTH - (IMAGE_PADDING+SPACING)*numColumns) / numColumns );
+        if (numColumns > 0) {
+            resizeWidth = ((screenWidth - 2 * HORIZONTAL_PADDING - SCROLL_WIDTH - (IMAGE_PADDING + SPACING) * numColumns) / numColumns);
         }
 
         // Build view
@@ -145,16 +145,16 @@ public class GridWidget extends QuestionWidget {
 
             // Create an audioHandler iff there is an audio prompt associated with this selection.
             String audioURI =
-            		prompt.getSpecialFormSelectChoiceText(sc, FormEntryCaption.TEXT_FORM_AUDIO);
-            if ( audioURI != null) {
-            	audioHandlers[i] = new AudioHandler(prompt.getIndex(), sc.getValue(), audioURI);
+                    prompt.getSpecialFormSelectChoiceText(sc, FormEntryCaption.TEXT_FORM_AUDIO);
+            if (audioURI != null) {
+                audioHandlers[i] = new AudioHandler(prompt.getIndex(), sc.getValue(), audioURI);
             } else {
-            	audioHandlers[i] = null;
+                audioHandlers[i] = null;
             }
             // Read the image sizes and set maxColumnWidth. This allows us to make sure all of our
             // columns are going to fit
             String imageURI =
-                prompt.getSpecialFormSelectChoiceText(sc, FormEntryCaption.TEXT_FORM_IMAGE);
+                    prompt.getSpecialFormSelectChoiceText(sc, FormEntryCaption.TEXT_FORM_IMAGE);
 
             String errorMsg = null;
             if (imageURI != null) {
@@ -162,12 +162,12 @@ public class GridWidget extends QuestionWidget {
 
                 String imageFilename;
                 try {
-                	imageFilename = ReferenceManager._().DeriveReference(imageURI).getLocalURI();
+                    imageFilename = ReferenceManager._().DeriveReference(imageURI).getLocalURI();
                     final File imageFile = new File(imageFilename);
                     if (imageFile.exists()) {
                         Bitmap b =
-                            FileUtils
-                                    .getBitmapScaledToDisplay(imageFile, screenHeight, screenWidth);
+                                FileUtils
+                                        .getBitmapScaledToDisplay(imageFile, screenHeight, screenWidth);
                         if (b != null) {
 
                             if (b.getWidth() > maxColumnWidth) {
@@ -178,18 +178,18 @@ public class GridWidget extends QuestionWidget {
 
                             imageView.setBackgroundColor(Color.WHITE);
 
-	                        if ( numColumns > 0 ) {
-	                        	int resizeHeight = (b.getHeight() * resizeWidth) / b.getWidth();
-	                        	b = Bitmap.createScaledBitmap(b, resizeWidth, resizeHeight, false);
-	                        }
+                            if (numColumns > 0) {
+                                int resizeHeight = (b.getHeight() * resizeWidth) / b.getWidth();
+                                b = Bitmap.createScaledBitmap(b, resizeWidth, resizeHeight, false);
+                            }
 
-	                        imageView.setPadding(IMAGE_PADDING, IMAGE_PADDING, IMAGE_PADDING, IMAGE_PADDING);
-	                        imageView.setImageBitmap(b);
-	                        imageView.setLayoutParams(new ListView.LayoutParams(ListView.LayoutParams.WRAP_CONTENT, ListView.LayoutParams.WRAP_CONTENT));
-	                        imageView.setScaleType(ScaleType.FIT_XY);
+                            imageView.setPadding(IMAGE_PADDING, IMAGE_PADDING, IMAGE_PADDING, IMAGE_PADDING);
+                            imageView.setImageBitmap(b);
+                            imageView.setLayoutParams(new ListView.LayoutParams(ListView.LayoutParams.WRAP_CONTENT, ListView.LayoutParams.WRAP_CONTENT));
+                            imageView.setScaleType(ScaleType.FIT_XY);
 
-	                        imageView.measure(0, 0);
-	                        curHeight = imageView.getMeasuredHeight();
+                            imageView.measure(0, 0);
+                            curHeight = imageView.getMeasuredHeight();
                         } else {
                             // Loading the image failed, so it's likely a bad file.
                             errorMsg = getContext().getString(R.string.file_invalid, imageFile);
@@ -203,7 +203,7 @@ public class GridWidget extends QuestionWidget {
                     e.printStackTrace();
                 }
             } else {
-            	errorMsg = "";
+                errorMsg = "";
             }
 
             if (errorMsg != null) {
@@ -214,38 +214,38 @@ public class GridWidget extends QuestionWidget {
                 missingImage.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
                 missingImage.setPadding(IMAGE_PADDING, IMAGE_PADDING, IMAGE_PADDING, IMAGE_PADDING);
 
-                if ( choices[i] != null && choices[i].length() != 0 ) {
-	                missingImage.setText(choices[i]);
+                if (choices[i] != null && choices[i].length() != 0) {
+                    missingImage.setText(choices[i]);
                 } else {
-	                // errorMsg is only set when an error has occurred
-	                Log.e("GridWidget", errorMsg);
-	                missingImage.setText(errorMsg);
+                    // errorMsg is only set when an error has occurred
+                    Log.e("GridWidget", errorMsg);
+                    missingImage.setText(errorMsg);
                 }
 
-                if ( numColumns > 0 ) {
-                	maxColumnWidth = resizeWidth;
-                	// force max width to find needed height...
-                	missingImage.setMaxWidth(resizeWidth);
-                	missingImage.measure(MeasureSpec.makeMeasureSpec(resizeWidth, MeasureSpec.EXACTLY), 0);
-                	curHeight = missingImage.getMeasuredHeight();
+                if (numColumns > 0) {
+                    maxColumnWidth = resizeWidth;
+                    // force max width to find needed height...
+                    missingImage.setMaxWidth(resizeWidth);
+                    missingImage.measure(MeasureSpec.makeMeasureSpec(resizeWidth, MeasureSpec.EXACTLY), 0);
+                    curHeight = missingImage.getMeasuredHeight();
                 } else {
-                	missingImage.measure(0, 0);
+                    missingImage.measure(0, 0);
                     int width = missingImage.getMeasuredWidth();
                     if (width > maxColumnWidth) {
                         maxColumnWidth = width;
                     }
-                	curHeight = missingImage.getMeasuredHeight();
+                    curHeight = missingImage.getMeasuredHeight();
                 }
                 imageViews[i] = missingImage;
             }
 
             // if we get a taller image/text, force all cells to be that height
             // could also set cell heights on a per-row basis if user feedback requests it.
-            if ( curHeight > maxCellHeight ) {
-            	maxCellHeight = curHeight;
-            	for ( int j = 0 ; j < i ; j++ ) {
-            		imageViews[j].setMinimumHeight(maxCellHeight);
-            	}
+            if (curHeight > maxCellHeight) {
+                maxCellHeight = curHeight;
+                for (int j = 0; j < i; j++) {
+                    imageViews[j].setMinimumHeight(maxCellHeight);
+                }
             }
             imageViews[i].setMinimumHeight(maxCellHeight);
         }
@@ -253,17 +253,17 @@ public class GridWidget extends QuestionWidget {
         // Read the screen dimensions and fit the grid view to them. It is important that the grid
         // knows how far out it can stretch.
 
-        if ( numColumns > 0 ) {
+        if (numColumns > 0) {
             // gridview.setNumColumns(numColumns);
             gridview.setNumColumns(GridView.AUTO_FIT);
         } else {
-        	resizeWidth = maxColumnWidth;
+            resizeWidth = maxColumnWidth;
             gridview.setNumColumns(GridView.AUTO_FIT);
         }
 
-    	gridview.setColumnWidth(resizeWidth);
+        gridview.setColumnWidth(resizeWidth);
 
-    	gridview.setPadding(HORIZONTAL_PADDING, VERTICAL_PADDING, HORIZONTAL_PADDING, VERTICAL_PADDING);
+        gridview.setPadding(HORIZONTAL_PADDING, VERTICAL_PADDING, HORIZONTAL_PADDING, VERTICAL_PADDING);
         gridview.setHorizontalSpacing(SPACING);
         gridview.setVerticalSpacing(SPACING);
         gridview.setGravity(Gravity.CENTER);
@@ -277,24 +277,24 @@ public class GridWidget extends QuestionWidget {
                 // and then check the one clicked by the user. Update the
                 // background color accordingly
                 for (int i = 0; i < selected.length; i++) {
-                	// if we have an audio handler, be sure audio is stopped.
-                	if ( selected[i] && (audioHandlers[i] != null)) {
-                		audioHandlers[i].stopPlaying();
-                	}
+                    // if we have an audio handler, be sure audio is stopped.
+                    if (selected[i] && (audioHandlers[i] != null)) {
+                        audioHandlers[i].stopPlaying();
+                    }
                     selected[i] = false;
                     if (imageViews[i] != null) {
                         imageViews[i].setBackgroundColor(Color.WHITE);
                     }
                 }
                 selected[position] = true;
-               	Collect.getInstance().getActivityLogger().logInstanceAction(this, "onItemClick.select",
-            			mItems.get(position).getValue(), mPrompt.getIndex());
+                Collect.getInstance().getActivityLogger().logInstanceAction(this, "onItemClick.select",
+                        mItems.get(position).getValue(), mPrompt.getIndex());
                 imageViews[position].setBackgroundColor(Color.rgb(orangeRedVal, orangeGreenVal,
-                    orangeBlueVal));
+                        orangeBlueVal));
                 if (quickAdvance) {
                     listener.advance();
-                } else if ( audioHandlers[position] != null ) {
-                	audioHandlers[position].playAudio(getContext());
+                } else if (audioHandlers[position] != null) {
+                    audioHandlers[position].playAudio(getContext());
                 }
             }
         });
@@ -311,7 +311,7 @@ public class GridWidget extends QuestionWidget {
             selected[i] = sMatch.equals(s);
             if (selected[i]) {
                 imageViews[i].setBackgroundColor(Color.rgb(orangeRedVal, orangeGreenVal,
-                    orangeBlueVal));
+                        orangeBlueVal));
             } else {
                 imageViews[i].setBackgroundColor(Color.WHITE);
             }
@@ -320,7 +320,7 @@ public class GridWidget extends QuestionWidget {
         // Use the custom image adapter and initialize the grid view
         ImageAdapter ia = new ImageAdapter(getContext(), choices);
         gridview.setAdapter(ia);
-        addView(gridview,  new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
+        addView(gridview, new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT));
     }
 
 
@@ -350,9 +350,20 @@ public class GridWidget extends QuestionWidget {
     public void setFocus(Context context) {
         // Hide the soft keyboard if it's showing.
         InputMethodManager inputManager =
-            (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         inputManager.hideSoftInputFromWindow(this.getWindowToken(), 0);
 
+    }
+
+    @Override
+    public void setOnLongClickListener(OnLongClickListener l) {
+        gridview.setOnLongClickListener(l);
+    }
+
+    @Override
+    public void cancelLongPress() {
+        super.cancelLongPress();
+        gridview.cancelLongPress();
     }
 
     // Custom image adapter. Most of the code is copied from
@@ -383,24 +394,11 @@ public class GridWidget extends QuestionWidget {
 
         // create a new ImageView for each item referenced by the Adapter
         public View getView(int position, View convertView, ViewGroup parent) {
-        	if ( position < imageViews.length ) {
-        		return imageViews[position];
-        	} else {
-        		return convertView;
-        	}
+            if (position < imageViews.length) {
+                return imageViews[position];
+            } else {
+                return convertView;
+            }
         }
-    }
-
-
-    @Override
-    public void setOnLongClickListener(OnLongClickListener l) {
-        gridview.setOnLongClickListener(l);
-    }
-
-
-    @Override
-    public void cancelLongPress() {
-        super.cancelLongPress();
-        gridview.cancelLongPress();
     }
 }

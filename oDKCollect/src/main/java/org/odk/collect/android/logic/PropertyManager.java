@@ -39,31 +39,22 @@ import java.util.Vector;
 
 public class PropertyManager implements IPropertyManager {
 
-    private String t = "PropertyManager";
-
-    private Context mContext;
-
-    private TelephonyManager mTelephonyManager;
-    private HashMap<String, String> mProperties;
-
     public final static String DEVICE_ID_PROPERTY = "deviceid"; // imei
-    private final static String SUBSCRIBER_ID_PROPERTY = "subscriberid"; // imsi
-    private final static String SIM_SERIAL_PROPERTY = "simserial";
-    private final static String PHONE_NUMBER_PROPERTY = "phonenumber";
-    private final static String USERNAME = "username";
-    private final static String EMAIL = "email";
-
     public final static String OR_DEVICE_ID_PROPERTY = "uri:deviceid"; // imei
     public final static String OR_SUBSCRIBER_ID_PROPERTY = "uri:subscriberid"; // imsi
     public final static String OR_SIM_SERIAL_PROPERTY = "uri:simserial";
     public final static String OR_PHONE_NUMBER_PROPERTY = "uri:phonenumber";
     public final static String OR_USERNAME = "uri:username";
     public final static String OR_EMAIL = "uri:email";
-
-
-    public String getName() {
-        return "Property Manager";
-    }
+    private final static String SUBSCRIBER_ID_PROPERTY = "subscriberid"; // imsi
+    private final static String SIM_SERIAL_PROPERTY = "simserial";
+    private final static String PHONE_NUMBER_PROPERTY = "phonenumber";
+    private final static String USERNAME = "username";
+    private final static String EMAIL = "email";
+    private String t = "PropertyManager";
+    private Context mContext;
+    private TelephonyManager mTelephonyManager;
+    private HashMap<String, String> mProperties;
 
 
     public PropertyManager(Context context) {
@@ -76,36 +67,36 @@ public class PropertyManager implements IPropertyManager {
 
         String deviceId = mTelephonyManager.getDeviceId();
         String orDeviceId = null;
-        if (deviceId != null ) {
-        	if ((deviceId.contains("*") || deviceId.contains("000000000000000"))) {
-        		deviceId =
-        				Settings.Secure
-                        	.getString(mContext.getContentResolver(), Settings.Secure.ANDROID_ID);
-        		orDeviceId = Settings.Secure.ANDROID_ID + ":" + deviceId;
-        	} else {
-        		orDeviceId = "imei:" + deviceId;
-        	}
+        if (deviceId != null) {
+            if ((deviceId.contains("*") || deviceId.contains("000000000000000"))) {
+                deviceId =
+                        Settings.Secure
+                                .getString(mContext.getContentResolver(), Settings.Secure.ANDROID_ID);
+                orDeviceId = Settings.Secure.ANDROID_ID + ":" + deviceId;
+            } else {
+                orDeviceId = "imei:" + deviceId;
+            }
         }
 
-        if ( deviceId == null ) {
-        	// no SIM -- WiFi only
-        	// Retrieve WiFiManager
-        	WifiManager wifi = (WifiManager) mContext.getSystemService(Context.WIFI_SERVICE);
+        if (deviceId == null) {
+            // no SIM -- WiFi only
+            // Retrieve WiFiManager
+            WifiManager wifi = (WifiManager) mContext.getSystemService(Context.WIFI_SERVICE);
 
-    		// Get WiFi status
-    		WifiInfo info = wifi.getConnectionInfo();
-    		if ( info != null ) {
-    			deviceId = info.getMacAddress();
-    			orDeviceId = "mac:" + deviceId;
-    		}
+            // Get WiFi status
+            WifiInfo info = wifi.getConnectionInfo();
+            if (info != null) {
+                deviceId = info.getMacAddress();
+                orDeviceId = "mac:" + deviceId;
+            }
         }
 
         // if it is still null, use ANDROID_ID
-        if ( deviceId == null ) {
+        if (deviceId == null) {
             deviceId =
                     Settings.Secure
                             .getString(mContext.getContentResolver(), Settings.Secure.ANDROID_ID);
-    		orDeviceId = Settings.Secure.ANDROID_ID + ":" + deviceId;
+            orDeviceId = Settings.Secure.ANDROID_ID + ":" + deviceId;
         }
 
         mProperties.put(DEVICE_ID_PROPERTY, deviceId);
@@ -114,33 +105,37 @@ public class PropertyManager implements IPropertyManager {
         String value;
 
         value = mTelephonyManager.getSubscriberId();
-        if ( value != null ) {
-        	mProperties.put(SUBSCRIBER_ID_PROPERTY, value);
-        	mProperties.put(OR_SUBSCRIBER_ID_PROPERTY, "imsi:" + value);
+        if (value != null) {
+            mProperties.put(SUBSCRIBER_ID_PROPERTY, value);
+            mProperties.put(OR_SUBSCRIBER_ID_PROPERTY, "imsi:" + value);
         }
         value = mTelephonyManager.getSimSerialNumber();
-        if ( value != null ) {
-        	mProperties.put(SIM_SERIAL_PROPERTY, value);
-        	mProperties.put(OR_SIM_SERIAL_PROPERTY, "simserial:" + value);
+        if (value != null) {
+            mProperties.put(SIM_SERIAL_PROPERTY, value);
+            mProperties.put(OR_SIM_SERIAL_PROPERTY, "simserial:" + value);
         }
         value = mTelephonyManager.getLine1Number();
-        if ( value != null ) {
-        	mProperties.put(PHONE_NUMBER_PROPERTY, value);
-        	mProperties.put(OR_PHONE_NUMBER_PROPERTY, "tel:" + value);
+        if (value != null) {
+            mProperties.put(PHONE_NUMBER_PROPERTY, value);
+            mProperties.put(OR_PHONE_NUMBER_PROPERTY, "tel:" + value);
         }
 
         // Get the username from the settings
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mContext);
         value = settings.getString(PreferencesActivity.KEY_USERNAME, null);
-        if ( value != null ) {
-        	mProperties.put(USERNAME, value);
-        	mProperties.put(OR_USERNAME, "username:" + value);
+        if (value != null) {
+            mProperties.put(USERNAME, value);
+            mProperties.put(OR_USERNAME, "username:" + value);
         }
         value = settings.getString(PreferencesActivity.KEY_SELECTED_GOOGLE_ACCOUNT, null);
-        if ( value != null ) {
-        	mProperties.put(EMAIL, value);
-        	mProperties.put(OR_EMAIL, "mailto:" + value);
+        if (value != null) {
+            mProperties.put(EMAIL, value);
+            mProperties.put(OR_EMAIL, "mailto:" + value);
         }
+    }
+
+    public String getName() {
+        return "Property Manager";
     }
 
     @Override
@@ -151,7 +146,7 @@ public class PropertyManager implements IPropertyManager {
 
     @Override
     public String getSingularProperty(String propertyName) {
-    	// for now, all property names are in english...
+        // for now, all property names are in english...
         return mProperties.get(propertyName.toLowerCase(Locale.ENGLISH));
     }
 

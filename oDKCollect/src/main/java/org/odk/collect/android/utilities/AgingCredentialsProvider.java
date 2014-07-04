@@ -53,11 +53,10 @@ import java.util.concurrent.ConcurrentHashMap;
  * methods to manipulate the credentials in the local context.  You should
  * first check that the credentials exist (which will reset the expiration
  * date), then set them if they are missing.
- * 
+ * <p/>
  * Largely a cut-and-paste of BasicCredentialsProvider.
- * 
- * @author mitchellsundt@gmail.com
  *
+ * @author mitchellsundt@gmail.com
  */
 @ThreadSafe
 public class AgingCredentialsProvider implements CredentialsProvider {
@@ -77,30 +76,12 @@ public class AgingCredentialsProvider implements CredentialsProvider {
         nextClearTimestamp = System.currentTimeMillis() + expiryInterval;
     }
 
-    public void setCredentials(
-            final AuthScope authscope,
-            final Credentials credentials) {
-        if (authscope == null) {
-            throw new IllegalArgumentException("Authentication scope may not be null");
-        }
-        if (nextClearTimestamp < System.currentTimeMillis()) {
-            clear();
-        }
-        nextClearTimestamp = System.currentTimeMillis() + expiryInterval;
-        if ( credentials == null ) {
-        	credMap.remove(authscope);
-        } else {
-        	credMap.put(authscope, credentials);
-        }
-    }
-
     /**
      * Find matching {@link org.opendatakit.httpclientandroidlib.auth.Credentials credentials} for the given authentication scope.
      *
-     * @param map the credentials hash map
+     * @param map       the credentials hash map
      * @param authscope the {@link org.opendatakit.httpclientandroidlib.auth.AuthScope authentication scope}
      * @return the credentials
-     *
      */
     private static Credentials matchCredentials(
             final Map<AuthScope, Credentials> map,
@@ -110,9 +91,9 @@ public class AgingCredentialsProvider implements CredentialsProvider {
         if (creds == null) {
             // Nope.
             // Do a full scan
-            int bestMatchFactor  = -1;
-            AuthScope bestMatch  = null;
-            for (AuthScope current: map.keySet()) {
+            int bestMatchFactor = -1;
+            AuthScope bestMatch = null;
+            for (AuthScope current : map.keySet()) {
                 int factor = authscope.match(current);
                 if (factor > bestMatchFactor) {
                     bestMatchFactor = factor;
@@ -124,6 +105,23 @@ public class AgingCredentialsProvider implements CredentialsProvider {
             }
         }
         return creds;
+    }
+
+    public void setCredentials(
+            final AuthScope authscope,
+            final Credentials credentials) {
+        if (authscope == null) {
+            throw new IllegalArgumentException("Authentication scope may not be null");
+        }
+        if (nextClearTimestamp < System.currentTimeMillis()) {
+            clear();
+        }
+        nextClearTimestamp = System.currentTimeMillis() + expiryInterval;
+        if (credentials == null) {
+            credMap.remove(authscope);
+        } else {
+            credMap.put(authscope, credentials);
+        }
     }
 
     public Credentials getCredentials(final AuthScope authscope) {

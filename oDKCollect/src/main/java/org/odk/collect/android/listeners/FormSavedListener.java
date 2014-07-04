@@ -18,5 +18,5 @@ package org.odk.collect.android.listeners;
  * @author Carl Hartung (carlhartung@gmail.com)
  */
 public interface FormSavedListener {
-    void savingComplete(int saveStatus, long mTaskId);	// smap added mTaskId
+    void savingComplete(int saveStatus, long mTaskId);    // smap added mTaskId
 }

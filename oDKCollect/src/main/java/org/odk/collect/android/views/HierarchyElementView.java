@@ -49,7 +49,7 @@ public class HierarchyElementView extends RelativeLayout {
         mPrimaryTextView.setId(2);
         mPrimaryTextView.setGravity(Gravity.CENTER_VERTICAL);
         LayoutParams l =
-            new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+                new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         l.addRule(RelativeLayout.RIGHT_OF, mIcon.getId());
         addView(mPrimaryTextView, l);
 
@@ -59,7 +59,7 @@ public class HierarchyElementView extends RelativeLayout {
         mSecondaryTextView.setGravity(Gravity.CENTER_VERTICAL);
 
         LayoutParams lp =
-            new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+                new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
         lp.addRule(RelativeLayout.BELOW, mPrimaryTextView.getId());
         lp.addRule(RelativeLayout.RIGHT_OF, mIcon.getId());
         addView(mSecondaryTextView, lp);
@@ -100,7 +100,7 @@ public class HierarchyElementView extends RelativeLayout {
 
         }
     }
-    
+
     public int dipToPx(int dip) {
         return (int) (dip * getResources().getDisplayMetrics().density + 0.5f);
     }

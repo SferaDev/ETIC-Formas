@@ -28,7 +28,7 @@ import org.odk.collect.android.R;
 
 /**
  * Builds view for arrow animation
- * 
+ *
  * @author Carl Hartung (carlhartung@gmail.com)
  */
 public class ArrowAnimationView extends View {

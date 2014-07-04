@@ -28,55 +28,54 @@ import java.util.Date;
 
 /**
  * Static methods used for common file operations.
- * 
+ *
  * @author Neil Penman
  */
 public final class STFileUtils {
-    private final static String t = "STFileUtils";
-
     // Storage paths
     public static final String LOGS_PATH = Environment.getExternalStorageDirectory()
             + "/fieldTask/logs/";
     public static final String METRIC_FILE = LOGS_PATH + "metrics.csv";
-    
+    private final static String t = "STFileUtils";
+
     /**
      * Get the time in human readable format
-     * 
+     *
      * @param timestamp date modified of the file
      * @return date modified of the file formatted as human readable string
      */
     public static String getTime(Long timestamp) {
 
         String ts =
-            new SimpleDateFormat("EEE, MMM dd, yyyy 'at' HH:mm").format(new Date(timestamp));
+                new SimpleDateFormat("EEE, MMM dd, yyyy 'at' HH:mm").format(new Date(timestamp));
         return ts;
     }
-    
+
     /**
      * Get the time for the logger
-     * 
+     *
      * @param timestamp date modified of the file
      * @return date modified of the file formatted as human readable string
      */
     public static String getLogTime(Long timestamp) {
 
         String ts =
-            new SimpleDateFormat("dd-MMM-yyyy HH:mm").format(new Date(timestamp));  // TODO make this configurable
+                new SimpleDateFormat("dd-MMM-yyyy HH:mm").format(new Date(timestamp));  // TODO make this configurable
         return ts;
     }
 
 
     /**
      * Get the file name from a path name
-     * 
+     *
      * @param path path to the file
      * @return name of the file formatted as human readable string
      */
     public static String getName(String path) {
-      
+
         try {
-        	// remove path and extension from form
-        	String filename = path.substring(path.lastIndexOf("/") + 1);
+            // remove path and extension from form
+            String filename = path.substring(path.lastIndexOf("/") + 1);
             return filename.substring(0, filename.lastIndexOf("."));
 
         } catch (StringIndexOutOfBoundsException e) {
@@ -86,14 +85,14 @@ public final class STFileUtils {
 
     /**
      * Get the file name from a path name
-     * 
+     *
      * @param path path to the file
      * @return name of the file including its extension
      */
     public static String getFileName(String path) {
-      
+
         try {
-        	// remove path and extension from form
+            // remove path and extension from form
             return path.substring(path.lastIndexOf("/") + 1);
 
         } catch (StringIndexOutOfBoundsException e) {
@@ -106,31 +105,31 @@ public final class STFileUtils {
      * Create a new instance file
      */
     public static String createInstanceFile(String formName, String contents) {
-    	String instanceFile = null;
+        String instanceFile = null;
 
-    	if(formName != null) {
-	        String time = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").
-	        		format(Calendar.getInstance().getTime());
-	        String formBase = formName.substring(0, formName.lastIndexOf('.'));
-	        String path = Collect.INSTANCES_PATH + formBase + "_" + time;
-	        if (FileUtils.createFolder(path)) {
-	            instanceFile = path + "/" + formBase + "_" + time + ".xml";
-	            if(contents != null) {
-	            	try {	// TODO write in background task
-	                    
-	                    BufferedWriter bw = new BufferedWriter(new FileWriter(instanceFile));
-	                    bw.write(contents);
-	                    bw.flush();
-	                    bw.close();
+        if (formName != null) {
+            String time = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss").
+                    format(Calendar.getInstance().getTime());
+            String formBase = formName.substring(0, formName.lastIndexOf('.'));
+            String path = Collect.INSTANCES_PATH + formBase + "_" + time;
+            if (FileUtils.createFolder(path)) {
+                instanceFile = path + "/" + formBase + "_" + time + ".xml";
+                if (contents != null) {
+                    try {    // TODO write in background task
 
-	                } catch (IOException e) {
-	                    Log.e(t, "Error writing XML file");
-	                    e.printStackTrace();
-	                }
-	            }
-	        }
-    	}
-        
+                        BufferedWriter bw = new BufferedWriter(new FileWriter(instanceFile));
+                        bw.write(contents);
+                        bw.flush();
+                        bw.close();
+
+                    } catch (IOException e) {
+                        Log.e(t, "Error writing XML file");
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+
         return instanceFile;
     }
 }

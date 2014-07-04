@@ -1,4 +1,3 @@
-
 package org.odk.collect.android.database;
 
 import android.content.ContentValues;
@@ -14,58 +13,19 @@ public class ItemsetDbAdapter {
     public static final String KEY_ID = "_id";
 
     private static final String TAG = "ItemsetDbAdapter";
-    private DatabaseHelper mDbHelper;
-    private SQLiteDatabase mDb;
-
     private static final String DATABASE_NAME = "itemsets.db";
     private static final String DATABASE_TABLE = "itemset_";
     private static final int DATABASE_VERSION = 2;
-
     private static final String ITEMSET_TABLE = "itemsets";
     private static final String KEY_ITEMSET_HASH = "hash";
     private static final String KEY_PATH = "path";
-
     private static final String CREATE_ITEMSET_TABLE =
             "create table " + ITEMSET_TABLE + " (_id integer primary key autoincrement, "
                     + KEY_ITEMSET_HASH + " text, "
                     + KEY_PATH + " text "
                     + ");";
-
-    /**
-     * This class helps open, create, and upgrade the database file.
-     */
-    private static class DatabaseHelper extends ODKSQLiteOpenHelper {
-        DatabaseHelper() {
-            super(Collect.METADATA_PATH, DATABASE_NAME, null, DATABASE_VERSION);
-        }
-
-        @Override
-        public void onCreate(SQLiteDatabase db) {
-            // create table to keep track of the itemsets
-            db.execSQL(CREATE_ITEMSET_TABLE);
-
-        }
-
-        @Override
-        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
-                    + newVersion + ", which will destroy all old data");
-            // first drop all of our generated itemset tables
-            Cursor c = db.query(ITEMSET_TABLE, null, null, null, null, null, null);
-            if (c != null) {
-                c.move(-1);
-                while (c.moveToNext()) {
-                    String table = c.getString(c.getColumnIndex(KEY_ITEMSET_HASH));
-                    db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE + table);
-                }
-                c.close();
-            }
-
-            // then drop the table tracking itemsets itself
-            db.execSQL("DROP TABLE IF EXISTS " + ITEMSET_TABLE);
-            onCreate(db);
-        }
-    }
+    private DatabaseHelper mDbHelper;
+    private SQLiteDatabase mDb;
 
     public ItemsetDbAdapter() {
     }
@@ -74,9 +34,9 @@ public class ItemsetDbAdapter {
      * Open the database. If it cannot be opened, try to create a new instance
      * of the database. If it cannot be created, throw an exception to signal
      * the failure
-     * 
+     *
      * @return this (self reference, allowing this to be chained in an
-     *         initialization call)
+     * initialization call)
      * @throws android.database.SQLException if the database could be neither opened or created
      */
     public ItemsetDbAdapter open() throws SQLException {
@@ -160,7 +120,7 @@ public class ItemsetDbAdapter {
 
         String where = KEY_ITEMSET_HASH + "=?";
         String[] whereArgs = {
-            formHash
+                formHash
         };
         mDb.delete(ITEMSET_TABLE, where, whereArgs);
     }
@@ -168,7 +128,7 @@ public class ItemsetDbAdapter {
     public Cursor getItemsets(String path) {
         String selection = KEY_PATH + "=?";
         String[] selectionArgs = {
-            path
+                path
         };
         Cursor c = mDb.query(ITEMSET_TABLE, null, selection, selectionArgs, null, null, null);
         return c;
@@ -187,9 +147,45 @@ public class ItemsetDbAdapter {
 
         String where = KEY_PATH + "=?";
         String[] whereArgs = {
-            path
+                path
         };
         mDb.delete(ITEMSET_TABLE, where, whereArgs);
+    }
+
+    /**
+     * This class helps open, create, and upgrade the database file.
+     */
+    private static class DatabaseHelper extends ODKSQLiteOpenHelper {
+        DatabaseHelper() {
+            super(Collect.METADATA_PATH, DATABASE_NAME, null, DATABASE_VERSION);
+        }
+
+        @Override
+        public void onCreate(SQLiteDatabase db) {
+            // create table to keep track of the itemsets
+            db.execSQL(CREATE_ITEMSET_TABLE);
+
+        }
+
+        @Override
+        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+            Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
+                    + newVersion + ", which will destroy all old data");
+            // first drop all of our generated itemset tables
+            Cursor c = db.query(ITEMSET_TABLE, null, null, null, null, null, null);
+            if (c != null) {
+                c.move(-1);
+                while (c.moveToNext()) {
+                    String table = c.getString(c.getColumnIndex(KEY_ITEMSET_HASH));
+                    db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE + table);
+                }
+                c.close();
+            }
+
+            // then drop the table tracking itemsets itself
+            db.execSQL("DROP TABLE IF EXISTS " + ITEMSET_TABLE);
+            onCreate(db);
+        }
     }
 
 }

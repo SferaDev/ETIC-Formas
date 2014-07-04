@@ -31,6 +31,7 @@ public class CardUI extends FrameLayout {
      */
 
     private static final int STATE_ONSCREEN = 0;
+    private int mState = STATE_ONSCREEN;
     private static final int STATE_OFFSCREEN = 1;
     private static final int STATE_RETURNING = 2;
     protected int renderedCardsStacks = 0;
@@ -56,7 +57,6 @@ public class CardUI extends FrameLayout {
     private View mPlaceholderView;
     private QuickReturnListView mListView;
     private int mMinRawY = 0;
-    private int mState = STATE_ONSCREEN;
     private int mQuickReturnHeight;
     private int mCachedVerticalScrollRange;
     private boolean mSwipeable = false;
@@ -132,7 +132,8 @@ public class CardUI extends FrameLayout {
                         mCachedVerticalScrollRange = mListView.getListHeight();
 
                     }
-                });
+                }
+        );
 
         mListView.setOnScrollListener(new OnScrollListener() {
             @SuppressLint("NewApi")
@@ -150,7 +151,8 @@ public class CardUI extends FrameLayout {
                 int rawY = mPlaceholderView.getTop()
                         - Math.min(
                         mCachedVerticalScrollRange
-                                - mListView.getHeight(), mScrollY);
+                                - mListView.getHeight(), mScrollY
+                );
 
                 switch (mState) {
                     case STATE_OFFSCREEN:

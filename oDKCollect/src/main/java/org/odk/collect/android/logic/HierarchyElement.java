@@ -21,17 +21,17 @@ import org.javarosa.core.model.FormIndex;
 import java.util.ArrayList;
 
 public class HierarchyElement {
+    int mType;
+    FormIndex mFormIndex;
+    ArrayList<HierarchyElement> mChildren;
     private String mPrimaryText = "";
     private String mSecondaryText = "";
     private Drawable mIcon;
     private int mColor;
-    int mType;
-    FormIndex mFormIndex;
-    ArrayList<HierarchyElement> mChildren;
 
 
     public HierarchyElement(String text1, String text2, Drawable bullet, int color, int type,
-            FormIndex f) {
+                            FormIndex f) {
         mIcon = bullet;
         mPrimaryText = text1;
         mSecondaryText = text2;
@@ -46,31 +46,25 @@ public class HierarchyElement {
         return mPrimaryText;
     }
 
+    public void setPrimaryText(String text) {
+        mPrimaryText = text;
+    }
 
     public String getSecondaryText() {
         return mSecondaryText;
     }
 
-
-    public void setPrimaryText(String text) {
-        mPrimaryText = text;
-    }
-
-
     public void setSecondaryText(String text) {
         mSecondaryText = text;
     }
-
-
-    public void setIcon(Drawable icon) {
-        mIcon = icon;
-    }
-
 
     public Drawable getIcon() {
         return mIcon;
     }
 
+    public void setIcon(Drawable icon) {
+        mIcon = icon;
+    }
 
     public FormIndex getFormIndex() {
         return mFormIndex;
@@ -91,24 +85,20 @@ public class HierarchyElement {
         return mChildren;
     }
 
+    public void setChildren(ArrayList<HierarchyElement> children) {
+        mChildren = children;
+    }
 
     public void addChild(HierarchyElement h) {
         mChildren.add(h);
     }
 
-
-    public void setChildren(ArrayList<HierarchyElement> children) {
-        mChildren = children;
+    public int getColor() {
+        return mColor;
     }
-
 
     public void setColor(int color) {
         mColor = color;
-    }
-
-
-    public int getColor() {
-        return mColor;
     }
 
 }

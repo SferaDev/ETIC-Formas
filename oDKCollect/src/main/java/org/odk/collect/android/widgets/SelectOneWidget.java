@@ -37,155 +37,155 @@ import java.util.Vector;
 
 /**
  * SelectOneWidgets handles select-one fields using radio buttons.
- * 
+ *
  * @author Carl Hartung (carlhartung@gmail.com)
  * @author Yaw Anokwa (yanokwa@gmail.com)
  */
 public class SelectOneWidget extends QuestionWidget implements
-		OnCheckedChangeListener {
+        OnCheckedChangeListener {
 
-	Vector<SelectChoice> mItems; // may take a while to compute
-	ArrayList<RadioButton> buttons;
+    Vector<SelectChoice> mItems; // may take a while to compute
+    ArrayList<RadioButton> buttons;
 
-	public SelectOneWidget(Context context, FormEntryPrompt prompt) {
-		super(context, prompt);
+    public SelectOneWidget(Context context, FormEntryPrompt prompt) {
+        super(context, prompt);
 
-		mItems = prompt.getSelectChoices();
-		buttons = new ArrayList<RadioButton>();
+        mItems = prompt.getSelectChoices();
+        buttons = new ArrayList<RadioButton>();
 
-		// Layout holds the vertical list of buttons
-		LinearLayout buttonLayout = new LinearLayout(context);
+        // Layout holds the vertical list of buttons
+        LinearLayout buttonLayout = new LinearLayout(context);
 
-		String s = null;
-		if (prompt.getAnswerValue() != null) {
-			s = ((Selection) prompt.getAnswerValue().getValue()).getValue();
-		}
+        String s = null;
+        if (prompt.getAnswerValue() != null) {
+            s = ((Selection) prompt.getAnswerValue().getValue()).getValue();
+        }
 
-		if (mItems != null) {
-			for (int i = 0; i < mItems.size(); i++) {
-				RadioButton r = new RadioButton(getContext());
-				r.setText(prompt.getSelectChoiceText(mItems.get(i)));
-				r.setTextSize(TypedValue.COMPLEX_UNIT_DIP, mAnswerFontsize);
-				r.setTag(Integer.valueOf(i));
-				r.setId(QuestionWidget.newUniqueId());
-				r.setEnabled(!prompt.isReadOnly());
-				r.setFocusable(!prompt.isReadOnly());
+        if (mItems != null) {
+            for (int i = 0; i < mItems.size(); i++) {
+                RadioButton r = new RadioButton(getContext());
+                r.setText(prompt.getSelectChoiceText(mItems.get(i)));
+                r.setTextSize(TypedValue.COMPLEX_UNIT_DIP, mAnswerFontsize);
+                r.setTag(Integer.valueOf(i));
+                r.setId(QuestionWidget.newUniqueId());
+                r.setEnabled(!prompt.isReadOnly());
+                r.setFocusable(!prompt.isReadOnly());
 
-				buttons.add(r);
+                buttons.add(r);
 
-				if (mItems.get(i).getValue().equals(s)) {
-					r.setChecked(true);
-				}
+                if (mItems.get(i).getValue().equals(s)) {
+                    r.setChecked(true);
+                }
 
-				r.setOnCheckedChangeListener(this);
+                r.setOnCheckedChangeListener(this);
 
-				String audioURI = null;
-				audioURI = prompt.getSpecialFormSelectChoiceText(mItems.get(i),
-						FormEntryCaption.TEXT_FORM_AUDIO);
+                String audioURI = null;
+                audioURI = prompt.getSpecialFormSelectChoiceText(mItems.get(i),
+                        FormEntryCaption.TEXT_FORM_AUDIO);
 
-				String imageURI = null;
-				imageURI = prompt.getSpecialFormSelectChoiceText(mItems.get(i),
-						FormEntryCaption.TEXT_FORM_IMAGE);
+                String imageURI = null;
+                imageURI = prompt.getSpecialFormSelectChoiceText(mItems.get(i),
+                        FormEntryCaption.TEXT_FORM_IMAGE);
 
-				String videoURI = null;
-				videoURI = prompt.getSpecialFormSelectChoiceText(mItems.get(i),
-						"video");
+                String videoURI = null;
+                videoURI = prompt.getSpecialFormSelectChoiceText(mItems.get(i),
+                        "video");
 
-				String bigImageURI = null;
-				bigImageURI = prompt.getSpecialFormSelectChoiceText(
-						mItems.get(i), "big-image");
+                String bigImageURI = null;
+                bigImageURI = prompt.getSpecialFormSelectChoiceText(
+                        mItems.get(i), "big-image");
 
-				MediaLayout mediaLayout = new MediaLayout(getContext());
-				mediaLayout.setAVT(prompt.getIndex(), "." + Integer.toString(i), r, audioURI, imageURI,
-						videoURI, bigImageURI);
+                MediaLayout mediaLayout = new MediaLayout(getContext());
+                mediaLayout.setAVT(prompt.getIndex(), "." + Integer.toString(i), r, audioURI, imageURI,
+                        videoURI, bigImageURI);
 
-				if (i != mItems.size() - 1) {
-					// Last, add the dividing line (except for the last element)
-					ImageView divider = new ImageView(getContext());
-					divider.setBackgroundResource(android.R.drawable.divider_horizontal_bright);
-					mediaLayout.addDivider(divider);
-				}
-				buttonLayout.addView(mediaLayout);
-			}
-		}
-		buttonLayout.setOrientation(LinearLayout.VERTICAL);
+                if (i != mItems.size() - 1) {
+                    // Last, add the dividing line (except for the last element)
+                    ImageView divider = new ImageView(getContext());
+                    divider.setBackgroundResource(android.R.drawable.divider_horizontal_bright);
+                    mediaLayout.addDivider(divider);
+                }
+                buttonLayout.addView(mediaLayout);
+            }
+        }
+        buttonLayout.setOrientation(LinearLayout.VERTICAL);
 
-		// The buttons take up the right half of the screen
-		LayoutParams buttonParams = new LayoutParams(LayoutParams.FILL_PARENT,
-				LayoutParams.WRAP_CONTENT);
+        // The buttons take up the right half of the screen
+        LayoutParams buttonParams = new LayoutParams(LayoutParams.FILL_PARENT,
+                LayoutParams.WRAP_CONTENT);
 
-		addView(buttonLayout, buttonParams);
-	}
+        addView(buttonLayout, buttonParams);
+    }
 
-	@Override
-	public void clearAnswer() {
-		for (RadioButton button : this.buttons) {
-			if (button.isChecked()) {
-				button.setChecked(false);
-				return;
-			}
-		}
-	}
+    @Override
+    public void clearAnswer() {
+        for (RadioButton button : this.buttons) {
+            if (button.isChecked()) {
+                button.setChecked(false);
+                return;
+            }
+        }
+    }
 
-	@Override
-	public IAnswerData getAnswer() {
-		int i = getCheckedId();
-		if (i == -1) {
-			return null;
-		} else {
-			SelectChoice sc = mItems.elementAt(i);
-			return new SelectOneData(new Selection(sc));
-		}
-	}
+    @Override
+    public IAnswerData getAnswer() {
+        int i = getCheckedId();
+        if (i == -1) {
+            return null;
+        } else {
+            SelectChoice sc = mItems.elementAt(i);
+            return new SelectOneData(new Selection(sc));
+        }
+    }
 
-	@Override
-	public void setFocus(Context context) {
-		// Hide the soft keyboard if it's showing.
-		InputMethodManager inputManager = (InputMethodManager) context
-				.getSystemService(Context.INPUT_METHOD_SERVICE);
-		inputManager.hideSoftInputFromWindow(this.getWindowToken(), 0);
-	}
+    @Override
+    public void setFocus(Context context) {
+        // Hide the soft keyboard if it's showing.
+        InputMethodManager inputManager = (InputMethodManager) context
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.hideSoftInputFromWindow(this.getWindowToken(), 0);
+    }
 
-	public int getCheckedId() {
-		for (int i = 0; i < buttons.size(); ++i) {
-			RadioButton button = buttons.get(i);
-			if (button.isChecked()) {
-				return i;
-			}
-		}
-		return -1;
-	}
+    public int getCheckedId() {
+        for (int i = 0; i < buttons.size(); ++i) {
+            RadioButton button = buttons.get(i);
+            if (button.isChecked()) {
+                return i;
+            }
+        }
+        return -1;
+    }
 
-	@Override
-	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		if (!isChecked) {
-			// If it got unchecked, we don't care.
-			return;
-		}
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        if (!isChecked) {
+            // If it got unchecked, we don't care.
+            return;
+        }
 
-		for (RadioButton button : buttons ) {
-			if (button.isChecked() && !(buttonView == button)) {
-				button.setChecked(false);
-			}
-		}
-		
-       	Collect.getInstance().getActivityLogger().logInstanceAction(this, "onCheckedChanged", 
-    			mItems.get((Integer)buttonView.getTag()).getValue(), mPrompt.getIndex());
-	}
+        for (RadioButton button : buttons) {
+            if (button.isChecked() && !(buttonView == button)) {
+                button.setChecked(false);
+            }
+        }
 
-	@Override
-	public void setOnLongClickListener(OnLongClickListener l) {
-		for (RadioButton r : buttons) {
-			r.setOnLongClickListener(l);
-		}
-	}
+        Collect.getInstance().getActivityLogger().logInstanceAction(this, "onCheckedChanged",
+                mItems.get((Integer) buttonView.getTag()).getValue(), mPrompt.getIndex());
+    }
 
-	@Override
-	public void cancelLongPress() {
-		super.cancelLongPress();
-		for (RadioButton button : this.buttons) {
-			button.cancelLongPress();
-		}
-	}
+    @Override
+    public void setOnLongClickListener(OnLongClickListener l) {
+        for (RadioButton r : buttons) {
+            r.setOnLongClickListener(l);
+        }
+    }
+
+    @Override
+    public void cancelLongPress() {
+        super.cancelLongPress();
+        for (RadioButton button : this.buttons) {
+            button.cancelLongPress();
+        }
+    }
 
 }

@@ -1,4 +1,3 @@
-
 package com.sferadev.etic.activities;
 
 import android.app.Activity;
@@ -31,14 +30,14 @@ public class SplashScreenActivity extends Activity {
 
         // get the shared preferences object
         SharedPreferences sharedPreferences =
-            PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         Editor editor = sharedPreferences.edit();
 
         // get the package info object with version number
         PackageInfo packageInfo = null;
         try {
             packageInfo =
-                getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_META_DATA);
+                    getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_META_DATA);
         } catch (NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -57,7 +56,7 @@ public class SplashScreenActivity extends Activity {
 
         // do all the first run things
         if (firstRun) {
-            
+
             // TODO clear cache
             editor.putBoolean(PreferencesActivity.KEY_FIRST_RUN, false);
             editor.commit();

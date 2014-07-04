@@ -67,7 +67,7 @@ public class FormGoToActivity extends ListActivity {
         setContentView(R.layout.hierarchy_layout);
 
         FormController formController = Collect.getInstance().getFormController();
-        
+
         // We use a static FormEntryController to make jumping faster.
         mStartIndex = formController.getFormIndex();
 
@@ -124,25 +124,25 @@ public class FormGoToActivity extends ListActivity {
 
     @Override
     protected void onStart() {
-    	super.onStart();
-		Collect.getInstance().getActivityLogger().logOnStart(this); 
+        super.onStart();
+        Collect.getInstance().getActivityLogger().logOnStart(this);
     }
-    
+
     @Override
     protected void onStop() {
-		Collect.getInstance().getActivityLogger().logOnStop(this); 
-    	super.onStop();
+        Collect.getInstance().getActivityLogger().logOnStop(this);
+        super.onStop();
     }
 
     private void goUpLevel() {
-    	Collect.getInstance().getFormController().stepToOuterScreenEvent();
+        Collect.getInstance().getFormController().stepToOuterScreenEvent();
 
         refreshView();
     }
 
 
     private String getCurrentPath() {
-    	FormController formController = Collect.getInstance().getFormController();
+        FormController formController = Collect.getInstance().getFormController();
         FormIndex index = formController.getFormIndex();
         // move to enclosing group...
         index = formController.stepIndexOut(index);
@@ -151,10 +151,10 @@ public class FormGoToActivity extends ListActivity {
         while (index != null) {
 
             path =
-            		formController.getCaptionPrompt(index).getLongText()
-                        + " ("
-                        + (formController.getCaptionPrompt(index)
-                                .getMultiplicity() + 1) + ") > " + path;
+                    formController.getCaptionPrompt(index).getLongText()
+                            + " ("
+                            + (formController.getCaptionPrompt(index)
+                            .getMultiplicity() + 1) + ") > " + path;
 
             index = formController.stepIndexOut(index);
         }
@@ -164,7 +164,7 @@ public class FormGoToActivity extends ListActivity {
 
 
     public void refreshView() {
-    	FormController formController = Collect.getInstance().getFormController();
+        FormController formController = Collect.getInstance().getFormController();
         // Record the current index so we can return to the same place if the user hits 'back'.
         FormIndex currentIndex = formController.getFormIndex();
 
@@ -177,7 +177,7 @@ public class FormGoToActivity extends ListActivity {
         // node to display.
         if (formController.getEvent() == FormEntryController.EVENT_REPEAT) {
             enclosingGroupRef =
-            		formController.getFormIndex().getReference().toString(false);
+                    formController.getFormIndex().getReference().toString(false);
             formController.stepToNextEvent(FormController.STEP_INTO_GROUP);
         } else {
             FormIndex startTest = formController.stepIndexOut(currentIndex);
@@ -190,18 +190,18 @@ public class FormGoToActivity extends ListActivity {
             if (startTest == null) {
                 // check to see if the question is at the first level of the hierarchy. If it is,
                 // display the root level from the beginning.
-            	formController.jumpToIndex(FormIndex
+                formController.jumpToIndex(FormIndex
                         .createBeginningOfFormIndex());
             } else {
                 // otherwise we're at a repeated group
-            	formController.jumpToIndex(startTest);
+                formController.jumpToIndex(startTest);
             }
 
             // now test again for repeat. This should be true at this point or we're at the
             // beginning
             if (formController.getEvent() == FormEntryController.EVENT_REPEAT) {
                 enclosingGroupRef =
-                		formController.getFormIndex().getReference().toString(false);
+                        formController.getFormIndex().getReference().toString(false);
                 formController.stepToNextEvent(FormController.STEP_INTO_GROUP);
             }
         }
@@ -209,7 +209,7 @@ public class FormGoToActivity extends ListActivity {
         int event = formController.getEvent();
         if (event == FormEntryController.EVENT_BEGINNING_OF_FORM) {
             // The beginning of form has no valid prompt to display.
-        	formController.stepToNextEvent(FormController.STEP_INTO_GROUP);
+            formController.stepToNextEvent(FormController.STEP_INTO_GROUP);
             mPath.setVisibility(View.GONE);
         } else {
             mPath.setVisibility(View.VISIBLE);
@@ -223,24 +223,25 @@ public class FormGoToActivity extends ListActivity {
         // keep track of them.
         String repeatedGroupRef = "";
 
-        event_search: while (event != FormEntryController.EVENT_END_OF_FORM) {
+        event_search:
+        while (event != FormEntryController.EVENT_END_OF_FORM) {
             switch (event) {
                 case FormEntryController.EVENT_QUESTION:
                     if (!repeatedGroupRef.equalsIgnoreCase("")) {
                         // We're in a repeating group, so skip this question and move to the next
                         // index.
                         event =
-                        		formController.stepToNextEvent(FormController.STEP_INTO_GROUP);
+                                formController.stepToNextEvent(FormController.STEP_INTO_GROUP);
                         continue;
                     }
 
                     FormEntryPrompt fp = formController.getQuestionPrompt();
                     String label = fp.getLongText();
-                    if ( !fp.isReadOnly() || (label != null && label.length() > 0) ) {
-                    	// show the question if it is an editable field.
-                    	// or if it is read-only and the label is not blank.
-	                    formList.add(new HierarchyElement(fp.getLongText(), fp.getAnswerText(), null,
-	                            Color.WHITE, QUESTION, fp.getIndex()));
+                    if (!fp.isReadOnly() || (label != null && label.length() > 0)) {
+                        // show the question if it is an editable field.
+                        // or if it is read-only and the label is not blank.
+                        formList.add(new HierarchyElement(fp.getLongText(), fp.getAnswerText(), null,
+                                Color.WHITE, QUESTION, fp.getIndex()));
                     }
                     break;
                 case FormEntryController.EVENT_GROUP:
@@ -259,7 +260,7 @@ public class FormGoToActivity extends ListActivity {
                         // We're in a repeating group, so skip this repeat prompt and move to the
                         // next event.
                         event =
-                        		formController.stepToNextEvent(FormController.STEP_INTO_GROUP);
+                                formController.stepToNextEvent(FormController.STEP_INTO_GROUP);
                         continue;
                     }
 
@@ -282,12 +283,13 @@ public class FormGoToActivity extends ListActivity {
                         // This is the start of a repeating group. We only want to display
                         // "Group #", so we mark this as the beginning and skip all of its children
                         HierarchyElement group =
-                            new HierarchyElement(fc.getLongText(), null, getResources()
-                                    .getDrawable(R.drawable.expander_ic_minimized), Color.WHITE,
-                                    COLLAPSED, fc.getIndex());
+                                new HierarchyElement(fc.getLongText(), null, getResources()
+                                        .getDrawable(R.drawable.expander_ic_minimized), Color.WHITE,
+                                        COLLAPSED, fc.getIndex()
+                                );
                         repeatedGroupRef =
-                        		formController.getFormIndex().getReference()
-                                    .toString(false);
+                                formController.getFormIndex().getReference()
+                                        .toString(false);
                         formList.add(group);
                     }
 
@@ -302,7 +304,7 @@ public class FormGoToActivity extends ListActivity {
                     break;
             }
             event =
-            		formController.stepToNextEvent(FormController.STEP_INTO_GROUP);
+                    formController.stepToNextEvent(FormController.STEP_INTO_GROUP);
         }
 
         HierarchyListAdapter itla = new HierarchyListAdapter(this);
@@ -313,7 +315,7 @@ public class FormGoToActivity extends ListActivity {
         formController.jumpToIndex(currentIndex);
     }
 
-    
+
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         HierarchyElement h = (HierarchyElement) l.getItemAtPosition(position);
@@ -349,9 +351,9 @@ public class FormGoToActivity extends ListActivity {
             case QUESTION:
                 Collect.getInstance().getActivityLogger().logInstanceAction(this, "onListItemClick", "QUESTION-JUMP", index);
                 Collect.getInstance().getFormController().jumpToIndex(index);
-            	if ( Collect.getInstance().getFormController().indexIsInFieldList() ) {
-            		Collect.getInstance().getFormController().stepToPreviousScreenEvent();
-            	}
+                if (Collect.getInstance().getFormController().indexIsInFieldList()) {
+                    Collect.getInstance().getFormController().stepToPreviousScreenEvent();
+                }
                 setResult(RESULT_OK);
                 finish();
                 return;
