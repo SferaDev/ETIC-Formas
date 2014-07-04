@@ -152,7 +152,7 @@ public class ImageWebViewWidget extends QuestionWidget implements IBinaryWidget 
 		mCaptureButton.setLayoutParams(params);
 
 		// launch capture intent on click
-		mCaptureButton.setOnClickListener(new View.OnClickListener() {
+		mCaptureButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Collect.getInstance()
@@ -202,7 +202,7 @@ public class ImageWebViewWidget extends QuestionWidget implements IBinaryWidget 
 		mChooseButton.setLayoutParams(params);
 
 		// launch capture intent on click
-		mChooseButton.setOnClickListener(new View.OnClickListener() {
+		mChooseButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Collect.getInstance()

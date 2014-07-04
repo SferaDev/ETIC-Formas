@@ -77,7 +77,7 @@ public class ItemsetDbAdapter {
      * 
      * @return this (self reference, allowing this to be chained in an
      *         initialization call)
-     * @throws SQLException if the database could be neither opened or created
+     * @throws android.database.SQLException if the database could be neither opened or created
      */
     public ItemsetDbAdapter open() throws SQLException {
         mDbHelper = new DatabaseHelper();

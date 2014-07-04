@@ -140,7 +140,7 @@ public class ExPrinterWidget extends QuestionWidget implements IBinaryWidget {
         mLaunchIntentButton.setPadding(20, 20, 20, 20);
         mLaunchIntentButton.setLayoutParams(params);
 
-        mLaunchIntentButton.setOnClickListener(new View.OnClickListener() {
+        mLaunchIntentButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {

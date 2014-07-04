@@ -149,7 +149,7 @@
 <string name="use_odk_default">Usa immagine di default</string>
 <string name="change_splash_path">Cambiare immagine</string>
 <string name="show_location">Mostra Localizzazione</string>
-<string name="app_url">http://opendatakit.org</string>
+<string name="app_url">http://formas.etic.sa.com</string>
 <string name="keep_changes">Salva le modifiche</string>
 <string name="go_to_location">Vai al punto di</string>
 <string name="change_formlist_url">La posizione dell\'elenco delle forme (allegata alla URL del server)</string>

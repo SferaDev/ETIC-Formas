@@ -540,7 +540,7 @@ public class InstanceUploaderTask extends AsyncTask<Long, Integer, InstanceUploa
 	                if (urlString == null) {
 	                    SharedPreferences settings =
 	                        PreferenceManager.getDefaultSharedPreferences(Collect.getInstance());
-	                    urlString = Collect.getInstance().getString(R.string.default_server_url);
+                        urlString = Collect.getInstance().getString(R.string.default_server_url);
 	                    if ( urlString.charAt(urlString.length()-1) == '/') {
 	                    	urlString = urlString.substring(0, urlString.length()-1);
 	                    }
@@ -559,8 +559,8 @@ public class InstanceUploaderTask extends AsyncTask<Long, Integer, InstanceUploa
 	                    
 	                    String username = settings.getString(PreferencesActivity.KEY_USERNAME, null);
 	                    String password = settings.getString(PreferencesActivity.KEY_PASSWORD, null);
-	                    
-	                    String server = Collect.getInstance().getString(R.string.default_server_url);
+
+                        String server = Collect.getInstance().getString(R.string.default_server_url);
 	                    //final String url =
 	                    //        server + settings.getString(PreferencesActivity.KEY_FORMLIST_URL, "/formList");
 	                    if(username != null && password != null) {

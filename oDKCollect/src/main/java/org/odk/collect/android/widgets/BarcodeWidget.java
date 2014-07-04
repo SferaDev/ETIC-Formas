@@ -62,7 +62,7 @@ public class BarcodeWidget extends QuestionWidget implements IBinaryWidget {
 		mGetBarcodeButton.setLayoutParams(params);
 
 		// launch barcode capture intent on click
-		mGetBarcodeButton.setOnClickListener(new View.OnClickListener() {
+		mGetBarcodeButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Collect.getInstance()

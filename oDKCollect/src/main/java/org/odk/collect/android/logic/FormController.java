@@ -781,6 +781,7 @@ public class FormController {
 
     /**
      * Creates a new repeated instance of the group referenced by the current FormIndex.
+     *
      */
     public void newRepeat() {
         mFormEntryController.newRepeat();
@@ -1081,7 +1082,7 @@ public class FormController {
      * enables a filled-in form to be re-opened and edited.
      *
      * @return
-     * @throws IOException
+     * @throws java.io.IOException
      */
     public ByteArrayPayload getFilledInFormXml() throws IOException {
         // assume no binary data inside the model.
@@ -1097,7 +1098,7 @@ public class FormController {
      * Extract the portion of the form that should be uploaded to the server.
      *
      * @return
-     * @throws IOException
+     * @throws java.io.IOException
      */
     public ByteArrayPayload getSubmissionXml() throws IOException {
         FormInstance instance = getInstance();

@@ -48,7 +48,7 @@ import android.widget.TextView;
  * @author Yaw Anokwa (yanokwa@gmail.com)
  */
 public class ItemsetWidget extends QuestionWidget implements
-        android.widget.CompoundButton.OnCheckedChangeListener {
+        CompoundButton.OnCheckedChangeListener {
 
     private static String tag = "ItemsetWidget";
 

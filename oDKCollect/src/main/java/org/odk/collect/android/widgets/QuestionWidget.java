@@ -53,7 +53,7 @@ public abstract class QuestionWidget extends LinearLayout {
 		return ++idGenerator;
 	}
 
-    private LinearLayout.LayoutParams mLayout;
+    private LayoutParams mLayout;
     protected FormEntryPrompt mPrompt;
 
     protected final int mQuestionFontsize;
@@ -77,8 +77,8 @@ public abstract class QuestionWidget extends LinearLayout {
         setPadding(0, 7, 0, 0);
 
         mLayout =
-            new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT);
+            new LayoutParams(LayoutParams.FILL_PARENT,
+                    LayoutParams.WRAP_CONTENT);
         mLayout.setMargins(10, 0, 10, 0);
 
         addQuestionText(p);

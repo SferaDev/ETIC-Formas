@@ -45,7 +45,7 @@ import android.widget.Toast;
 
 /**
  * Responsible for displaying all the valid forms in the forms directory. Stores
- * the path to selected form for use by {@link MainMenuActivity}.
+ * the path to selected form for use by {@link org.odk.collect.android.activities.MainMenuActivity}.
  *
  * @author Carl Hartung (carlhartung@gmail.com)
  * @author Yaw Anokwa (yanokwa@gmail.com)

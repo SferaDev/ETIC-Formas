@@ -15,6 +15,7 @@
 package org.odk.collect.android.preferences;
 
 import org.odk.collect.android.R;
+import org.odk.collect.android.utilities.UrlUtils;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -63,7 +64,7 @@ public class PreferencesActivity extends PreferenceActivity implements
 	public static final String PROTOCOL_ODK_DEFAULT = "odk_default";
 	public static final String PROTOCOL_GOOGLE = "google";
 	public static final String PROTOCOL_OTHER = "";
-
+	
 	public static final String NAVIGATION_SWIPE = "swipe";
 	public static final String NAVIGATION_BUTTONS = "buttons";
 	public static final String NAVIGATION_SWIPE_BUTTONS = "swipe_buttons";
@@ -88,7 +89,7 @@ public class PreferencesActivity extends PreferenceActivity implements
 	private PreferenceScreen mSplashPathPreference;
 	private EditTextPreference mSubmissionUrlPreference;
 	private EditTextPreference mFormListUrlPreference;
-    private EditTextPreference mUsernamePreference;
+	private EditTextPreference mUsernamePreference;
 	private EditTextPreference mPasswordPreference;
 	private ListPreference mFontSizePreference;
 	private ListPreference mNavigationPreference;
@@ -148,7 +149,7 @@ public class PreferencesActivity extends PreferenceActivity implements
 			Preference protocol = findPreference(KEY_PROTOCOL);
 			serverCategory.removePreference(protocol);
 		} else {
-		}
+		} 
 
 		mUsernamePreference = (EditTextPreference) findPreference(KEY_USERNAME);
 		mUsernamePreference.setOnPreferenceChangeListener(this);
@@ -285,7 +286,7 @@ public class PreferencesActivity extends PreferenceActivity implements
 		}
 
 		if (!(fontAvailable || defaultAvailable
-				|| navigationAvailable || adminMode)) {
+                || navigationAvailable || adminMode)) {
 			getPreferenceScreen().removePreference(clientCategory);
 		}
 

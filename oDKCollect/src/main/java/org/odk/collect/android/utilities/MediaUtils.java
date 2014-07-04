@@ -56,14 +56,14 @@ public class MediaUtils {
         Cursor c = null;
         try {
         	c = Collect.getInstance().getContentResolver().query(
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                        Images.Media.EXTERNAL_CONTENT_URI,
                         projection, selection, selectArgs, null);
             if (c.getCount() > 0) {
                 c.moveToFirst();
                 String id = c.getString(c.getColumnIndex(Images.ImageColumns._ID));
 
                 return Uri.withAppendedPath(
-                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI, id);
+                    Images.Media.EXTERNAL_CONTENT_URI, id);
             }
             return null;
         } finally {
@@ -87,7 +87,7 @@ public class MediaUtils {
                 Images.ImageColumns._ID
             };
             imageCursor = cr.query(
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                        Images.Media.EXTERNAL_CONTENT_URI,
                         projection, select, selectArgs, null);
             if (imageCursor.getCount() > 0) {
                 imageCursor.moveToFirst();
@@ -98,7 +98,7 @@ public class MediaUtils {
 	                            .getColumnIndex(Images.ImageColumns._ID));
 	
 	                	imagesToDelete.add(Uri.withAppendedPath(
-	                                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+	                                    Images.Media.EXTERNAL_CONTENT_URI,
 	                                    id));
                 } while ( imageCursor.moveToNext());
                 
@@ -135,7 +135,7 @@ public class MediaUtils {
                 Images.ImageColumns._ID
             };
             imageCursor = cr.query(
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                        Images.Media.EXTERNAL_CONTENT_URI,
                         projection, select, selectArgs, null);
             if (imageCursor.getCount() > 0) {
                 imageCursor.moveToFirst();
@@ -146,7 +146,7 @@ public class MediaUtils {
 	                            .getColumnIndex(Images.ImageColumns._ID));
 	
 	                imagesToDelete.add(Uri.withAppendedPath(
-	                                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+	                                    Images.Media.EXTERNAL_CONTENT_URI,
 	                                    id));
                 } while ( imageCursor.moveToNext());
                 
@@ -173,14 +173,14 @@ public class MediaUtils {
         Cursor c = null;
         try {
         	c = Collect.getInstance().getContentResolver().query(
-                        android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                        Audio.Media.EXTERNAL_CONTENT_URI,
                         projection, selection, selectArgs, null);
             if (c.getCount() > 0) {
                 c.moveToFirst();
                 String id = c.getString(c.getColumnIndex(Audio.AudioColumns._ID));
 
                 return Uri.withAppendedPath(
-                    android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, id);
+                    Audio.Media.EXTERNAL_CONTENT_URI, id);
             }
             return null;
         } finally {
@@ -204,7 +204,7 @@ public class MediaUtils {
             		Audio.AudioColumns._ID
             };
             audioCursor = cr.query(
-                        android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                        Audio.Media.EXTERNAL_CONTENT_URI,
                         projection, select, selectArgs, null);
             if (audioCursor.getCount() > 0) {
                 audioCursor.moveToFirst();
@@ -215,7 +215,7 @@ public class MediaUtils {
 	                            .getColumnIndex(Audio.AudioColumns._ID));
 	
 	                audioToDelete.add(Uri.withAppendedPath(
-	                                    android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+	                                    Audio.Media.EXTERNAL_CONTENT_URI,
 	                                    id));
                 } while ( audioCursor.moveToNext());
                 
@@ -252,7 +252,7 @@ public class MediaUtils {
             		Audio.AudioColumns._ID
             };
             audioCursor = cr.query(
-                        android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                        Audio.Media.EXTERNAL_CONTENT_URI,
                         projection, select, selectArgs, null);
             if (audioCursor.getCount() > 0) {
                 audioCursor.moveToFirst();
@@ -263,7 +263,7 @@ public class MediaUtils {
 	                            .getColumnIndex(Audio.AudioColumns._ID));
 	
 	                audioToDelete.add(Uri.withAppendedPath(
-	                                    android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+	                                    Audio.Media.EXTERNAL_CONTENT_URI,
 	                                    id));
                 } while ( audioCursor.moveToNext());
                 
@@ -289,14 +289,14 @@ public class MediaUtils {
         Cursor c = null;
         try {
         	c = Collect.getInstance().getContentResolver().query(
-                        android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+                        Video.Media.EXTERNAL_CONTENT_URI,
                         projection, selection, selectArgs, null);
             if (c.getCount() > 0) {
                 c.moveToFirst();
                 String id = c.getString(c.getColumnIndex(Video.VideoColumns._ID));
 
                 return Uri.withAppendedPath(
-                    android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI, id);
+                    Video.Media.EXTERNAL_CONTENT_URI, id);
             }
             return null;
         } finally {
@@ -320,7 +320,7 @@ public class MediaUtils {
             		Video.VideoColumns._ID
             };
             videoCursor = cr.query(
-                        android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+                        Video.Media.EXTERNAL_CONTENT_URI,
                         projection, select, selectArgs, null);
             if (videoCursor.getCount() > 0) {
                 videoCursor.moveToFirst();
@@ -331,7 +331,7 @@ public class MediaUtils {
 	                            .getColumnIndex(Video.VideoColumns._ID));
 	
 	                videoToDelete.add(Uri.withAppendedPath(
-	                                    android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+	                                    Video.Media.EXTERNAL_CONTENT_URI,
 	                                    id));
                 } while ( videoCursor.moveToNext());
                 
@@ -368,7 +368,7 @@ public class MediaUtils {
             		Video.VideoColumns._ID
             };
             videoCursor = cr.query(
-                        android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+                        Video.Media.EXTERNAL_CONTENT_URI,
                         projection, select, selectArgs, null);
             if (videoCursor.getCount() > 0) {
                 videoCursor.moveToFirst();
@@ -379,7 +379,7 @@ public class MediaUtils {
 	                            .getColumnIndex(Video.VideoColumns._ID));
 	
 	                videoToDelete.add(Uri.withAppendedPath(
-	                                    android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+	                                    Video.Media.EXTERNAL_CONTENT_URI,
 	                                    id));
                 } while ( videoCursor.moveToNext());
                 

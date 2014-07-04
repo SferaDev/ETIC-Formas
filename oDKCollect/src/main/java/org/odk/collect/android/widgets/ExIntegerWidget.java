@@ -33,7 +33,7 @@ import android.text.method.DigitsKeyListener;
  * Launch an external app to supply an integer value. If the app
  * does not launch, enable the text area for regular data entry.
  *
- * See {@link org.odk.collect.android.widgets.ExStringWidget} for usage.
+ * See {@link ExStringWidget} for usage.
  *
  * @author mitchellsundt@gmail.com
  *

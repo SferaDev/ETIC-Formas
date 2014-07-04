@@ -82,7 +82,7 @@ public class AudioWidget extends QuestionWidget implements IBinaryWidget {
 		mCaptureButton.setLayoutParams(params);
 
 		// launch capture intent on click
-		mCaptureButton.setOnClickListener(new View.OnClickListener() {
+		mCaptureButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Collect.getInstance()
@@ -90,10 +90,10 @@ public class AudioWidget extends QuestionWidget implements IBinaryWidget {
 						.logInstanceAction(this, "captureButton", "click",
 								mPrompt.getIndex());
 				Intent i = new Intent(
-						android.provider.MediaStore.Audio.Media.RECORD_SOUND_ACTION);
+						Audio.Media.RECORD_SOUND_ACTION);
 				i.putExtra(
 						android.provider.MediaStore.EXTRA_OUTPUT,
-						android.provider.MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
+						Audio.Media.EXTERNAL_CONTENT_URI
 								.toString());
 				try {
 					Collect.getInstance().getFormController()
@@ -123,7 +123,7 @@ public class AudioWidget extends QuestionWidget implements IBinaryWidget {
 		mChooseButton.setLayoutParams(params);
 
 		// launch capture intent on click
-		mChooseButton.setOnClickListener(new View.OnClickListener() {
+		mChooseButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Collect.getInstance()
@@ -158,7 +158,7 @@ public class AudioWidget extends QuestionWidget implements IBinaryWidget {
 		mPlayButton.setLayoutParams(params);
 
 		// on play, launch the appropriate viewer
-		mPlayButton.setOnClickListener(new View.OnClickListener() {
+		mPlayButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Collect.getInstance()

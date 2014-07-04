@@ -28,7 +28,7 @@ import android.widget.TabWidget;
 import android.widget.TextView;
 
 /**
- * A host activity for {@link InstanceChooserList}.
+ * A host activity for {@link org.odk.collect.android.activities.InstanceChooserList}.
  * 
  * @author Yaw Anokwa (yanokwa@gmail.com)
  */

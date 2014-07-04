@@ -169,8 +169,8 @@ public class LabelWidget extends QuestionWidget {
                 answer.setPadding(4, 0, 4, 0);
 
                 // Each button gets equal weight
-                LinearLayout.LayoutParams answerParams =
-                    new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT,
+                LayoutParams answerParams =
+                    new LayoutParams(LayoutParams.FILL_PARENT,
                             LayoutParams.WRAP_CONTENT);
                 answerParams.weight = 1;
 
@@ -187,8 +187,8 @@ public class LabelWidget extends QuestionWidget {
         // buttonLayout.setLayoutParams(params);
 
         // The buttons take up the right half of the screen
-        LinearLayout.LayoutParams buttonParams =
-            new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
+        LayoutParams buttonParams =
+            new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
         buttonParams.weight = 1;
 
         questionLayout.addView(buttonLayout, buttonParams);
@@ -238,8 +238,8 @@ public class LabelWidget extends QuestionWidget {
         }
 
         // Put the question text on the left half of the screen
-        LinearLayout.LayoutParams labelParams =
-            new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
+        LayoutParams labelParams =
+            new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
         labelParams.weight = 1;
 
         questionLayout = new LinearLayout(getContext());

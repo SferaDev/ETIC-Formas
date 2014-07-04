@@ -90,7 +90,7 @@ public class SpinnerMultiWidget extends QuestionWidget {
 
         // Give the button a click listener. This defines the alert as well. All the
         // click and selection behavior is defined here.
-        button.setOnClickListener(new View.OnClickListener() {
+        button.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
 
                 alert_builder.setTitle(mPrompt.getQuestionText()).setPositiveButton(R.string.ok,

@@ -107,7 +107,7 @@ public class FileDbAdapter {
     private static final String TASKS_TABLE = "tasks";
     
     private static final String TASKS_CREATE =
-        "create table tasks (_id integer primary key autoincrement, " +
+        "create table tasks (_id integer primary key autoincrement, " + 
         "name text not null, source text not null, sourceTaskId text, formId text, assignmentId text, startAsText text, scheduledStart long, " +
         "taskForm text, instance text, taskStatus text not null, lat text, lon text, address text, " +
         "location text, geomtype text, locnForm text, assignmentmode text, priority text, repeat text, fromdate text, duedate text, " +

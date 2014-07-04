@@ -142,7 +142,7 @@ public class ExStringWidget extends QuestionWidget implements IBinaryWidget {
         mLaunchIntentButton.setEnabled(!mPrompt.isReadOnly());
         mLaunchIntentButton.setLayoutParams(params);
 
-        mLaunchIntentButton.setOnClickListener(new View.OnClickListener() {
+        mLaunchIntentButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(intentName);

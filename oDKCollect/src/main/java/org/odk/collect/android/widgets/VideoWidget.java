@@ -81,7 +81,7 @@ public class VideoWidget extends QuestionWidget implements IBinaryWidget {
 		mCaptureButton.setLayoutParams(params);
 
 		// launch capture intent on click
-		mCaptureButton.setOnClickListener(new View.OnClickListener() {
+		mCaptureButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Collect.getInstance()
@@ -120,7 +120,7 @@ public class VideoWidget extends QuestionWidget implements IBinaryWidget {
 		mChooseButton.setLayoutParams(params);
 
 		// launch capture intent on click
-		mChooseButton.setOnClickListener(new View.OnClickListener() {
+		mChooseButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Collect.getInstance()
@@ -159,7 +159,7 @@ public class VideoWidget extends QuestionWidget implements IBinaryWidget {
 		mPlayButton.setLayoutParams(params);
 
 		// on play, launch the appropriate viewer
-		mPlayButton.setOnClickListener(new View.OnClickListener() {
+		mPlayButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Collect.getInstance()

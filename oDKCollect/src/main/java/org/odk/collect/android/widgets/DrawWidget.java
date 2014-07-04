@@ -84,7 +84,7 @@ public class DrawWidget extends QuestionWidget implements IBinaryWidget {
 		mDrawButton.setEnabled(!prompt.isReadOnly());
 		mDrawButton.setLayoutParams(params);
 		// launch capture intent on click
-		mDrawButton.setOnClickListener(new View.OnClickListener() {
+		mDrawButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Collect.getInstance()
@@ -131,7 +131,7 @@ public class DrawWidget extends QuestionWidget implements IBinaryWidget {
 
 			mImageView.setPadding(10, 10, 10, 10);
 			mImageView.setAdjustViewBounds(true);
-			mImageView.setOnClickListener(new View.OnClickListener() {
+			mImageView.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					Collect.getInstance()

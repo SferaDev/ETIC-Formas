@@ -83,7 +83,7 @@ public abstract class ODKSQLiteOpenHelper {
      * attempts may succeed if the problem is fixed.
      * </p>
      * 
-     * @throws SQLiteException if the database cannot be opened for writing
+     * @throws android.database.sqlite.SQLiteException if the database cannot be opened for writing
      * @return a read/write database object valid until {@link #close} is called
      */
     public synchronized SQLiteDatabase getWritableDatabase() {
@@ -160,7 +160,7 @@ public abstract class ODKSQLiteOpenHelper {
      * the read-only database object will be closed and the read/write object will be returned in
      * the future.
      * 
-     * @throws SQLiteException if the database cannot be opened
+     * @throws android.database.sqlite.SQLiteException if the database cannot be opened
      * @return a database object valid until {@link #getWritableDatabase} or {@link #close} is
      *         called.
      */
@@ -246,7 +246,7 @@ public abstract class ODKSQLiteOpenHelper {
 
     /**
      * Called when the database has been opened. Override method should check
-     * {@link SQLiteDatabase#isReadOnly} before updating the database.
+     * {@link android.database.sqlite.SQLiteDatabase#isReadOnly} before updating the database.
      * 
      * @param db The database.
      */

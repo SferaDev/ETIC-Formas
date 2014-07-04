@@ -177,7 +177,7 @@ public class Collect extends Application {
     public synchronized HttpContext getHttpContext() {
 
         // context holds authentication state machine, so it cannot be
-        // shared across independent com.sferadev.etic.com.sferadev.etic.activities.
+        // shared across independent activities.
         HttpContext localContext = new BasicHttpContext();
 
         localContext.setAttribute(ClientContext.COOKIE_STORE, cookieStore);

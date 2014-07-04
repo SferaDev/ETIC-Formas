@@ -95,7 +95,7 @@ public class AnnotateWidget extends QuestionWidget implements IBinaryWidget {
 		mCaptureButton.setLayoutParams(params);
 
 		// launch capture intent on click
-		mCaptureButton.setOnClickListener(new View.OnClickListener() {
+		mCaptureButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Collect.getInstance()
@@ -145,7 +145,7 @@ public class AnnotateWidget extends QuestionWidget implements IBinaryWidget {
 		mChooseButton.setLayoutParams(params);
 
 		// launch capture intent on click
-		mChooseButton.setOnClickListener(new View.OnClickListener() {
+		mChooseButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Collect.getInstance()
@@ -183,7 +183,7 @@ public class AnnotateWidget extends QuestionWidget implements IBinaryWidget {
 		mAnnotateButton.setEnabled(false);
 		mAnnotateButton.setLayoutParams(params);
 		// launch capture intent on click
-		mAnnotateButton.setOnClickListener(new View.OnClickListener() {
+		mAnnotateButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Collect.getInstance()
@@ -238,7 +238,7 @@ public class AnnotateWidget extends QuestionWidget implements IBinaryWidget {
 
 			mImageView.setPadding(10, 10, 10, 10);
 			mImageView.setAdjustViewBounds(true);
-			mImageView.setOnClickListener(new View.OnClickListener() {
+			mImageView.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					Collect.getInstance()

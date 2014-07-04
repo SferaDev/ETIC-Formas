@@ -58,8 +58,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * Responsible for displaying buttons to launch the major com.sferadev.etic.com.sferadev.etic.activities. Launches
- * some com.sferadev.etic.com.sferadev.etic.activities based on returns of others.
+ * Responsible for displaying buttons to launch the major activities. Launches
+ * some activities based on returns of others.
  *
  * @author Carl Hartung (carlhartung@gmail.com)
  * @author Yaw Anokwa (yanokwa@gmail.com)

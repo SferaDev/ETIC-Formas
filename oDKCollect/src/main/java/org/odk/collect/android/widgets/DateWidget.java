@@ -20,7 +20,6 @@ import org.javarosa.form.api.FormEntryPrompt;
 import org.joda.time.DateTime;
 import org.odk.collect.android.application.Collect;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.view.Gravity;
@@ -113,11 +112,10 @@ public class DateWidget extends QuestionWidget {
     /**
      * Shared between DateWidget and DateTimeWidget.
      * There are extra appearance settings that do not apply for dateTime...
-     * TODO: move this into com.sferadev.etic.com.sferadev.etic.utilities or base class?
+     * TODO: move this into utilities or base class?
      *
      * @param prompt
      */
-	@SuppressLint("NewApi")
 	private void hideDayFieldIfNotInFormat(FormEntryPrompt prompt) {
         String appearance = prompt.getQuestion().getAppearanceAttr();
         if ( appearance == null ) {

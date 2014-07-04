@@ -136,7 +136,7 @@ public class DateTimeWidget extends QuestionWidget {
     /**
      * Shared between DateWidget and DateTimeWidget.
      * There are extra appearance settings that do not apply for dateTime...
-     * TODO: move this into com.sferadev.etic.com.sferadev.etic.utilities or base class?
+     * TODO: move this into utilities or base class?
      *
      * @param prompt
      */

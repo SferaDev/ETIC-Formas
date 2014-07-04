@@ -61,7 +61,7 @@ public class TriggerWidget extends QuestionWidget {
         // mActionButton.setPadding(20, 20, 20, 20);
         mTriggerButton.setEnabled(!prompt.isReadOnly());
 
-        mTriggerButton.setOnClickListener(new View.OnClickListener() {
+        mTriggerButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mTriggerButton.isChecked()) {

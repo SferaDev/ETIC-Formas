@@ -171,7 +171,7 @@ public class DiskSyncTask extends AsyncTask<Void, String, String> {
 		        while ( !xFormsToAdd.isEmpty() ) {
 		        	File formDefFile = xFormsToAdd.remove(0);
 		        	
-		        	// Since parsing is so slow, if there are multiple tasks,
+		        	// Since parsing is so slow, if there are multiple tasks, 
 		        	// they may have already updated the database.  
 		        	// Skip this file if that is the case.
 		        	if ( isAlreadyDefined(formDefFile) ) {

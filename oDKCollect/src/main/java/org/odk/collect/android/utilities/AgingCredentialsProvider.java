@@ -95,10 +95,10 @@ public class AgingCredentialsProvider implements CredentialsProvider {
     }
 
     /**
-     * Find matching {@link Credentials credentials} for the given authentication scope.
+     * Find matching {@link org.opendatakit.httpclientandroidlib.auth.Credentials credentials} for the given authentication scope.
      *
      * @param map the credentials hash map
-     * @param authscope the {@link AuthScope authentication scope}
+     * @param authscope the {@link org.opendatakit.httpclientandroidlib.auth.AuthScope authentication scope}
      * @return the credentials
      *
      */

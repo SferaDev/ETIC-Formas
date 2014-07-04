@@ -153,8 +153,8 @@ public class FormLoaderTask extends AsyncTask<String, String, FormLoaderTask.FEC
     }
 
     /**
-     * Initialize {@link FormEntryController} with {@link FormDef} from binary or from XML. If given
-     * an instance, it will be used to fill the {@link FormDef}.
+     * Initialize {@link org.javarosa.form.api.FormEntryController} with {@link org.javarosa.core.model.FormDef} from binary or from XML. If given
+     * an instance, it will be used to fill the {@link org.javarosa.core.model.FormDef}.
      */
     @Override
     protected FECWrapper doInBackground(String... path) {
@@ -238,9 +238,9 @@ public class FormLoaderTask extends AsyncTask<String, String, FormLoaderTask.FEC
             	if ( instance.exists() ) {
 	                // This order is important. Import data, then initialize.
 	                importData(instance, fec);
-	                fd.initialize(false, new InstanceInitializationFactory());
+                    fd.initialize(false, new InstanceInitializationFactory());
             	} else {
-            		fd.initialize(true, new InstanceInitializationFactory());
+                    fd.initialize(true, new InstanceInitializationFactory());
             	}
             } else {
                 fd.initialize(true, new InstanceInitializationFactory());
@@ -372,10 +372,10 @@ public class FormLoaderTask extends AsyncTask<String, String, FormLoaderTask.FEC
     }
 
     /**
-     * Read serialized {@link FormDef} from file and recreate as object.
+     * Read serialized {@link org.javarosa.core.model.FormDef} from file and recreate as object.
      *
      * @param formDef serialized FormDef file
-     * @return {@link FormDef} object
+     * @return {@link org.javarosa.core.model.FormDef} object
      */
     public FormDef deserializeFormDef(File formDef) {
 

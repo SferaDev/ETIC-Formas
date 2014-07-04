@@ -303,9 +303,7 @@ public class InstanceUploaderActivity extends Activity implements InstanceUpload
                     Log.e(t, "onCreateDialog(AUTH_DIALOG): No failing mUrl specified for upload of " + mInstancesToSend.length + " instances!");
                     // if the bundle is null, we're looking for a formlist
                     String submissionUrl = getString(R.string.default_odk_submission);
-                    server =
-                        getString(R.string.default_server_url)
-                                + settings.getString(PreferencesActivity.KEY_SUBMISSION_URL, submissionUrl);
+                    server = getString(R.string.default_server_url) + settings.getString(PreferencesActivity.KEY_SUBMISSION_URL, submissionUrl);
                 }
 
                 final String url = server;

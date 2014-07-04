@@ -86,7 +86,7 @@ public class SignatureWidget extends QuestionWidget implements IBinaryWidget {
         mSignButton.setEnabled(!prompt.isReadOnly());
         mSignButton.setLayoutParams(params);
         // launch capture intent on click
-        mSignButton.setOnClickListener(new View.OnClickListener() {
+        mSignButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
 				Collect.getInstance()
@@ -135,7 +135,7 @@ public class SignatureWidget extends QuestionWidget implements IBinaryWidget {
 
             mImageView.setPadding(10, 10, 10, 10);
             mImageView.setAdjustViewBounds(true);
-            mImageView.setOnClickListener(new View.OnClickListener() {
+            mImageView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                    	Collect.getInstance().getActivityLogger().logInstanceAction(this, "viewImage", 
