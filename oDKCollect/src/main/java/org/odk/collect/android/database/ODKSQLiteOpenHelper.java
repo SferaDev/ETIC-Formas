@@ -14,12 +14,12 @@
 
 package org.odk.collect.android.database;
 
-import java.io.File;
-
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteException;
 import android.util.Log;
+
+import java.io.File;
 
 
 

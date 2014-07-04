@@ -14,13 +14,13 @@
 
 package org.odk.collect.android.utilities;
 
-import org.odk.collect.android.R;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.view.View;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+
+import org.odk.collect.android.R;
 
 /**
  * Implementation of cursor adapter that displays the version of a form if a form has a version.

@@ -14,17 +14,14 @@
 
 package org.odk.collect.android.tasks;
 
-import java.io.File;
-import java.io.UnsupportedEncodingException;
-import java.net.SocketTimeoutException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.net.UnknownHostException;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import android.content.ContentValues;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.preference.PreferenceManager;
+import android.util.Log;
+import android.webkit.MimeTypeMap;
 
 import org.odk.collect.android.R;
 import org.odk.collect.android.application.Collect;
@@ -49,14 +46,17 @@ import org.opendatakit.httpclientandroidlib.entity.mime.content.FileBody;
 import org.opendatakit.httpclientandroidlib.entity.mime.content.StringBody;
 import org.opendatakit.httpclientandroidlib.protocol.HttpContext;
 
-import android.content.ContentValues;
-import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.preference.PreferenceManager;
-import android.util.Log;
-import android.webkit.MimeTypeMap;
+import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.SocketTimeoutException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.net.UnknownHostException;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Background task for uploading completed forms.

@@ -14,21 +14,6 @@
 
 package org.odk.collect.android.activities;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Set;
-
-import org.odk.collect.android.R;
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.listeners.FormDownloaderListener;
-import org.odk.collect.android.listeners.FormListDownloaderListener;
-import org.odk.collect.android.logic.FormDetails;
-import org.odk.collect.android.preferences.PreferencesActivity;
-import org.odk.collect.android.tasks.DownloadFormListTask;
-import org.odk.collect.android.tasks.DownloadFormsTask;
-import org.odk.collect.android.utilities.CompatibilityUtils;
-import org.odk.collect.android.utilities.WebUtils;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
@@ -56,6 +41,21 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
+
+import org.odk.collect.android.R;
+import org.odk.collect.android.application.Collect;
+import org.odk.collect.android.listeners.FormDownloaderListener;
+import org.odk.collect.android.listeners.FormListDownloaderListener;
+import org.odk.collect.android.logic.FormDetails;
+import org.odk.collect.android.preferences.PreferencesActivity;
+import org.odk.collect.android.tasks.DownloadFormListTask;
+import org.odk.collect.android.tasks.DownloadFormsTask;
+import org.odk.collect.android.utilities.CompatibilityUtils;
+import org.odk.collect.android.utilities.WebUtils;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
 
 /**
  * Responsible for displaying, adding and deleting all the valid forms in the forms directory. One

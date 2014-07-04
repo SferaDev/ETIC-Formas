@@ -14,11 +14,6 @@
 
 package org.odk.collect.android.widgets;
 
-import org.javarosa.core.model.data.IAnswerData;
-import org.javarosa.core.model.data.StringData;
-import org.javarosa.form.api.FormEntryPrompt;
-import org.odk.collect.android.application.Collect;
-
 import android.content.Context;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -31,6 +26,11 @@ import android.view.KeyEvent;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TableLayout;
+
+import org.javarosa.core.model.data.IAnswerData;
+import org.javarosa.core.model.data.StringData;
+import org.javarosa.form.api.FormEntryPrompt;
+import org.odk.collect.android.application.Collect;
 
 /**
  * The most basic widget that allows for entry of any text.

@@ -14,6 +14,14 @@
 
 package org.odk.collect.android.widgets;
 
+import android.content.Context;
+import android.util.TypedValue;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+
 import org.javarosa.core.model.SelectChoice;
 import org.javarosa.core.model.data.IAnswerData;
 import org.javarosa.core.model.data.SelectMultiData;
@@ -22,14 +30,6 @@ import org.javarosa.form.api.FormEntryCaption;
 import org.javarosa.form.api.FormEntryPrompt;
 import org.odk.collect.android.application.Collect;
 import org.odk.collect.android.views.MediaLayout;
-
-import android.content.Context;
-import android.util.TypedValue;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.Vector;

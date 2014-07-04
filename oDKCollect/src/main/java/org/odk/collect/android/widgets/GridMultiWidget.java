@@ -14,23 +14,6 @@
 
 package org.odk.collect.android.widgets;
 
-import java.io.File;
-import java.util.Vector;
-
-import org.javarosa.core.model.SelectChoice;
-import org.javarosa.core.model.data.IAnswerData;
-import org.javarosa.core.model.data.SelectMultiData;
-import org.javarosa.core.model.data.helper.Selection;
-import org.javarosa.core.reference.InvalidReferenceException;
-import org.javarosa.core.reference.ReferenceManager;
-import org.javarosa.form.api.FormEntryCaption;
-import org.javarosa.form.api.FormEntryPrompt;
-import org.odk.collect.android.R;
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.utilities.FileUtils;
-import org.odk.collect.android.views.AudioButton.AudioHandler;
-import org.odk.collect.android.views.ExpandedHeightGridView;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -48,9 +31,25 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import org.javarosa.core.model.SelectChoice;
+import org.javarosa.core.model.data.IAnswerData;
+import org.javarosa.core.model.data.SelectMultiData;
+import org.javarosa.core.model.data.helper.Selection;
+import org.javarosa.core.reference.InvalidReferenceException;
+import org.javarosa.core.reference.ReferenceManager;
+import org.javarosa.form.api.FormEntryCaption;
+import org.javarosa.form.api.FormEntryPrompt;
+import org.odk.collect.android.R;
+import org.odk.collect.android.application.Collect;
+import org.odk.collect.android.utilities.FileUtils;
+import org.odk.collect.android.views.AudioButton.AudioHandler;
+import org.odk.collect.android.views.ExpandedHeightGridView;
+
+import java.io.File;
+import java.util.Vector;
 
 /**
  * GridWidget handles multiple selection fields using a grid of icons. The user clicks the desired

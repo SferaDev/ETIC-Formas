@@ -14,12 +14,7 @@
 
 package org.odk.collect.android.logic;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Vector;
+import android.util.Log;
 
 import org.javarosa.core.model.FormDef;
 import org.javarosa.core.model.FormIndex;
@@ -43,7 +38,12 @@ import org.javarosa.xpath.XPathParseTool;
 import org.javarosa.xpath.expr.XPathExpression;
 import org.odk.collect.android.views.ODKView;
 
-import android.util.Log;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Vector;
 
 /**
  * This class is a wrapper for Javarosa's FormEntryController. In theory, if you wanted to replace

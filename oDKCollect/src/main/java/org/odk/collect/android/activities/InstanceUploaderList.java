@@ -14,16 +14,6 @@
 
 package org.odk.collect.android.activities;
 
-import java.util.ArrayList;
-
-import org.odk.collect.android.R;
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.preferences.PreferencesActivity;
-import org.odk.collect.android.provider.InstanceProviderAPI;
-import org.odk.collect.android.provider.InstanceProviderAPI.InstanceColumns;
-import org.odk.collect.android.receivers.NetworkReceiver;
-import org.odk.collect.android.utilities.CompatibilityUtils;
-
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
@@ -42,6 +32,16 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
+
+import org.odk.collect.android.R;
+import org.odk.collect.android.application.Collect;
+import org.odk.collect.android.preferences.PreferencesActivity;
+import org.odk.collect.android.provider.InstanceProviderAPI;
+import org.odk.collect.android.provider.InstanceProviderAPI.InstanceColumns;
+import org.odk.collect.android.receivers.NetworkReceiver;
+import org.odk.collect.android.utilities.CompatibilityUtils;
+
+import java.util.ArrayList;
 
 /**
  * Responsible for displaying all the valid forms in the forms directory. Stores

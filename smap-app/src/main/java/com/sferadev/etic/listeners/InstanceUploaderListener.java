@@ -14,9 +14,9 @@
 
 package com.sferadev.etic.listeners;
 
-import java.util.ArrayList;
-
 import com.sferadev.etic.utilities.UploadStatus;
+
+import java.util.ArrayList;
 
 /**
  * @author Carl Hartung (carlhartung@gmail.com)

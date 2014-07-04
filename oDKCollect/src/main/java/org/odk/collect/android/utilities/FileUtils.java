@@ -14,14 +14,14 @@
 
 package org.odk.collect.android.utilities;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Log;
+
 import org.javarosa.xform.parse.XFormParser;
 import org.kxml2.kdom.Document;
 import org.kxml2.kdom.Element;
 import org.kxml2.kdom.Node;
-
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Log;
 
 import java.io.File;
 import java.io.FileInputStream;

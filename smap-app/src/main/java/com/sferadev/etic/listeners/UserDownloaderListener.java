@@ -14,9 +14,9 @@
 
 package com.sferadev.etic.listeners;
 
-import java.util.HashMap;
-
 import com.sferadev.etic.taskModel.UserDetail;
+
+import java.util.HashMap;
 
 /**
  * @author Nick Huynh (minqiang.huang@gmail.com)

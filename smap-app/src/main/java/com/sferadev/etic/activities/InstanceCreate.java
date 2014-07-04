@@ -14,13 +14,13 @@
 
 package com.sferadev.etic.activities;
 
-import com.sferadev.etic.utilities.ManageForm;
-import com.sferadev.etic.utilities.ManageFormResponse;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+
+import com.sferadev.etic.utilities.ManageForm;
+import com.sferadev.etic.utilities.ManageFormResponse;
 
 /**
  * Creates an instance with initial data

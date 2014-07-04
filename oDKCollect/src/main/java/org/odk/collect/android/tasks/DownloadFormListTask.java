@@ -14,8 +14,12 @@
 
 package org.odk.collect.android.tasks;
 
-import org.opendatakit.httpclientandroidlib.client.HttpClient;
-import org.opendatakit.httpclientandroidlib.protocol.HttpContext;
+import android.content.SharedPreferences;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.preference.PreferenceManager;
+import android.util.Log;
+
 import org.javarosa.xform.parse.XFormParser;
 import org.kxml2.kdom.Element;
 import org.odk.collect.android.R;
@@ -25,12 +29,8 @@ import org.odk.collect.android.logic.FormDetails;
 import org.odk.collect.android.preferences.PreferencesActivity;
 import org.odk.collect.android.utilities.DocumentFetchResult;
 import org.odk.collect.android.utilities.WebUtils;
-
-import android.content.SharedPreferences;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.preference.PreferenceManager;
-import android.util.Log;
+import org.opendatakit.httpclientandroidlib.client.HttpClient;
+import org.opendatakit.httpclientandroidlib.protocol.HttpContext;
 
 import java.util.HashMap;
 

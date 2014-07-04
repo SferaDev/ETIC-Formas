@@ -14,6 +14,20 @@
 
 package org.odk.collect.android.utilities;
 
+import android.content.ContentResolver;
+import android.database.Cursor;
+import android.net.Uri;
+import android.util.Log;
+
+import org.kxml2.io.KXmlSerializer;
+import org.kxml2.kdom.Document;
+import org.kxml2.kdom.Element;
+import org.kxml2.kdom.Node;
+import org.odk.collect.android.application.Collect;
+import org.odk.collect.android.logic.FormController.InstanceMetadata;
+import org.odk.collect.android.provider.FormsProviderAPI.FormsColumns;
+import org.odk.collect.android.provider.InstanceProviderAPI.InstanceColumns;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -42,20 +56,6 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
-
-import org.kxml2.io.KXmlSerializer;
-import org.kxml2.kdom.Document;
-import org.kxml2.kdom.Element;
-import org.kxml2.kdom.Node;
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.logic.FormController.InstanceMetadata;
-import org.odk.collect.android.provider.FormsProviderAPI.FormsColumns;
-import org.odk.collect.android.provider.InstanceProviderAPI.InstanceColumns;
-
-import android.content.ContentResolver;
-import android.database.Cursor;
-import android.net.Uri;
-import android.util.Log;
 
 /**
  * Utility class for encrypting submissions during the SaveToDiskTask.

@@ -14,9 +14,6 @@
 
 package org.odk.collect.android.activities;
 
-import org.odk.collect.android.R;
-import org.odk.collect.android.application.Collect;
-
 import android.app.TabActivity;
 import android.content.Intent;
 import android.graphics.Color;
@@ -27,6 +24,9 @@ import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TabWidget;
 import android.widget.TextView;
+
+import org.odk.collect.android.R;
+import org.odk.collect.android.application.Collect;
 
 /**
  * An example of tab content that launches an activity via

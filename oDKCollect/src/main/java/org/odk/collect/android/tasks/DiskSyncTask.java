@@ -14,12 +14,12 @@
 
 package org.odk.collect.android.tasks;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import android.content.ContentValues;
+import android.database.Cursor;
+import android.database.SQLException;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.util.Log;
 
 import org.odk.collect.android.R;
 import org.odk.collect.android.application.Collect;
@@ -27,12 +27,12 @@ import org.odk.collect.android.listeners.DiskSyncListener;
 import org.odk.collect.android.provider.FormsProviderAPI.FormsColumns;
 import org.odk.collect.android.utilities.FileUtils;
 
-import android.content.ContentValues;
-import android.database.Cursor;
-import android.database.SQLException;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.util.Log;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Background task for adding to the forms content provider, any forms that have been added to the

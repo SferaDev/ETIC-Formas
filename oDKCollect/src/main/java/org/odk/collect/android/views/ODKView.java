@@ -14,19 +14,6 @@
 
 package org.odk.collect.android.views;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-
-import org.javarosa.core.model.FormIndex;
-import org.javarosa.core.model.data.IAnswerData;
-import org.javarosa.form.api.FormEntryCaption;
-import org.javarosa.form.api.FormEntryPrompt;
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.widgets.IBinaryWidget;
-import org.odk.collect.android.widgets.QuestionWidget;
-import org.odk.collect.android.widgets.WidgetFactory;
-
 import android.content.Context;
 import android.os.Handler;
 import android.util.Log;
@@ -38,6 +25,19 @@ import android.view.View.OnLongClickListener;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
+import org.javarosa.core.model.FormIndex;
+import org.javarosa.core.model.data.IAnswerData;
+import org.javarosa.form.api.FormEntryCaption;
+import org.javarosa.form.api.FormEntryPrompt;
+import org.odk.collect.android.application.Collect;
+import org.odk.collect.android.widgets.IBinaryWidget;
+import org.odk.collect.android.widgets.QuestionWidget;
+import org.odk.collect.android.widgets.WidgetFactory;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 
 /**
  * This class is

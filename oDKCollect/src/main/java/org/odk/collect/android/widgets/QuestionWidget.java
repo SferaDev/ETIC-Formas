@@ -14,14 +14,6 @@
 
 package org.odk.collect.android.widgets;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.javarosa.core.model.data.IAnswerData;
-import org.javarosa.form.api.FormEntryPrompt;
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.views.MediaLayout;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
@@ -35,6 +27,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import org.javarosa.core.model.data.IAnswerData;
+import org.javarosa.form.api.FormEntryPrompt;
+import org.odk.collect.android.application.Collect;
+import org.odk.collect.android.views.MediaLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class QuestionWidget extends LinearLayout {
 

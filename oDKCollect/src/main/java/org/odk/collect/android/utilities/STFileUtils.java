@@ -14,10 +14,10 @@
 
 package org.odk.collect.android.utilities;
 
-import org.odk.collect.android.application.Collect;
-
 import android.os.Environment;
 import android.util.Log;
+
+import org.odk.collect.android.application.Collect;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -25,8 +25,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
-import org.odk.collect.android.utilities.FileUtils;
 
 /**
  * Static methods used for common file operations.

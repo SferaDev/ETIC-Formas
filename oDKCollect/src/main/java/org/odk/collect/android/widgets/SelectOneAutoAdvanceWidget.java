@@ -14,20 +14,6 @@
 
 package org.odk.collect.android.widgets;
 
-import java.util.ArrayList;
-import java.util.Vector;
-
-import org.javarosa.core.model.SelectChoice;
-import org.javarosa.core.model.data.IAnswerData;
-import org.javarosa.core.model.data.SelectOneData;
-import org.javarosa.core.model.data.helper.Selection;
-import org.javarosa.form.api.FormEntryCaption;
-import org.javarosa.form.api.FormEntryPrompt;
-import org.odk.collect.android.R;
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.listeners.AdvanceToNextListener;
-import org.odk.collect.android.views.MediaLayout;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -40,6 +26,20 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
+
+import org.javarosa.core.model.SelectChoice;
+import org.javarosa.core.model.data.IAnswerData;
+import org.javarosa.core.model.data.SelectOneData;
+import org.javarosa.core.model.data.helper.Selection;
+import org.javarosa.form.api.FormEntryCaption;
+import org.javarosa.form.api.FormEntryPrompt;
+import org.odk.collect.android.R;
+import org.odk.collect.android.application.Collect;
+import org.odk.collect.android.listeners.AdvanceToNextListener;
+import org.odk.collect.android.views.MediaLayout;
+
+import java.util.ArrayList;
+import java.util.Vector;
 
 /**
  * SelectOneWidgets handles select-one fields using radio buttons. Unlike the classic

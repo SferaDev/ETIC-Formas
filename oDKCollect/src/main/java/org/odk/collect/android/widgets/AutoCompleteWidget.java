@@ -14,12 +14,6 @@
 
 package org.odk.collect.android.widgets;
 
-import org.javarosa.core.model.SelectChoice;
-import org.javarosa.core.model.data.IAnswerData;
-import org.javarosa.core.model.data.SelectOneData;
-import org.javarosa.core.model.data.helper.Selection;
-import org.javarosa.form.api.FormEntryPrompt;
-
 import android.content.Context;
 import android.graphics.Color;
 import android.view.Gravity;
@@ -29,6 +23,12 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.Toast;
+
+import org.javarosa.core.model.SelectChoice;
+import org.javarosa.core.model.data.IAnswerData;
+import org.javarosa.core.model.data.SelectOneData;
+import org.javarosa.core.model.data.helper.Selection;
+import org.javarosa.form.api.FormEntryPrompt;
 
 import java.util.ArrayList;
 import java.util.Locale;

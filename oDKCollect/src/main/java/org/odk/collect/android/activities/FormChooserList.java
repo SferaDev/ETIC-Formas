@@ -14,13 +14,6 @@
 
 package org.odk.collect.android.activities;
 
-import org.odk.collect.android.R;
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.listeners.DiskSyncListener;
-import org.odk.collect.android.provider.FormsProviderAPI.FormsColumns;
-import org.odk.collect.android.tasks.DiskSyncTask;
-import org.odk.collect.android.utilities.VersionHidingCursorAdapter;
-
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.ContentUris;
@@ -35,6 +28,13 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+
+import org.odk.collect.android.R;
+import org.odk.collect.android.application.Collect;
+import org.odk.collect.android.listeners.DiskSyncListener;
+import org.odk.collect.android.provider.FormsProviderAPI.FormsColumns;
+import org.odk.collect.android.tasks.DiskSyncTask;
+import org.odk.collect.android.utilities.VersionHidingCursorAdapter;
 
 /**
  * Responsible for displaying all the valid forms in the forms directory. Stores the path to

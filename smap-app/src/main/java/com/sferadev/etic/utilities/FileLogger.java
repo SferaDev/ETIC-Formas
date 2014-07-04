@@ -1,14 +1,14 @@
 package com.sferadev.etic.utilities;
 
-import java.io.File;
-import java.io.FileOutputStream;
-
-import org.odk.collect.android.utilities.FileUtils;
-import org.odk.collect.android.utilities.STFileUtils;
-import org.odk.collect.android.database.FileDbAdapter;
-
 import android.database.Cursor;
 import android.text.format.Time;
+
+import org.odk.collect.android.database.FileDbAdapter;
+import org.odk.collect.android.utilities.FileUtils;
+import org.odk.collect.android.utilities.STFileUtils;
+
+import java.io.File;
+import java.io.FileOutputStream;
 
 public final class FileLogger {
 	

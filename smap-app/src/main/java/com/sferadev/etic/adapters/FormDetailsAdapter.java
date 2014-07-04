@@ -1,15 +1,15 @@
 package com.sferadev.etic.adapters;
 
-import java.util.ArrayList;
-
-import org.odk.collect.android.logic.FormDetails;
-
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
+
+import org.odk.collect.android.logic.FormDetails;
+
+import java.util.ArrayList;
 
 public class FormDetailsAdapter implements SpinnerAdapter {
 

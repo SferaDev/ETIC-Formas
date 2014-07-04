@@ -9,7 +9,7 @@
 	
 	This file contains overrides of odk arrays
 	-->
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
 	<!-- DO NOT translate protocol_entry_values - only used internally -->
 
 	<string-array translatable="false"

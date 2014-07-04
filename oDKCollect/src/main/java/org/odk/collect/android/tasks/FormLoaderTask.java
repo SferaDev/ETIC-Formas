@@ -14,13 +14,10 @@
 
 package org.odk.collect.android.tasks;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import android.content.Intent;
+import android.database.Cursor;
+import android.os.AsyncTask;
+import android.util.Log;
 
 import org.javarosa.core.model.FormDef;
 import org.javarosa.core.model.FormIndex;
@@ -46,10 +43,13 @@ import org.odk.collect.android.logic.FileReferenceFactory;
 import org.odk.collect.android.logic.FormController;
 import org.odk.collect.android.utilities.FileUtils;
 
-import android.content.Intent;
-import android.database.Cursor;
-import android.os.AsyncTask;
-import android.util.Log;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 //import au.com.bytecode.opencsv.CSVReader;	Sma disable
 
 /**

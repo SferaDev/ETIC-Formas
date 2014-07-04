@@ -1,9 +1,10 @@
 package com.sferadev.etic.taskModel;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
+
 import org.odk.collect.android.database.TaskAssignment;
+
+import java.util.List;
 
 public class TaskResponse {
 

@@ -1,16 +1,5 @@
 package org.odk.collect.android.receivers;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import org.odk.collect.android.R;
-import org.odk.collect.android.listeners.InstanceUploaderListener;
-import org.odk.collect.android.preferences.PreferencesActivity;
-import org.odk.collect.android.provider.InstanceProviderAPI;
-import org.odk.collect.android.provider.InstanceProviderAPI.InstanceColumns;
-import org.odk.collect.android.tasks.InstanceUploaderTask;
-import org.odk.collect.android.utilities.WebUtils;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -22,6 +11,17 @@ import android.net.Uri;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
+
+import org.odk.collect.android.R;
+import org.odk.collect.android.listeners.InstanceUploaderListener;
+import org.odk.collect.android.preferences.PreferencesActivity;
+import org.odk.collect.android.provider.InstanceProviderAPI;
+import org.odk.collect.android.provider.InstanceProviderAPI.InstanceColumns;
+import org.odk.collect.android.tasks.InstanceUploaderTask;
+import org.odk.collect.android.utilities.WebUtils;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class NetworkReceiver extends BroadcastReceiver implements InstanceUploaderListener {
 

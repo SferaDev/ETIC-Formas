@@ -14,12 +14,17 @@
 
 package com.sferadev.etic.tasks;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.util.ArrayList;
-import java.util.HashMap;
+import android.content.ContentResolver;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.os.AsyncTask;
+import android.preference.PreferenceManager;
+import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 import com.sferadev.etic.R;
 import com.sferadev.etic.listeners.TaskDownloaderListener;
 import com.sferadev.etic.taskModel.TaskResponse;
@@ -44,17 +49,11 @@ import org.odk.collect.android.database.TaskAssignment;
 import org.odk.collect.android.preferences.PreferencesActivity;
 import org.odk.collect.android.provider.InstanceProviderAPI.InstanceColumns;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonSyntaxException;
-
-import android.content.ContentResolver;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.os.AsyncTask;
-import android.preference.PreferenceManager;
-import android.util.Log;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Background task for downloading tasks 

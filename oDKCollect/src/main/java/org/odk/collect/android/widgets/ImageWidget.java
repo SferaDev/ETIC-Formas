@@ -14,17 +14,6 @@
 
 package org.odk.collect.android.widgets;
 
-import java.io.File;
-
-import org.javarosa.core.model.data.IAnswerData;
-import org.javarosa.core.model.data.StringData;
-import org.javarosa.form.api.FormEntryPrompt;
-import org.odk.collect.android.R;
-import org.odk.collect.android.activities.FormEntryActivity;
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.utilities.FileUtils;
-import org.odk.collect.android.utilities.MediaUtils;
-
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.ContentValues;
@@ -45,6 +34,17 @@ import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.javarosa.core.model.data.IAnswerData;
+import org.javarosa.core.model.data.StringData;
+import org.javarosa.form.api.FormEntryPrompt;
+import org.odk.collect.android.R;
+import org.odk.collect.android.activities.FormEntryActivity;
+import org.odk.collect.android.application.Collect;
+import org.odk.collect.android.utilities.FileUtils;
+import org.odk.collect.android.utilities.MediaUtils;
+
+import java.io.File;
 
 /**
  * Widget that allows user to take pictures, sounds or video and add them to the form.

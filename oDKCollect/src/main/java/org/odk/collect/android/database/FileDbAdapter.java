@@ -14,13 +14,13 @@
 
 package org.odk.collect.android.database;
 
-import org.odk.collect.android.utilities.STFileUtils;
-
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
+
+import org.odk.collect.android.utilities.STFileUtils;
 
 import java.io.File;
 import java.text.DateFormat;

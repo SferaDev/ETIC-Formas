@@ -14,22 +14,6 @@
 
 package org.odk.collect.android.widgets;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Vector;
-
-import org.javarosa.core.model.SelectChoice;
-import org.javarosa.core.model.data.IAnswerData;
-import org.javarosa.core.model.data.SelectMultiData;
-import org.javarosa.core.model.data.helper.Selection;
-import org.javarosa.core.reference.InvalidReferenceException;
-import org.javarosa.core.reference.ReferenceManager;
-import org.javarosa.form.api.FormEntryCaption;
-import org.javarosa.form.api.FormEntryPrompt;
-import org.odk.collect.android.R;
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.utilities.FileUtils;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
@@ -47,6 +31,22 @@ import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import org.javarosa.core.model.SelectChoice;
+import org.javarosa.core.model.data.IAnswerData;
+import org.javarosa.core.model.data.SelectMultiData;
+import org.javarosa.core.model.data.helper.Selection;
+import org.javarosa.core.reference.InvalidReferenceException;
+import org.javarosa.core.reference.ReferenceManager;
+import org.javarosa.form.api.FormEntryCaption;
+import org.javarosa.form.api.FormEntryPrompt;
+import org.odk.collect.android.R;
+import org.odk.collect.android.application.Collect;
+import org.odk.collect.android.utilities.FileUtils;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Vector;
 
 /**
  * ListMultiWidget handles multiple selection fields using check boxes. The check boxes are aligned

@@ -14,8 +14,6 @@
 
 package org.odk.collect.android.utilities;
 
-import org.odk.collect.android.R;
-
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Canvas;
@@ -30,6 +28,8 @@ import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.HorizontalScrollView;
 import android.widget.ScrollView;
+
+import org.odk.collect.android.R;
 
 /**
  * Based heavily upon:

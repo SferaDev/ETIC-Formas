@@ -14,19 +14,13 @@
 
 package org.odk.collect.android.tasks;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.MalformedURLException;
-import java.net.SocketTimeoutException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.zip.GZIPInputStream;
+import android.content.ContentValues;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.preference.PreferenceManager;
+import android.util.Log;
 
 import org.javarosa.xform.parse.XFormParser;
 import org.kxml2.kdom.Element;
@@ -47,13 +41,19 @@ import org.opendatakit.httpclientandroidlib.client.HttpClient;
 import org.opendatakit.httpclientandroidlib.client.methods.HttpGet;
 import org.opendatakit.httpclientandroidlib.protocol.HttpContext;
 
-import android.content.ContentValues;
-import android.content.SharedPreferences;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.preference.PreferenceManager;
-import android.util.Log;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.MalformedURLException;
+import java.net.SocketTimeoutException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.zip.GZIPInputStream;
 
 /**
  * Background task for downloading a given list of forms. We assume right now that the forms are

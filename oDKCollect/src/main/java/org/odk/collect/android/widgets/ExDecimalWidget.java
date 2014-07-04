@@ -14,14 +14,6 @@
 
 package org.odk.collect.android.widgets;
 
-import java.text.NumberFormat;
-
-import org.javarosa.core.model.data.DecimalData;
-import org.javarosa.core.model.data.IAnswerData;
-import org.javarosa.form.api.FormEntryPrompt;
-import org.odk.collect.android.activities.FormEntryActivity;
-import org.odk.collect.android.application.Collect;
-
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -29,6 +21,14 @@ import android.content.Intent;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.text.method.DigitsKeyListener;
+
+import org.javarosa.core.model.data.DecimalData;
+import org.javarosa.core.model.data.IAnswerData;
+import org.javarosa.form.api.FormEntryPrompt;
+import org.odk.collect.android.activities.FormEntryActivity;
+import org.odk.collect.android.application.Collect;
+
+import java.text.NumberFormat;
 
 
 /**

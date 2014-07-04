@@ -14,13 +14,6 @@
 
 package org.odk.collect.android.widgets;
 
-import org.javarosa.core.model.SelectChoice;
-import org.javarosa.core.model.data.IAnswerData;
-import org.javarosa.core.model.data.SelectMultiData;
-import org.javarosa.core.model.data.helper.Selection;
-import org.javarosa.form.api.FormEntryPrompt;
-import org.odk.collect.android.R;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -29,6 +22,13 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
+
+import org.javarosa.core.model.SelectChoice;
+import org.javarosa.core.model.data.IAnswerData;
+import org.javarosa.core.model.data.SelectMultiData;
+import org.javarosa.core.model.data.helper.Selection;
+import org.javarosa.form.api.FormEntryPrompt;
+import org.odk.collect.android.R;
 
 import java.util.Vector;
 

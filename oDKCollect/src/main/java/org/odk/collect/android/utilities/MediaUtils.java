@@ -14,12 +14,6 @@
 
 package org.odk.collect.android.utilities;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.odk.collect.android.application.Collect;
-
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
@@ -27,6 +21,12 @@ import android.provider.MediaStore.Audio;
 import android.provider.MediaStore.Images;
 import android.provider.MediaStore.Video;
 import android.util.Log;
+
+import org.odk.collect.android.application.Collect;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Consolidate all interactions with media providers here.

@@ -39,13 +39,13 @@
 
 package org.odk.collect.android.utilities;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 import org.opendatakit.httpclientandroidlib.annotation.ThreadSafe;
 import org.opendatakit.httpclientandroidlib.auth.AuthScope;
 import org.opendatakit.httpclientandroidlib.auth.Credentials;
 import org.opendatakit.httpclientandroidlib.client.CredentialsProvider;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Modified BasicCredentialsProvider that will clear the provider

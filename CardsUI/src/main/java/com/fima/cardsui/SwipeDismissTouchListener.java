@@ -1,7 +1,5 @@
 package com.fima.cardsui;
 
-import static com.nineoldandroids.view.ViewHelper.setAlpha;
-import static com.nineoldandroids.view.ViewPropertyAnimator.animate;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
@@ -13,6 +11,9 @@ import com.nineoldandroids.animation.Animator.AnimatorListener;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.nineoldandroids.animation.ValueAnimator;
 import com.nineoldandroids.view.ViewHelper;
+
+import static com.nineoldandroids.view.ViewHelper.setAlpha;
+import static com.nineoldandroids.view.ViewPropertyAnimator.animate;
 
 /**
  * A {@link android.view.View.OnTouchListener} that makes any {@link View}

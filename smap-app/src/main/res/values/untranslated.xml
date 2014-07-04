@@ -9,9 +9,9 @@
 	
 	This file contains non translatable strings that have been over ridden for fieldTask
 	-->
-	
-	
-<resources xmlns:tools="http://schemas.android.com/tools">
+
+
+<resources>
     <!-- strings that should not be translated -->
 	<string translatable="false" name="app_name">FORMAS</string>
 	<string translatable="false" name="default_server_url">https://formas.etic.sa.com</string>

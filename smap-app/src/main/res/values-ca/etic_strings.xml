@@ -12,8 +12,7 @@
 
 		This file contains strings that are specific to the fieldTask
 -->
-<resources
-    xmlns:tools="http://schemas.android.com/tools">
+<resources>
 
     <!-- Imported original Strings -->
     <string name="change_password">Canvia la contrasenya</string>

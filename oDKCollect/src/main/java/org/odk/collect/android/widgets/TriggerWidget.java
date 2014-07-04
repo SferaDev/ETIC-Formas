@@ -14,12 +14,6 @@
 
 package org.odk.collect.android.widgets;
 
-import org.javarosa.core.model.data.IAnswerData;
-import org.javarosa.core.model.data.StringData;
-import org.javarosa.form.api.FormEntryPrompt;
-import org.odk.collect.android.R;
-import org.odk.collect.android.application.Collect;
-
 import android.content.Context;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -28,6 +22,12 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import org.javarosa.core.model.data.IAnswerData;
+import org.javarosa.core.model.data.StringData;
+import org.javarosa.form.api.FormEntryPrompt;
+import org.odk.collect.android.R;
+import org.odk.collect.android.application.Collect;
 
 /**
  * Widget that allows user to scan barcodes and add them to the form.

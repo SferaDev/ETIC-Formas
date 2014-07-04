@@ -14,15 +14,15 @@
 
 package org.odk.collect.android.utilities;
 
+import android.util.Log;
+
+import org.odk.collect.android.application.Collect;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-
-import org.odk.collect.android.application.Collect;
-
-import android.util.Log;
 
 /**
  * Used for logging data to log files that could be retrieved after a field deployment.

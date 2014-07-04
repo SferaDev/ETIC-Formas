@@ -14,18 +14,6 @@
 
 package com.sferadev.etic.activities;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.HashMap;
-
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.provider.InstanceProviderAPI;
-import org.odk.collect.android.provider.FormsProviderAPI.FormsColumns;
-import org.odk.collect.android.provider.InstanceProviderAPI.InstanceColumns;
-import org.odk.collect.android.utilities.FileUtils;
-import org.odk.collect.android.tasks.DownloadFormsTask;
-
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -33,6 +21,18 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+
+import org.odk.collect.android.application.Collect;
+import org.odk.collect.android.provider.FormsProviderAPI.FormsColumns;
+import org.odk.collect.android.provider.InstanceProviderAPI;
+import org.odk.collect.android.provider.InstanceProviderAPI.InstanceColumns;
+import org.odk.collect.android.tasks.DownloadFormsTask;
+import org.odk.collect.android.utilities.FileUtils;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
 
 /**
  * Submits the results of the requested instance

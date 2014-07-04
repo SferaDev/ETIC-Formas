@@ -14,14 +14,14 @@
 
 package org.odk.collect.android.tasks;
 
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.listeners.DeleteFormsListener;
-import org.odk.collect.android.provider.FormsProviderAPI.FormsColumns;
-
 import android.content.ContentResolver;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
+
+import org.odk.collect.android.application.Collect;
+import org.odk.collect.android.listeners.DeleteFormsListener;
+import org.odk.collect.android.provider.FormsProviderAPI.FormsColumns;
 
 /**
  * Task responsible for deleting selected forms.

@@ -14,15 +14,6 @@
 
 package org.odk.collect.android.views;
 
-import java.io.File;
-import java.io.IOException;
-
-import org.javarosa.core.model.FormIndex;
-import org.javarosa.core.reference.InvalidReferenceException;
-import org.javarosa.core.reference.ReferenceManager;
-import org.odk.collect.android.R;
-import org.odk.collect.android.application.Collect;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -33,6 +24,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import org.javarosa.core.model.FormIndex;
+import org.javarosa.core.reference.InvalidReferenceException;
+import org.javarosa.core.reference.ReferenceManager;
+import org.odk.collect.android.R;
+import org.odk.collect.android.application.Collect;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  * @author ctsims

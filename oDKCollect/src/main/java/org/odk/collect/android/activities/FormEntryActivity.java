@@ -14,41 +14,6 @@
 
 package org.odk.collect.android.activities;
 
-import java.io.File;
-import java.io.FileFilter;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.LinkedHashMap;
-import java.util.Locale;
-
-import org.javarosa.core.model.FormIndex;
-import org.javarosa.core.model.data.IAnswerData;
-import org.javarosa.form.api.FormEntryCaption;
-import org.javarosa.form.api.FormEntryController;
-import org.javarosa.form.api.FormEntryPrompt;
-import org.javarosa.model.xform.XFormsModule;
-import org.javarosa.xpath.XPathTypeMismatchException;
-import org.odk.collect.android.R;
-import org.odk.collect.android.application.Collect;
-import org.odk.collect.android.listeners.AdvanceToNextListener;
-import org.odk.collect.android.listeners.FormLoaderListener;
-import org.odk.collect.android.listeners.FormSavedListener;
-import org.odk.collect.android.logic.FormController;
-import org.odk.collect.android.logic.FormController.FailedConstraint;
-import org.odk.collect.android.logic.PropertyManager;
-import org.odk.collect.android.preferences.AdminPreferencesActivity;
-import org.odk.collect.android.preferences.PreferencesActivity;
-import org.odk.collect.android.provider.FormsProviderAPI.FormsColumns;
-import org.odk.collect.android.provider.InstanceProviderAPI;
-import org.odk.collect.android.provider.InstanceProviderAPI.InstanceColumns;
-import org.odk.collect.android.tasks.FormLoaderTask;
-import org.odk.collect.android.tasks.SaveToDiskTask;
-import org.odk.collect.android.utilities.CompatibilityUtils;
-import org.odk.collect.android.utilities.FileUtils;
-import org.odk.collect.android.utilities.MediaUtils;
-import org.odk.collect.android.views.ODKView;
-import org.odk.collect.android.widgets.QuestionWidget;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -97,6 +62,41 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.javarosa.core.model.FormIndex;
+import org.javarosa.core.model.data.IAnswerData;
+import org.javarosa.form.api.FormEntryCaption;
+import org.javarosa.form.api.FormEntryController;
+import org.javarosa.form.api.FormEntryPrompt;
+import org.javarosa.model.xform.XFormsModule;
+import org.javarosa.xpath.XPathTypeMismatchException;
+import org.odk.collect.android.R;
+import org.odk.collect.android.application.Collect;
+import org.odk.collect.android.listeners.AdvanceToNextListener;
+import org.odk.collect.android.listeners.FormLoaderListener;
+import org.odk.collect.android.listeners.FormSavedListener;
+import org.odk.collect.android.logic.FormController;
+import org.odk.collect.android.logic.FormController.FailedConstraint;
+import org.odk.collect.android.logic.PropertyManager;
+import org.odk.collect.android.preferences.AdminPreferencesActivity;
+import org.odk.collect.android.preferences.PreferencesActivity;
+import org.odk.collect.android.provider.FormsProviderAPI.FormsColumns;
+import org.odk.collect.android.provider.InstanceProviderAPI;
+import org.odk.collect.android.provider.InstanceProviderAPI.InstanceColumns;
+import org.odk.collect.android.tasks.FormLoaderTask;
+import org.odk.collect.android.tasks.SaveToDiskTask;
+import org.odk.collect.android.utilities.CompatibilityUtils;
+import org.odk.collect.android.utilities.FileUtils;
+import org.odk.collect.android.utilities.MediaUtils;
+import org.odk.collect.android.views.ODKView;
+import org.odk.collect.android.widgets.QuestionWidget;
+
+import java.io.File;
+import java.io.FileFilter;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.LinkedHashMap;
+import java.util.Locale;
 
 /**
  * FormEntryActivity is responsible for displaying questions, animating
@@ -763,7 +763,7 @@ public class FormEntryActivity extends Activity implements AnimationListener,
 
 		CompatibilityUtils.setShowAsAction(
 				menu.add(0, MENU_SAVE, 0, R.string.save_all_answers).setIcon(
-						android.R.drawable.ic_menu_save),
+                        android.R.drawable.ic_menu_save),
 				MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
 		CompatibilityUtils.setShowAsAction(
